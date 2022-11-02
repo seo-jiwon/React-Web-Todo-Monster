@@ -1,0 +1,56 @@
+#container {
+    background-color: #ffffff;
+  }
+  #AppBar {
+    display: inline-block;
+    width: 90%;
+    height: 10%;
+    margin: 20% 5% 10% 5%;
+  }
+  #backBtn {
+    width: 15%;
+    height: 40px;
+    font-size: 16px;
+    border: 0;
+    background-color: #ffffff;
+    border-color: #ffffff;
+  }
+  #pageTitle {
+    display: inline-block;
+    width: 70%;
+    text-align: center;
+    color: black;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  #inputForm {
+    width: 90%;
+    margin: 0 5% 5% 5%;
+  }
+  #value { 
+    width: 90%;
+    margin: 0 5% 3% 5%;
+    padding-left: 1%;
+    font-size: 15px;
+    font-weight: bold;
+    border: 0;
+  }
+  #value:focus { 
+    outline: none;
+  }
+  #line {
+    width: 90%;
+    height: 2px;
+    margin: 0 5% 0 5%;
+    background-color: #D8D8D8;
+  }
+  #checkBtn {
+    width: 81%;
+    height: 40px;
+    margin: 1% 9.5% 0 9.5%;
+    border: 0;
+    border-radius: 10px;
+    border-color: #F2F2F2;
+    background-color: #F2F2F2;
+    font-weight: bold;
+  }

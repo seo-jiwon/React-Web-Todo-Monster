@@ -41,10 +41,10 @@
     width: 45%;
     height: 40px;
     margin: 0 2.5% 0 2.5%;
-    box-shadow: none;
     border-radius: 10px;
     background-color: #F2F2F2;
     border-color: #F2F2F2;
+    border: 0;
 }
 
 #btnText {
