@@ -2,7 +2,7 @@ import { React } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/SignUp.css";
 
-function SignIn() {
+function PasswordChange() {
   const navigate = useNavigate();
 
   return (
@@ -11,28 +11,33 @@ function SignIn() {
         <button
           id="backBtn"
           onClick={() => {
-            navigate("/Home");
+            navigate("/");
           }}
         >
           {"<"}
         </button>
-        <div id="pageTitle">로그인</div>
+        <div id="pageTitle">비밀번호 변경</div>
       </div>
 
       <div id="inputForm">
-        <input id="value" placeholder="이메일"></input>
+        <input id="value" placeholder="기존 비밀번호"></input>
         <div id="line"></div>
       </div>
-      <div id="inputForm">
 
-        <input id="value" placeholder="비밀번호"></input>
+      <div id="inputForm">
+        <input id="value" placeholder="새로운 비밀번호"></input>
+        <div id="line"></div>
+      </div>
+
+      <div id="inputForm">
+        <input id="value" placeholder="새로운 비밀번호 확인"></input>
         <div id="line"></div>
       </div>
 
       <button
         id="checkBtn"
         onClick={() => {
-          navigate("/");
+          navigate("/home");
         }}
       >
         확인
@@ -41,4 +46,4 @@ function SignIn() {
   );
 }
 
-export default SignIn;
+export default PasswordChange;
