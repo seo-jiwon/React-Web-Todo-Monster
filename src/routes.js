@@ -9,6 +9,8 @@ export default function rotues(){
             <Routes>
               <Route path="/" element={<Pages.Todo/>} />
               <Route path="/home" element={<Pages.Home/>} />
+              <Route path="/SignUp" element={<Pages.SignUp/>} />
+              <Route path="/SignIn" element={<Pages.SignIn/>} />
             </Routes>
           </Router>
       </React.StrictMode>

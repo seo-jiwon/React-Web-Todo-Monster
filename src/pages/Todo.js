@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 function Todo() {
     const navigate = useNavigate();
+    
     return (<div className="todoContent">
         <div className="header">
             <MenuIcon />
