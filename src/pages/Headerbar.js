@@ -15,7 +15,7 @@ function Sidebar() {
     </label>
     <div className="sidebar">
 
-      <div id='profileDiv' onClick={() => {navigate("/")}}>
+      <div id='profileDiv' onClick={() => {navigate("/profile")}}>
         <div className='profileImgDiv'>
           <img className='profileImgSize' src={require('../img/profile1.jpeg')} />
         </div>

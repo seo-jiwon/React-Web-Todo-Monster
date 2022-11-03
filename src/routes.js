@@ -14,6 +14,8 @@ export default function rotues(){
               <Route path="/passwordChange" element={<Pages.PasswordChange/>} />
               <Route path="/profile" element={<Pages.Profile/>} />
               <Route path="/category" element={<Pages.Category/>} />
+              <Route path="/category_add" element={<Pages.Category_Add/>} />
+              <Route path="/category_edit" element={<Pages.Category_Edit/>} />
             </Routes>
           </Router>
       </React.StrictMode>

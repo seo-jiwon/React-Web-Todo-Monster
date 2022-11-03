@@ -20,7 +20,7 @@ function Category() {
         <button
           id="addBtn"
           onClick={() => {
-            navigate("/");
+            navigate("/category_add");
           }}
         >
           {"+"}
@@ -31,7 +31,7 @@ function Category() {
         <button
           id="category"
           onClick={() => {
-            navigate("/");
+            navigate("/category_edit");
           }}
         >
           일반
@@ -39,7 +39,7 @@ function Category() {
         <button
           id="category_edit"
           onClick={() => {
-            navigate("/");
+            navigate("/category_edit");
           }}
         >
           {">"}
@@ -51,7 +51,7 @@ function Category() {
         <button
           id="category"
           onClick={() => {
-            navigate("/");
+            navigate("/category_edit");
           }}
         >
           전체공개
@@ -59,7 +59,7 @@ function Category() {
         <button
           id="category_edit"
           onClick={() => {
-            navigate("/");
+            navigate("/category_edit");
           }}
         >
           {">"}
