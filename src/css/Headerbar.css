@@ -1,0 +1,97 @@
+.headerContent {
+  width: 90%;
+  margin: 0 5% 5% 5%;
+}
+
+.searchIcon {
+  margin-right: 5%;
+}
+
+#check-label { 
+  position: absolute; 
+  z-index:9999;
+}
+
+.sidebar { 
+  /* position: absolute; */
+  position: fixed;
+  top: 0px; 
+  display: block; 
+  background-color: rgb(242, 235, 243); 
+  width: 70%;
+  height: 100%;
+  display: flex; 
+  flex-direction: column;
+  transform: translatex(150%);
+  transition: transform 0.4s ease-in-out;
+  text-align: left;
+  font-weight: bold;
+}
+
+#check-btn { 
+  display:none; 
+}
+
+#check-btn:checked ~ .sidebar {  
+  transform: translateX(33%);
+}
+
+#profileDiv {
+  height: 80px;
+  margin-top: 50%;
+  margin-left: 5%;
+}
+
+#sidebarName {
+  font-size: 17px;
+  margin-left: 20%;
+  margin-top: 8.5%;
+}
+
+#sidebarEmail {
+  margin-left: 20%;
+  align-items: center;
+  color: #ADADAD;
+  font-weight: 100;
+}
+
+.headerContent hr {
+  width: 90%;
+  margin-top: 5%;
+  margin-bottom: 3%;
+  border-color: white;
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+}
+
+.sidebarFollowDiv {
+  margin-top: 3%;
+  margin-left: 5%;
+}
+
+.sidebarProfileDiv, .sidebarPasswordDiv {
+  margin-left: 5%;
+}
+
+.sidebarCategoryDiv p {
+  margin-left: 5%;
+}
+
+.sidebarCategoryDiv span {
+  background-color: white;
+  margin-left: 5%;
+  border-radius: 10%;
+  padding: 2%;
+}
+
+.sidebarLogoutDiv {
+  text-align: center;
+  margin-top: 30%;
+}
+
+.sidebarDeleteDiv {
+  text-align: right;
+  margin-right: 10%;
+  color: red;
+}

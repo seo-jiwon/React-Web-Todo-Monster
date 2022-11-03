@@ -1,3 +1,158 @@
 .todoContent {
-    background-color: blue;
+    width: 90%;
+    margin: 0 5% 5% 5%;
+}
+
+.header {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 5%;
+    margin-top: 20%;
+}
+
+.leftContentDiv {
+    float: left;
+    width: 55%;
+}
+
+.followListDiv {
+    height: 80px;
+    /* background-color: bisque; */
+}
+
+.followListBtnDiv {
+    margin-right: 3%;
+    float: left;
+}
+
+.profileDiv {
+    height: 80px;
+    /* background-color: beige; */
+}
+
+.profileImgDiv {
+    height: 100%;
+    float: left;
+}
+
+.chaDiv {
+    height: 160px;
+    /* background-color: pink; */
+
+}
+
+.middleContentDiv {
+    overflow: scroll;
+    margin-top: 5%;
+}
+
+.calendarDiv {
+
+}
+
+.followListDetailBtn {
+    width: 95%;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #EAEAEA;
+    border: 0;
+}
+
+.todoAddBtn {
+    font-size: 17px;
+    border-width: 0;
+    border-radius: 10%;
+    height: 15%;
+}
+
+.followListImgSize {
+    width: 95%;
+    height: 35px;
+    border-radius: 50%;
+}
+
+.chaImgSize {
+    width: 45%;
+    height: 75%;
+}
+
+.profileImgSize {
+    width: 95%;
+    height: 55%;
+    border-radius: 50%;
+    margin-top: 50%;
+}
+
+
+.followListBtnDiv p {
+    margin-top: 1%;
+    margin-left: 15%;
+    font-size: 13px;
+    color: grey;
+}
+
+.chaDiv span {
+    font-size: 15px;
+    /* color: aquamarine;
+    background-color: black; */
+    margin-left: 11%;
+    color: pink;
+}
+
+.profileDiv span {
+    font-weight: bold;
+    font-size: 17px;
+    margin-left: 5%;
+    height: 80px;
+    vertical-align: middle;
+    display:table-cell;
+}
+
+.middleContentDiv input {
+    margin-top: 3%;
+}
+
+.todoCheckBox {
+    height: 30%;
+    width: 5%;
+}
+
+.todoInput {
+    width: 75%;
+    margin-right: 4%;
+    font-size: 19px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline-style: none;
+}
+
+.allSelectBtn {
+    float: right;
+    background-color: #EFEFEF;
+    border-radius: 10%;
+    padding: 1%;
+    margin-right: 3%;
+}
+
+.todoModalHeaderDiv {
+}
+
+.todoModalName {
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.todoModalCloseBtn {
+    float: right;
+}
+
+.todoUpdateBtn, .todoDeleteBtn{
+    font-size: 15px;
+    margin-top: 10%;
+    margin-left: 15%;
+    padding: 4%;
+    border: 0;
+    border-radius: 10%;
+    width: 30%;
 }
