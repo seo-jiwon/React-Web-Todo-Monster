@@ -3,6 +3,7 @@ import Todo from "./Todo";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import PasswordChange from "./PasswordChange";
+import Profile from "./Profile";
 
 const path = {
     Todo,
@@ -10,6 +11,7 @@ const path = {
     SignUp,
     SignIn,
     PasswordChange,
+    Profile,
 };
 
 export default path;

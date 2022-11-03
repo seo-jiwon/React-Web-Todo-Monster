@@ -7,27 +7,24 @@
 }
 
 #dustImg {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
     width: 80%;
+    margin: 0 10% 0 10%;
 }
 
 #titleContainer {
-    display: block;
-    margin-top: 0;
+    width: 100%;
+    margin: 0;
     text-align: center;
 }
 
 #title {
-    margin: 0px 0px 5px;
+    margin: 0 0 2% 0;
     font-weight: bold;
     font-size: 40px;
 }
 
 #title_ex {
     margin-top: 0;
-    margin-bottom: 10px;
     color: #848484;
     font-size: 15px;
 }
@@ -48,7 +45,7 @@
 }
 
 #btnText {
-    margin: 0px;
+    margin: 0;
     font-size: 14px;
     color: black;
 }
