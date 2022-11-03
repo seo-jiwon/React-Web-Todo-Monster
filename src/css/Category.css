@@ -23,59 +23,48 @@
     font-size: 15px;
     font-weight: bold;
   }
-  #p_checkBtn {
+  #addBtn {
     width: 15%;
     height: 40px;
     color: black;
-    font-size: 15px;
-    font-weight: bold;
+    font-size: 20px;
     border: 0;
     background-color: #ffffff;
     border-color: #ffffff;
   }
-  #profileImgContainer {
-    position: relative;
+  #categoryForm {
     width: 90%;
     margin: 0 5% 5% 5%;
   }
-  #profileImg {
-    width: 25%;
-    margin: 0 37.5% 0 37.5%;
-    border-radius: 50%;
-  }
-  #cameraIcon {
-    position: absolute;
-    left: 55%;
-    top: 70%;
-    width: 6%;
-    height: 21%;
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 50%;
-    text-align: center;
-    background-color: #d7d3d3;
-  }
-  #p_inputForm {
-    width: 90%;
-    margin: 0 5% 5% 5%;
-  }
-  #p_label {
+  #category {
     display: inline-block;
-    width: 10%;
-    margin: 0 5% 0 5%;
+    width: auto;
+    max-width: 25%;
+    padding: 9px;
+    margin: 0 5% 3% 5%;
     font-size: 15px;
     font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+    border: 0;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    background-color: rgb(242, 235, 243);
   }
-  #p_value { 
-    width: 70%;
+  #category_edit {
+    float: right;
+    width: 60%;
+    padding: 9px;
     margin: 0 5% 3% 0;
+    text-align: right;
     font-size: 15px;
     font-weight: bold;
     border: 0;
+    color: #848484;
+    background-color: #ffffff;
   }
-  #p_value:focus { 
-    outline: none;
-  }
-  #p_line {
+  #line {
     width: 90%;
     height: 2px;
     margin: 0 5% 0 5%;

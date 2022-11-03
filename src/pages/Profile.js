@@ -19,7 +19,7 @@ function Profile() {
         </button>
         <div id="pageTitle">프로필</div>
         <button
-          id="barCheckBtn"
+          id="p_checkBtn"
           onClick={() => {
             navigate("/");
           }}

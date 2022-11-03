@@ -13,6 +13,7 @@ export default function rotues(){
               <Route path="/signIn" element={<Pages.SignIn/>} />
               <Route path="/passwordChange" element={<Pages.PasswordChange/>} />
               <Route path="/profile" element={<Pages.Profile/>} />
+              <Route path="/category" element={<Pages.Category/>} />
             </Routes>
           </Router>
       </React.StrictMode>

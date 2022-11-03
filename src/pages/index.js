@@ -4,6 +4,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import PasswordChange from "./PasswordChange";
 import Profile from "./Profile";
+import Category from "./Category";
 
 const path = {
     Todo,
@@ -12,6 +13,7 @@ const path = {
     SignIn,
     PasswordChange,
     Profile,
+    Category
 };
 
 export default path;
