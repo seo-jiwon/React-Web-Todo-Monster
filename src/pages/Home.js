@@ -19,7 +19,7 @@ function Home() {
         <button
           id="btn"
           onClick={() => {
-            navigate("/SignUp");
+            navigate("/signUp");
           }}
         >
           <p id="btnText">회원가입</p>
@@ -27,7 +27,7 @@ function Home() {
         <button
           id="btn"
           onClick={() => {
-            navigate("/SignIn");
+            navigate("/signIn");
           }}
         >
           <p id="btnText">로그인</p>

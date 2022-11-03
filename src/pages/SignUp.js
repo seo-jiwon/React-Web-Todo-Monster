@@ -11,7 +11,7 @@ function SignUp() {
         <button
           id="backBtn"
           onClick={() => {
-            navigate("/Home");
+            navigate("/home");
           }}
         >
           {"<"}
@@ -32,7 +32,7 @@ function SignUp() {
       <button
         id="checkBtn"
         onClick={() => {
-          navigate("/Home");
+          navigate("/home");
         }}
       >
         확인

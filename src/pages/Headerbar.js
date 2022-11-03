@@ -15,7 +15,7 @@ function Sidebar() {
     </label>
     <div className="sidebar">
 
-      <div id='profileDiv' onClick={() => {navigate("Home")}}>
+      <div id='profileDiv' onClick={() => {navigate("/")}}>
         <div className='profileImgDiv'>
           <img className='profileImgSize' src={require('../img/profile1.jpeg')} />
         </div>
@@ -23,18 +23,18 @@ function Sidebar() {
         <div id='sidebarEmail'>zion@cu.ac.kr</div>
       </div>
 
-      <div className='sidebarFollowDiv' onClick={() => {navigate("Home")}}>
+      <div className='sidebarFollowDiv' onClick={() => {navigate("/")}}>
         <span>101 팔로워 </span>
         <span>111 팔로잉 </span>
       </div>
       <hr />
 
-      <div className='sidebarProfileDiv' onClick={() => {navigate("Home")}}>
+      <div className='sidebarProfileDiv' onClick={() => {navigate("/profile")}}>
         <p>프로필</p>
       </div>
       <hr />
 
-      <div className='sidebarCategoryDiv' onClick={() => {navigate("Home")}}>
+      <div className='sidebarCategoryDiv' onClick={() => {navigate("/category")}}>
         <p>카테고리</p>
         <div>
           <span>일반</span>
@@ -42,11 +42,11 @@ function Sidebar() {
       </div>
       <hr />
 
-      <div className='sidebarPasswordDiv' onClick={() => {navigate("Home")}}>
+      <div className='sidebarPasswordDiv' onClick={() => {navigate("/passwordChange")}}>
         <p>비밀번호 재설정</p>
       </div>
 
-      <div className='sidebarLogoutDiv' onClick={() => {navigate("Home")}}>
+      <div className='sidebarLogoutDiv' onClick={() => {navigate("/")}}>
         <p>로그아웃</p>
       </div>
 

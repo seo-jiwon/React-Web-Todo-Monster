@@ -11,7 +11,7 @@ function SignIn() {
         <button
           id="backBtn"
           onClick={() => {
-            navigate("/Home");
+            navigate("/home");
           }}
         >
           {"<"}

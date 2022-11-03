@@ -54,7 +54,7 @@ function Category() {
             navigate("/");
           }}
         >
-          카테고리명
+          전체공개
         </button>
         <button
           id="category_edit"
