@@ -1,9 +1,41 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/common.css";
 
 function SignIn() {
   const navigate = useNavigate();
+
+  //입력 값
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //입력칸 공백 검사
+  const [isEmail, setIsEmail] = useState(false);
+  const [isPassword, setIsPassword] = useState(false);
+
+  //이메일 공백 검사
+  const checkEmail = (e) => {
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+
+    if (emailCurrent.length > 0) {
+      setIsEmail(true);
+    } else {
+      setIsEmail(false);
+    }
+  };
+
+  //비밀번호 공백 검사
+  const checkPwd = (e) => {
+    const passwordCurrent = e.target.value;
+    setPassword(passwordCurrent);
+
+    if (passwordCurrent.length > 0) {
+      setIsPassword(true);
+    } else {
+      setIsPassword(false);
+    }
+  };
 
   return (
     <div id="container">
@@ -20,17 +52,29 @@ function SignIn() {
       </div>
 
       <div id="inputForm">
-        <input id="value" placeholder="이메일"></input>
+        <input
+          id="value"
+          placeholder="이메일"
+          name="email"
+          value={email}
+          onChange={checkEmail}
+        ></input>
         <div id="line"></div>
       </div>
       <div id="inputForm">
-
-        <input id="value" placeholder="비밀번호"></input>
+        <input
+          id="value"
+          placeholder="비밀번호"
+          name="password"
+          value={password}
+          onChange={checkPwd}
+        ></input>
         <div id="line"></div>
       </div>
 
       <button
         id="checkBtn"
+        disabled={!(isEmail && isPassword)}
         onClick={() => {
           navigate("/");
         }}
