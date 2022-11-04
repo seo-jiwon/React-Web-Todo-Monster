@@ -167,7 +167,7 @@
     font-weight: bold;
     border: 0;
     border-radius: 10px;
-    border-color: #F2F2F2;
-    background-color: #F2F2F2;
+    border-color: rgb(242, 235, 243);
+    background-color: rgb(242, 235, 243);
     color: red;
   }
