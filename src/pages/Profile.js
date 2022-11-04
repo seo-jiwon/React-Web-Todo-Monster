@@ -1,10 +1,28 @@
-import { React } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { HiCamera } from "react-icons/hi";
 import "../css/Profile.css";
 
 function Profile() {
   const navigate = useNavigate();
+
+  //입력 값
+  const [name, setName] = useState("");
+
+  //입력 칸 공백 검사
+  const [isName, setIsName] = useState(false);
+
+  //입력 칸 공백 검사
+  const checkEmpty = (e) => {
+    const nameCurrent = e.target.value;
+    setName(nameCurrent);
+
+    if (nameCurrent.length > 0) {
+      setIsName(true);
+    } else {
+      setIsName(false);
+    }
+  };
 
   return (
     <div id="container">
@@ -20,6 +38,7 @@ function Profile() {
         <div id="pageTitle">프로필</div>
         <button
           id="p_checkBtn"
+          disabled={!(isName)}
           onClick={() => {
             navigate("/");
           }}
@@ -35,7 +54,7 @@ function Profile() {
 
       <div id="p_inputForm">
         <p id="p_label">이름</p>
-        <input id="p_value" placeholder="이름 입력"></input>
+        <input id="p_value" placeholder="이름 입력" value={name} onChange={checkEmpty}></input>
         <div id="p_line"></div>
       </div>
     </div>
