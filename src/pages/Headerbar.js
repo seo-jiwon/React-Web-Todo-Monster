@@ -8,7 +8,7 @@ function Sidebar() {
   const navigate = useNavigate();
 
   return (<div className='headerContent'>
-    <SearchIcon className="searchIcon" />
+    <SearchIcon className="searchIcon" onClick={()=> {navigate("/search")}} />
     <input id="check-btn" type="checkbox" />
     <label id="check-label" htmlFor="check-btn">
       <MenuIcon  />
