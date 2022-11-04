@@ -62,7 +62,7 @@
     color: #848484;
     background-color: #ffffff;
   }
-  #line {
+  #c_line {
     width: 90%;
     height: 2px;
     margin: 0 5% 0 5%;
@@ -116,6 +116,47 @@
     font-weight: bold;
     border: 0;
     background-color: #ffffff;
+  }
+  #modal{
+    width: 100%;
+    margin: 5% 0 5% 0;
+  }
+  #modalTitle {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 10%;
+  }
+  #modalFormControl {
+    width: 100%;
+  }
+  #modalPrivacyForm {
+    width: 100%;
+    margin: 0 0 5% 0;
+  }
+  #modalPrivacy {
+    width: 100%;
+    margin: 0 0 0 5%;
+    padding-left: 1%;
+    font-size: 15px;
+    font-weight: bold;
+    border: 0;
+  }
+  #modalLine {
+    width: 85%;
+    height: 2px;
+    margin: 0 7.5% 0 7.5%;
+    background-color: #D8D8D8;
+  }
+  #modalCheckBtn {
+    width: 81%;
+    height: 40px;
+    margin: 5% 9.5% 0 9.5%;
+    border: 0;
+    border-radius: 10px;
+    border-color: rgb(242, 235, 243);
+    background-color: rgb(242, 235, 243);
+    font-weight: bold;
   }
 
   /* Category_Edit */

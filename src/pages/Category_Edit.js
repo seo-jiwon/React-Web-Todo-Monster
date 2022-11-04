@@ -45,7 +45,7 @@ function Category_Edit() {
         >
           나만보기 ▼
         </button>
-        <div id="line"></div>
+        <div id="c_line"></div>
       </div>
 
       <button

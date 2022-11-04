@@ -13,7 +13,7 @@ function Profile() {
   const [isName, setIsName] = useState(false);
 
   //입력 칸 공백 검사
-  const checkEmpty = (e) => {
+  const checkName = (e) => {
     const nameCurrent = e.target.value;
     setName(nameCurrent);
 
@@ -54,7 +54,7 @@ function Profile() {
 
       <div id="p_inputForm">
         <p id="p_label">이름</p>
-        <input id="p_value" placeholder="이름 입력" value={name} onChange={checkEmpty}></input>
+        <input id="p_value" placeholder="이름 입력" value={name} onChange={checkName}></input>
         <div id="p_line"></div>
       </div>
     </div>

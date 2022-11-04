@@ -21,11 +21,12 @@
     margin: 0 0 2% 0;
     font-weight: bold;
     font-size: 40px;
+    color: rgb(139, 105, 168);
 }
 
 #title_ex {
     margin-top: 0;
-    color: #848484;
+    color: rgb(179, 160, 182);
     font-size: 15px;
 }
 
@@ -39,12 +40,13 @@
     height: 40px;
     margin: 0 2.5% 0 2.5%;
     border-radius: 10px;
-    background-color: #F2F2F2;
-    border-color: #F2F2F2;
+    background-color: rgb(242, 235, 243);
+    border-color: rgb(242, 235, 243);
     border: 0;
 }
 
 #btnText {
     margin: 0;
     font-size: 14px;
+    color: rgb(139, 105, 168);
 }

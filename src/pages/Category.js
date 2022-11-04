@@ -44,7 +44,7 @@ function Category() {
         >
           {">"}
         </button>
-        <div id="line"></div>
+        <div id="c_line"></div>
       </div>
 
       <div id="categoryForm">
@@ -64,7 +64,7 @@ function Category() {
         >
           {">"}
         </button>
-        <div id="line"></div>
+        <div id="c_line"></div>
       </div>
     </div>
   );
