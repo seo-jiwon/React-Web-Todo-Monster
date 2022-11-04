@@ -55,7 +55,6 @@ function SignIn() {
         <input
           id="value"
           placeholder="이메일"
-          name="email"
           value={email}
           onChange={checkEmail}
         ></input>
@@ -65,7 +64,6 @@ function SignIn() {
         <input
           id="value"
           placeholder="비밀번호"
-          name="password"
           value={password}
           onChange={checkPwd}
         ></input>
