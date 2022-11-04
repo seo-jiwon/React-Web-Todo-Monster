@@ -40,7 +40,7 @@ function Category_Edit() {
         <button
           id="privacy_edit"
           onClick={() => {
-            navigate("/category_add");
+            navigate("/category_edit");
           }}
         >
           나만보기 ▼
