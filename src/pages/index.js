@@ -7,6 +7,7 @@ import Profile from "./Profile";
 import Category from "./Category";
 import Category_Add from "./Category_Add";
 import Category_Edit from "./Category_Edit";
+import Search from "./Search"
 
 const path = {
     Todo,
@@ -17,7 +18,8 @@ const path = {
     Profile,
     Category,
     Category_Add,
-    Category_Edit
+    Category_Edit,
+    Search
 };
 
 export default path;

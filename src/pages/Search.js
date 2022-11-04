@@ -69,7 +69,7 @@ export default function Search() {
                         <Box sx={{width: '100%'}} key={key}>
                             <List>
                                 <ListItem>
-                                    <img className='profileImgSize' src={require('../img/human.png')}/>
+                                    <img className='search-img' src={require('../img/profile1.jpeg')}/>
                                     <ListItemText primary={data.name}/>
                                 </ListItem>
                                 {/*
