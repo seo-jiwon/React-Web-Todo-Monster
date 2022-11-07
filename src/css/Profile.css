@@ -19,14 +19,12 @@
     display: inline-block;
     width: 70%;
     text-align: center;
-    color: black;
     font-size: 15px;
     font-weight: bold;
   }
   #p_checkBtn {
     width: 15%;
     height: 40px;
-    color: black;
     font-size: 15px;
     font-weight: bold;
     border: 0;

@@ -8,7 +8,7 @@ function Sidebar() {
   const navigate = useNavigate();
 
   return (<div className='headerContent'>
-    <SearchIcon className="searchIcon" />
+    <SearchIcon className="searchIcon" onClick={()=> {navigate("/search")}} />
     <input id="check-btn" type="checkbox" />
     <label id="check-label" htmlFor="check-btn">
       <MenuIcon className="menuIcon" />
@@ -47,7 +47,7 @@ function Sidebar() {
         <p>비밀번호 재설정</p>
       </div>
 
-      <div className='sidebarLogoutDiv' onClick={() => {navigate("/")}}>
+      <div className='sidebarLogoutDiv' onClick={() => {navigate("/home")}}>
         <p>로그아웃</p>
       </div>
 

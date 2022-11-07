@@ -1,0 +1,14 @@
+.followbtn{
+    border-radius: 10%;
+    padding: 1%;
+    margin-right: 3%;
+    float:right;
+    font-size: 17px;
+    border-width: 0;
+    width: 25%;
+}
+
+.middleContentDiv2 {
+    overflow: scroll;
+    margin-top: -20%;
+}

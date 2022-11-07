@@ -9,10 +9,10 @@ function Home() {
     <div id="container">
       <div id="logo">
         <img id="dustImg" src={require("../img/dust_purple.jpg")}></img>
-        <p id="titleContainer">
+        <div id="titleContainer">
           <p id="title">Todo Monster</p>
           <p id="title_ex">할 일을 계획하고 몬스터를 키워보세요!</p>
-        </p>
+        </div>
       </div>
 
       <div id="btnContainer">
