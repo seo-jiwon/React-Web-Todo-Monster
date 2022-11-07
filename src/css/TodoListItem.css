@@ -1,0 +1,68 @@
+.TodoListItem {
+  padding: 3%;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox {
+  /* cursor: pointer; */
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox .text {
+  margin-left: 5%;
+}
+
+.todoModal {
+  margin-top: 100%;
+  margin-left: 50%;
+  margin-bottom: auto;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 2%;
+  width: 80%;
+}
+
+.todoModalCloseDiv {
+  padding-top: 3%;
+  padding-bottom: 10%;
+  background-color: #9c88ff;
+}
+
+.todoModalNameDiv {
+  padding: 5%;
+  margin-top: 2%;
+}
+
+.todoModalName {
+  font-weight: bold;
+  margin-left: 20%;
+  border-bottom: 1px solid #9c88ff;
+  width: 55%;
+  font-size: 14px;
+  padding: 2.5%;
+}
+
+.todoModalCloseBtn {
+  float: right;
+  margin-right: 5%;
+  color: white;
+}
+
+.todoUpdateBtn,
+.todoDeleteBtn {
+  font-size: 15px;
+  margin-top: 3%;
+  margin-left: 13%;
+  margin-bottom: 5%;
+  padding: 3%;
+  border: 0;
+  border-radius: 3%;
+  width: 30%;
+  background-color: #9c88ff;
+  color: white;
+  font-size: 14px;
+}

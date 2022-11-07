@@ -8,6 +8,7 @@
     text-align: right;
     margin-bottom: 5%;
     margin-top: 20%;
+    /* background-color: pink; */
 }
 
 .leftContentDiv {
@@ -42,7 +43,7 @@
 }
 
 .middleContentDiv {
-    overflow: scroll;
+    /* overflow: scroll; */
     margin-top: 5%;
 }
 
@@ -56,13 +57,6 @@
     border-radius: 50%;
     background-color: #EAEAEA;
     border: 0;
-}
-
-.todoAddBtn {
-    font-size: 17px;
-    border-width: 0;
-    border-radius: 10%;
-    height: 15%;
 }
 
 .followListImgSize {
@@ -82,7 +76,6 @@
     border-radius: 50%;
     margin-top: 50%;
 }
-
 
 .followListBtnDiv p {
     margin-top: 1%;
@@ -117,42 +110,10 @@
     width: 5%;
 }
 
-.todoInput {
-    width: 75%;
-    margin-right: 4%;
-    font-size: 19px;
-    border-top: 0;
-    border-left: 0;
-    border-right: 0;
-    outline-style: none;
-}
-
 .allSelectBtn {
     float: right;
     background-color: #EFEFEF;
     border-radius: 10%;
     padding: 1%;
     margin-right: 3%;
-}
-
-.todoModalHeaderDiv {
-}
-
-.todoModalName {
-    font-weight: bold;
-    font-size: 15px;
-}
-
-.todoModalCloseBtn {
-    float: right;
-}
-
-.todoUpdateBtn, .todoDeleteBtn{
-    font-size: 15px;
-    margin-top: 10%;
-    margin-left: 15%;
-    padding: 4%;
-    border: 0;
-    border-radius: 10%;
-    width: 30%;
 }

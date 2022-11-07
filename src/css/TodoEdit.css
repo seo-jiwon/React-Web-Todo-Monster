@@ -1,0 +1,50 @@
+.TodoEdit {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.55);
+  }
+
+  .todoEditForm {
+    margin-top: 100%;
+    margin-left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 2%;
+  }
+
+  .todoEditForm h2{
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+    padding: 2.5%;
+    background-color: #9c88ff;
+    color: white;
+  }
+
+  .todoEditForm input{
+    margin-top: 10%;
+    margin-bottom: 10%;
+    padding: 2%;
+    border: none;
+    border-bottom: 1px solid #9c88ff;
+    font-size: 14px;
+  }
+
+  .todoEditForm button {
+    background-color: #9c88ff;
+    border: none;
+    color: white;
+    padding: 3% 5% 3% 5%; /* 위 오른 아래 왼 */
+    margin-bottom: 5%;
+    border-radius: 3%;
+    font-size: 14px;
+  }

@@ -11,10 +11,11 @@ function Sidebar() {
     <SearchIcon className="searchIcon" />
     <input id="check-btn" type="checkbox" />
     <label id="check-label" htmlFor="check-btn">
-      <MenuIcon  />
+      <MenuIcon className="menuIcon" />
     </label>
-    <div className="sidebar">
 
+
+    <div className="sidebar">
       <div id='profileDiv' onClick={() => {navigate("/profile")}}>
         <div className='profileImgDiv'>
           <img className='profileImgSize' src={require('../img/profile1.jpeg')} />

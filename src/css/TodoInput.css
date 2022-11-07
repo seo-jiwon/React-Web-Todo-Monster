@@ -1,0 +1,19 @@
+.todoInput {
+    width: 77%;
+    margin-right: 4%;
+    font-size: 19px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    outline-style: none;
+}
+
+.todoAddBtn {
+    font-size: 17px;
+    border-width: 0;
+    border-radius: 10%;
+    height: 15%;
+    padding: 3%;
+    background-color: rgb(253, 239, 255);
+    color: balck;
+}  
