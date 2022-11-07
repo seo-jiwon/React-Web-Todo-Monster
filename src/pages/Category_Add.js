@@ -12,8 +12,8 @@ const customStyles = {
   content: {
     width: "70%",
     height: "40%",
-    marginTop: "60%",
-    borderRadius: "5%",
+    marginTop: "70%",
+    marginLeft: "8%",
   },
 };
 

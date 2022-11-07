@@ -8,12 +8,12 @@ import FormControl from "@mui/material/FormControl";
 import { purple } from "@mui/material/colors";
 import "../css/Category.css";
 
-const customStyles = {
+const categoryModalStyles = {
   content: {
     width: "70%",
     height: "40%",
-    marginTop: "60%",
-    borderRadius: "5%",
+    marginTop: "70%",
+    marginLeft: "8%",
   },
 };
 
@@ -90,7 +90,7 @@ function Category_Edit() {
         <div id="c_line"></div>
 
         <Modal
-          style={customStyles}
+          style={categoryModalStyles}
           isOpen={isModalOpen}
           onRequestClose={closeModal}
           ariaHideApp={false}
