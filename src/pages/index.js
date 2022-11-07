@@ -8,6 +8,9 @@ import Category from "./Category";
 import Category_Add from "./Category_Add";
 import Category_Edit from "./Category_Edit";
 import Search from "./Search"
+import OtherUser from "./OtherUser";
+import FollowList from "./FollowList";
+
 
 const path = {
     Todo,
@@ -19,7 +22,9 @@ const path = {
     Category,
     Category_Add,
     Category_Edit,
-    Search
+    Search,
+    OtherUser,
+    FollowList,
 };
 
 export default path;
