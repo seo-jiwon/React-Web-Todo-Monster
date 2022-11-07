@@ -13,11 +13,13 @@ import styled from 'styled-components';
 // 캘린더 디자인
 const CalendarContainer = styled.div`
   /* 전체 */
-  margin: auto;
-  background-color: #FAF3FF;
-  padding: 3%;
-  border-radius: 3px;
-  border: 2px solid #F6E9FF;
+  .react-calendar {
+    margin: auto;
+    background-color: #FAF3FF;
+    padding: 3%;
+    border-radius: 3px;
+    border: 2px solid #F6E9FF;
+  }
 
   /* 년 월 헤더바 */
   .react-calendar__navigation {
@@ -33,6 +35,9 @@ const CalendarContainer = styled.div`
   /* 요일 라벨 */
   .react-calendar__month-view__weekdays {
     text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: -5%;
   }
 
   /* 날짜 버튼 */
@@ -43,27 +48,41 @@ const CalendarContainer = styled.div`
     border-radius: 3px;
     color: black;
     padding: 5px 0;
-    
-    /* 클릭 시 유지되는 색상 */
-    &:hover {
-      background-color: #A92DFF;
-      color: white;
-    }
-    /* 클릭 시 잠시 보이는 색상 */
-    &:active {
-      background-color: white;
-      color: black;
-    }
+  }
+
+  /* 클릭 시 유지되는 색상 */
+  button:enabled:hover {
+    background-color: #A92DFF;
+    color: white;
+  }
+
+  /* 클릭 시 잠시 보이는 색상 */
+  button:enabled:active {
+    background-color: white;
+    color: black;
+  }
+
+  /* 년, 월 헤더바 */
+  .react-calendar__navigation button {
+    min-width: 44px;
+    background: white;
+  }
+
+  /* 년, 월 헤더바 */
+  .react-calendar__navigation button:enabled:hover,
+  .react-calendar__navigation button:enabled:focus {
+    background-color: white;
+    color: black;
   }
 
   /* 오늘 날짜 */
   .react-calendar__tile--now {
     background: #FFA8DC;
     color: white;
-    font-weight: bold;
   }
 
   /* 다른 날짜 클릭 후 다시 오늘 날짜 클릭 한 경우 */
+  .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
     background: #FFA8DC;
   }
@@ -91,6 +110,7 @@ const CalendarContainer = styled.div`
   .react-calendar__month-view__days__day--weekend {
     color: #dfdfdf;
   }
+
 `;
 
 function Todo() {
