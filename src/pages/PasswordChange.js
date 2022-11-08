@@ -80,6 +80,7 @@ function PasswordChange() {
           placeholder="기존 비밀번호"
           value={password}
           onChange={checkPwd}
+          type="password"
         ></input>
         <div id="line"></div>
       </div>
@@ -90,6 +91,7 @@ function PasswordChange() {
           placeholder="새로운 비밀번호"
           value={newPassword}
           onChange={checkNewPwd}
+          type="password"
         ></input>
         <div id="line"></div>
         {newPassword.length > 0 && <p id="message">{newPasswordError}</p>}
@@ -101,6 +103,7 @@ function PasswordChange() {
           placeholder="새로운 비밀번호 확인"
           value={newPasswordConfirm}
           onChange={checkNewPwdConfirm}
+          type="password"
         ></input>
         <div id="line"></div>
         {newPasswordConfirm.length > 0 && <p id="message">{newPasswordConfirmError}</p>}

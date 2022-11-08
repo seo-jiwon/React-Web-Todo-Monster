@@ -80,6 +80,7 @@ function SignUp() {
             placeholder="비밀번호"
             value={password}
             onChange={checkPwd}
+            type="password"
           ></input>
           <div id="line"></div>
           {password.length > 0 && <p id="message">{passwordError}</p>}
