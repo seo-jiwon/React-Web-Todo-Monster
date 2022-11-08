@@ -49,6 +49,10 @@ function Category_Edit() {
     setIsModalOpen(false);
   };
 
+  const privacyChange = (e)  => {
+    setPrivacy(e.target.value + " ▼");
+  }
+
   return (
     <div id="container">
       <div id="AppBar">
@@ -103,6 +107,7 @@ function Category_Edit() {
                 aria-labelledby="demo-radio-buttons-group-label"
                 defaultValue="나만보기"
                 name="radio-buttons-group"
+                onChange={privacyChange}
               >
                 <div id="modalPrivacyForm">
                   <FormControlLabel
