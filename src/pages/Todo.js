@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import "../css/Todo.css";
 import Headerbar from './Headerbar';
 import TodoEdit from './TodoEdit';
@@ -118,6 +118,35 @@ function Todo() {
   const [calendarValue, setCalendarValue] = useState(new Date());
 
   const [isAdd, setIsAdd] = useState(false);
+
+  const data = useFetch('http://localhost:5000/user/todo');
+
+  function useFetch(url) {
+
+    const [data, setData] = useState([]);
+
+    async function fetchUrl() {
+      const response = await fetch(url);
+      const json = await response.json();
+
+      setData(json);
+    }
+
+    useEffect(() => {
+      fetchUrl();
+    }, []);
+    return data;
+  }
+
+
+  function ListItem({ user_id, password }) {
+        return (
+                <div>
+                  <div>{user_id}</div>
+                  <div>{password}</div>
+                </div>
+        )
+}
 
   let clickCnt = 0;
 
@@ -245,6 +274,19 @@ function Todo() {
         <div>
           {moment(calendarValue).format("YYYY-MM-DD")}
         </div>
+
+        <div>
+        {data.map(
+              ({ user_num, user_id, password }) => (
+                <ListItem
+                key={user_num}
+                user_id={user_id}
+                password={password}
+                />
+              )
+            )}
+      </div>
+      
       </div>
       <br />
       <div className='TodoTemplate'>
