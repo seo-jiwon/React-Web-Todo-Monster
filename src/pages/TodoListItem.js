@@ -21,7 +21,6 @@ Modal.defaultStyles = {
 function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
   const { id, text, checked } = todo;
 
-  let subtitle;
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
@@ -56,7 +55,7 @@ function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsert
               <HighlightOffIcon className='todoModalCloseBtn' onClick={closeModal} />
             </div>
             <div className='todoModalNameDiv'>
-              <p className='todoModalName' ref={(_subtitle) => (subtitle = _subtitle)}>{text}</p>
+              <p className='todoModalName'>{text}</p>
             </div>
 
             <button className='todoUpdateBtn' onClick={() => { closeModal(); onChangeSelectedTodo(todo); onInsertToggle(); }}>수정하기</button>
