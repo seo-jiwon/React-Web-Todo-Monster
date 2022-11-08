@@ -66,6 +66,7 @@ function SignIn() {
           placeholder="비밀번호"
           value={password}
           onChange={checkPwd}
+          type="password"
         ></input>
         <div id="line"></div>
       </div>
