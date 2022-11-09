@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../css/TodoListItem.css';
 import cn from 'classnames';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -18,32 +18,39 @@ Modal.defaultStyles = {
   },
 };
 
+
+
 function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
   const { id, text, checked } = todo;
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
   function openModal() {
-      setIsOpen(true);
-    }
+    setIsOpen(true);
+  }
 
   function closeModal() {
     setIsOpen(false);
   }
+
   return (
     <div>
-      <li className="TodoListItem">
-        <div
-          className={cn('checkbox', { checked: checked })}
-          onClick={() => onToggle(id)}
-        >
-          {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-          <div className="text">{text}</div>
-        </div>
+          <li className="TodoListItem">
+            <div
+              className={cn('checkbox', { checked: checked })}
+              onClick={() => onToggle(id)}
+            >
+              {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+              <div className="text">{text}</div>
+            </div>
+            <div>
+            <MoreHorizIcon onClick={openModal} />
+            </div>
+          </li>
+
 
         {/* 할 일 상세 모달 창 */}
         <div>
-          <MoreHorizIcon  onClick={openModal} />
           <Modal
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
@@ -58,8 +65,10 @@ function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsert
               <p className='todoModalName'>{text}</p>
             </div>
 
-            <button className='todoUpdateBtn' onClick={() => { closeModal(); onChangeSelectedTodo(todo); onInsertToggle(); }}>수정하기</button>
-            <button className='todoDeleteBtn' onClick={() => { onRemove(id); closeModal(); }}>삭제하기</button>
+            <div state={{ id: id }}>
+              <button className='todoUpdateBtn' onClick={() => { closeModal(); onChangeSelectedTodo(todo); onInsertToggle(); }}>수정하기</button>
+              <button className='todoDeleteBtn' onClick={(e) => { onRemove(id); closeModal(); }}>삭제하기</button>
+            </div>
           </Modal>
         </div>
 
@@ -67,7 +76,6 @@ function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsert
         {/* <div>
           <MoreHorizIcon className='allSelectBtn' onClick={() => { alert('클릭') }}/>
         </div> */}
-      </li>
     </div>
   );
 }

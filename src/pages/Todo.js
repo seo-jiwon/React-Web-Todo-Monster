@@ -1,4 +1,6 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "../css/Todo.css";
 import Headerbar from './Headerbar';
 import TodoEdit from './TodoEdit';
@@ -9,6 +11,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
+
 
 // 캘린더 디자인
 const CalendarContainer = styled.div`
@@ -116,19 +119,25 @@ const CalendarContainer = styled.div`
 function Todo() {
 
   const [calendarValue, setCalendarValue] = useState(new Date());
-
   const [isAdd, setIsAdd] = useState(false);
+  const navigate = useNavigate();
 
+  // 현재 시간 가져오기
+  const nowDate = new Date();
+  let time = {
+    year: nowDate.getFullYear(),  //현재 년도
+    month: nowDate.getMonth() + 1, // 현재 월
+    date: nowDate.getDate(), // 현제 날짜
+  };
+  let timestring = `${time.year}-${time.month}-${time.date}`;
+
+  // DB에서 데이터 가져와보기 테스트
   const data = useFetch('http://localhost:5000/user/todo');
-
   function useFetch(url) {
-
     const [data, setData] = useState([]);
-
     async function fetchUrl() {
       const response = await fetch(url);
       const json = await response.json();
-
       setData(json);
     }
 
@@ -138,16 +147,17 @@ function Todo() {
     return data;
   }
 
+  // DB에서 데이터 가져와보기 테스트
+  function ListItem({ email, password }) {
+    return (
+      <div>
+        <div>{email}</div>
+        <div>{password}</div>
+      </div>
+    )
+  }
 
-  function ListItem({ user_id, password }) {
-        return (
-                <div>
-                  <div>{user_id}</div>
-                  <div>{password}</div>
-                </div>
-        )
-}
-
+  // 카테고리 클릭 시 입력 컴포넌트 open, close
   let clickCnt = 0;
 
   const handleDoAdd = useCallback((text) => {
@@ -183,6 +193,7 @@ function Todo() {
     setSelectedTodo((selectedTodo) => todo);
   };
 
+
   // 할 일 입력 시 호출되는 함수
   const onInsert = useCallback((text) => {
     const todo = {
@@ -192,12 +203,43 @@ function Todo() {
     };
     setTodos((todos) => todos.concat(todo)); //concat(): 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열 반환
     nextId.current++; //nextId 1씩 더하기
+
+    const data = {
+      do_content: todo.text,
+      do_date: timestring,
+    }
+
+    axios.post("http://localhost:5000/todolist/todoInput", data)
+      .then(function (response) {
+        console.log(response);
+        if (response.data.success) {
+          navigate('/');
+        }
+      }).catch(function (error) {
+        alert("할 일 입력 실패!" + error);
+      });
   }, []);
 
   // 할 일 삭제 시 호출되는 함수
   const onRemove = useCallback((id) => {
     // filter() : 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
     setTodos((todos) => todos.filter((todo) => todo.id !== id));
+
+    const data = {
+      do_id: id
+    }
+
+    console.log(data)
+
+    axios.post("http://localhost:5000/todolist/todoDelete", data)
+      .then(function (response) {
+        console.log(response);
+        if (response.data.success) {
+          console.log("삭제 성공");
+        }
+      }).catch(function (error) {
+        alert("할 일 삭제 실패!" + error);
+      });
   }, []);
 
   // 할 일 전체 삭제 시 호출되는 함수
@@ -213,6 +255,21 @@ function Todo() {
       setTodos((todos) =>
         todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)),
       );
+
+      const data = {
+        do_id: id,
+        do_content: text,
+        do_updateDate: timestring,
+      }
+      axios.post("http://localhost:5000/todolist/todoUpdate", data)
+        .then(function (response) {
+          console.log(response);
+          if (response.data.success) {
+            navigate('/');
+          }
+        }).catch(function (error) {
+          alert("할 일 수정 실패!" + error);
+        });
     },
     [onInsertToggle],
   );
@@ -276,17 +333,17 @@ function Todo() {
         </div>
 
         <div>
-        {data.map(
-              ({ user_num, user_id, password }) => (
-                <ListItem
-                key={user_num}
-                user_id={user_id}
+          {data.map(
+            ({ user_id, email, password }) => (
+              <ListItem
+                key={user_id}
+                email={email}
                 password={password}
-                />
-              )
-            )}
-      </div>
-      
+              />
+            )
+          )}
+        </div>
+
       </div>
       <br />
       <div className='TodoTemplate'>

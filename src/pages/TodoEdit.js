@@ -1,25 +1,13 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
 import '../css/TodoEdit.css';
 
 function TodoEdit({ selectedTodo, onUpdate, btnClick, isClickFilterBtn }) {
   const [value, setValue] = useState('');
   const modalRef = useRef();
-
-  // 영역 내 클륵시 토글로 생성한 창 닫기
-  // useEffect(() => {
-  //   document.addEventListener('mousedown', clickModalOutside);
-
-  //   return () => {
-  //     document.removeEventListener('mousedown', clickModalOutside);
-  //   };
-  // });
-
-
-  // const clickModalOutside = event => {
-  //   if (btnClick && !modalRef.current.contains(event.target)) {
-  //     isClickFilterBtn();
-  //   }
-  // };
+  const navigate = useNavigate();
+  const location = useLocation();
 
   // 수정 값 변경
   const onChange = useCallback((e) => {
