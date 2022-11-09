@@ -49,7 +49,8 @@ function SignUp() {
     }
   };
 
-  const SignUpForm = useCallback(e => {
+  //서버 전송
+  const SignUpForm = useCallback((e) => {
     setEmail("");
     setPassword("");
     e.preventDefault();
@@ -57,19 +58,21 @@ function SignUp() {
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
-    }
+    };
     console.log(data);
 
-    axios.post("http://localhost:5000/user/signup", data)
-        .then(function (response) {
-            if (response.data.success) {
-              alert("회원가입이 완료되었어요!🥳");
-              navigate('/home');
-            }
-        }).catch(function (error) {
-            alert("회원가입 실패" + error);
-        });
-},[])
+    axios
+      .post("http://localhost:5000/user/signup", data)
+      .then(function (response) {
+        if (response.data.success) {
+          alert("회원가입이 완료되었어요!🥳");
+          navigate("/home");
+        }
+      })
+      .catch(function (error) {
+        alert("회원가입 에러: " + error);
+      });
+  }, []);
 
   return (
     <div id="container">
@@ -90,12 +93,11 @@ function SignUp() {
           <input
             id="value"
             name="email"
-            type="email"
             placeholder="이메일"
             value={email}
             onChange={checkEmail}
           ></input>
-          <div id="line"></div>
+          <div id="line" />
           {email.length > 0 && <p id="message">{emailError}</p>}
         </div>
 
@@ -108,7 +110,7 @@ function SignUp() {
             value={password}
             onChange={checkPwd}
           ></input>
-          <div id="line"></div>
+          <div id="line" />
           {password.length > 0 && <p id="message">{passwordError}</p>}
         </div>
 
