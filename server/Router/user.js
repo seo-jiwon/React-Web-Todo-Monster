@@ -2,17 +2,6 @@ const express = require("express");
 const router = express.Router();
 const database = require("../database");
 
-// 테스트
-router.get('/todo', (req,res) => {
-    database.query('SELECT user_num, user_id, password FROM user;', (err, result) => {
-        if(err) res.send(err);
-        else{
-            res.send(result);
-            console.log("test");
-        }
-    });
-});
-
 //회원가입
 router.post("/signup", (req, res) => {
     database.query(

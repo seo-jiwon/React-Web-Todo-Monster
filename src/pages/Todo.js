@@ -131,32 +131,6 @@ function Todo() {
   };
   let timestring = `${time.year}-${time.month}-${time.date}`;
 
-  // DB에서 데이터 가져와보기 테스트
-  const data = useFetch('http://localhost:5000/user/todo');
-  function useFetch(url) {
-    const [data, setData] = useState([]);
-    async function fetchUrl() {
-      const response = await fetch(url);
-      const json = await response.json();
-      setData(json);
-    }
-
-    useEffect(() => {
-      fetchUrl();
-    }, []);
-    return data;
-  }
-
-  // DB에서 데이터 가져와보기 테스트
-  function ListItem({ email, password }) {
-    return (
-      <div>
-        <div>{email}</div>
-        <div>{password}</div>
-      </div>
-    )
-  }
-
   // 카테고리 클릭 시 입력 컴포넌트 open, close
   let clickCnt = 0;
 
@@ -331,19 +305,6 @@ function Todo() {
         <div>
           {moment(calendarValue).format("YYYY-MM-DD")}
         </div>
-
-        <div>
-          {data.map(
-            ({ user_id, email, password }) => (
-              <ListItem
-                key={user_id}
-                email={email}
-                password={password}
-              />
-            )
-          )}
-        </div>
-
       </div>
       <br />
       <div className='TodoTemplate'>
