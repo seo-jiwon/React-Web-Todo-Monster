@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import { React, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../css/common.css";
 
 function SignIn() {
@@ -37,6 +38,33 @@ function SignIn() {
     }
   };
 
+  //서버 전송
+  const SignInForm = useCallback((e) => {
+    setEmail("");
+    setPassword("");
+    e.preventDefault();
+
+    const data = {
+      email: e.target.email.value,
+      password: e.target.password.value,
+    };
+    console.log(data);
+
+    axios
+      .post("http://localhost:5000/user/signin", data)
+      .then(function (response) {
+        if (response.data.success) {
+          navigate("/");
+        }
+        else {
+          alert("로그인 정보를 다시 확인해주세요😥");
+        }
+      })
+      .catch(function (error) {
+        alert("로그인 에러: " + error);
+      });
+  }, []);
+
   return (
     <div id="container">
       <div id="AppBar">
@@ -51,35 +79,34 @@ function SignIn() {
         <div id="pageTitle">로그인</div>
       </div>
 
-      <div id="inputForm">
-        <input
-          id="value"
-          placeholder="이메일"
-          value={email}
-          onChange={checkEmail}
-        ></input>
-        <div id="line"></div>
-      </div>
-      <div id="inputForm">
-        <input
-          id="value"
-          placeholder="비밀번호"
-          value={password}
-          onChange={checkPwd}
-          type="password"
-        ></input>
-        <div id="line"></div>
-      </div>
+      <form onSubmit={SignInForm}>
+        <div id="inputForm">
+          <input
+            id="value"
+            name="email"
+            placeholder="이메일"
+            value={email}
+            onChange={checkEmail}
+          ></input>
+          <div id="line" />
+        </div>
 
-      <button
-        id="checkBtn"
-        disabled={!(isEmail && isPassword)}
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        확인
-      </button>
+        <div id="inputForm">
+          <input
+            id="value"
+            name="password"
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={checkPwd}
+          ></input>
+          <div id="line" />
+        </div>
+
+        <button id="checkBtn" type="submit" disabled={!(isEmail && isPassword)}>
+          확인
+        </button>
+      </form>
     </div>
   );
 }
