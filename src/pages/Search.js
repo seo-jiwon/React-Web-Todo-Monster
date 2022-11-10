@@ -9,7 +9,8 @@ import axios from 'axios';
 export default function Search() {
 
     const [search, setSearch] = useState("");
-    const [searchUser, setSearchUser] = useState([]);
+    const [searchName, setsearchName] = useState([]);
+    const [searchAll, setSearchAll] = useState([]);
 
     const onChange = (e) => {
         setSearch(e.target.value);
@@ -17,8 +18,20 @@ export default function Search() {
 
     useEffect(() => {
         axios.get("http://localhost:5000/search/search").then((res) => {
-            setSearchUser(res.data);
-        })        
+            
+            setSearchAll(res.data);
+            
+             //이름 중복 제거
+             const searchName = res.data.map(function (val, index) {
+                 return val['name'];
+             }).filter(function (val, index, arr) {
+                 return arr.indexOf(val) === index;
+             });
+             setsearchName(searchName);
+             console.log(searchName);
+            
+
+         });   
     }, []);
     
 
@@ -36,23 +49,36 @@ export default function Search() {
                           }}
                   />
             <React.Fragment>
-                {searchUser.filter((data) => {
-                    if (search == "") {
+
+                {searchName.filter((data) => {
+                     if (search === "") {
                         return data
-                    } else if(data.name.toLowerCase().includes(search.toLowerCase())) {
+                    } else if(data.toLowerCase().includes(search.toLowerCase())) {
                         return data
                     }
                 }).map((data,key) => {
+                    console.log(data);
                     return (
                         <Box sx={{width: '100%'}} key={key}>
                             <List>
                                 <ListItem>
                                     <img className='search-img' src={require('../img/profile1.jpeg')}/>
-                                    <ListItemText primary={data.name}/>
+                                    <ListItemText primary={data}/>
                                 </ListItem>
+                                {searchAll.map((todos,key) => {
+                                    if(data === todos.name) {
+                                    return(
+                                    <ListItem key={key}>
+                                        <ListItemText primary={todos.do_content}/>
+                                    </ListItem>
+                                    )
+                                    }
+                                })}
                             </List>
                         </Box>
                     )
+                }).filter((data,key,arr) => {
+                    return arr.indexOf(data) === key;
                 })}
             </React.Fragment>
         </div>
