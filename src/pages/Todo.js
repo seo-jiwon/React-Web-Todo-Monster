@@ -249,12 +249,26 @@ function Todo() {
   );
 
   // 할 일 checkBox
-  const onToggle = useCallback((id) => {
+  const onToggle = useCallback((id, checked) => {
     setTodos((todos) =>
       todos.map((todo) =>
         todo.id === id ? { ...todo, checked: !todo.checked } : todo,
       ),
     );
+
+    const data = {
+      do_id: id,
+      do_isDone: checked,
+    }
+    axios.post("http://localhost:5000/todolist/todoCheck", data)
+      .then(function (response) {
+        console.log(response);
+        if (response.data.success) {
+          navigate('/');
+        }
+      }).catch(function (error) {
+        alert("할 일 체크 실패!" + error);
+      });
   }, []);
 
   return (<div className="todoContent">

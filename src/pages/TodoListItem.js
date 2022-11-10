@@ -38,7 +38,7 @@ function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsert
           <li className="TodoListItem">
             <div
               className={cn('checkbox', { checked: checked })}
-              onClick={() => onToggle(id)}
+              onClick={() => onToggle(id, checked)}
             >
               {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
               <div className="text">{text}</div>

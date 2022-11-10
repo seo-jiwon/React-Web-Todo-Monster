@@ -30,7 +30,21 @@ router.post("/todoUpdate", (req, res) => {
     });
 });
 
-// todo 상세
+// todo 체크, 0: check, 1: !check
+router.post("/todoCheck", (req, res) => {
+    database.query(
+        "UPDATE todolist SET do_isDone=? WHERE do_id=?", [req.body.do_isDone, req.body.do_id],
+    function(err, data){
+        if(err){
+            console.log(err);
+        } else{
+            res.send({success : 1});
+            console.log("do check");
+        }
+    });
+});
+
+// todo 상세1 사용 x
 router.get('/todos', (req,res) => {
     database.query('SELECT * FROM todolist where do_id=?', [req.query.do_id], (err, result) => {
         if(err) res.send(err);
@@ -41,6 +55,7 @@ router.get('/todos', (req,res) => {
     })
 })
 
+// todo 상세2 사용 x
 router.get('/todolist', (req,res) => {
     database.query('SELECT do_id, do_content FROM todolist', (err, result) => {
         if(err) res.send(err);
@@ -64,5 +79,7 @@ router.post("/todoDelete", (req, res) => {
         }
     });
 });
+
+
 
 module.exports = router;
