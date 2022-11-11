@@ -18,8 +18,6 @@ router.post("/signup", async (req, res) => {
             const password = await bcrypt.hash(pass,10);
             //등록
             database.query('INSERT INTO user SET ?', {email,password}, (err,result) => {
-                console.log('email : ',email);
-                console.log('password : ',password);
                 if(err) throw err
                 //등록완료되면 success 1 반환
                 return res.send({success:1, message:'회원가입 완료'});
@@ -36,7 +34,6 @@ router.post("/signin", (req, res) => {
             if(stop) throw stop
             if(!userchk[0] || !await bcrypt.compare(password, userchk[0].password)) 
             return res.send({success:0,message:'등록되지 않은 사용자입니다.'})
-            console.log("userchk.id : " , userchk[0].user_id)
             const token = jwt.sign(
                 {
                     id: userchk[0].user_id
@@ -55,6 +52,24 @@ router.post("/signin", (req, res) => {
             res.cookie('authUser', token, cookieOption)
             return res.send({success:1, message:'로그인 성공'})
         })
+    
+});
+
+//프로필
+router.post("/profile", (req, res) => {
+    const {name, userId} = req.body
+    database.query(
+        "UPDATE user SET name = ? WHERE user_id = ?", [name, userId],
+        function(err, result){
+            if(err){
+                console.log(err);
+            } else{
+                res.send({success : 1, username: result});
+                console.log(result)
+                console.log("사용자 이름 변경 완료");
+            }
+        } 
+    )
     
 });
 

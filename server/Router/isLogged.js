@@ -12,12 +12,12 @@ router.get("/isLogged", (req,res) => {
         else return token;
     })
     if(user == null) return res.send({ success:0 })
-    console.log("user : ", user.id);
+
     //user 검증 후 유저의 id값을 검색해서 id 반환
-    database.query('SELECT id FROM user WHERE user_id =?',[user.id], (err,result) => {
+    database.query('SELECT user_id, email, name FROM user WHERE user_id =?', [user.id], (err,result) => {
         if(err) throw err
-        console.log("result : ",result)
-        return res.send({success:1, user:result})
+        console.log("result : ", result)
+        return res.send({success:1, user: result})
     })
 }) 
 

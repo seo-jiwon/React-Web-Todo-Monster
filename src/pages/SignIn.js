@@ -48,7 +48,6 @@ function SignIn() {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    console.log(data);
 
     axios
       .post("/user/signin", data)

@@ -59,7 +59,6 @@ function SignUp() {
       email: e.target.email.value,
       password: e.target.password.value,
     };
-    console.log(data);
 
     axios
       .post("/user/signup", data)
