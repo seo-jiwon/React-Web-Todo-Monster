@@ -1,9 +1,13 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import "../css/common.css";
 
 function PasswordChange() {
   const navigate = useNavigate();
+
+  //유저 아이디
+  const [userId, setUserId] = useState("");
 
   //입력 값
   const [password, setPassword] = useState("");
@@ -60,65 +64,109 @@ function PasswordChange() {
     }
   };
 
+  //유저 로그인 정보
+  useEffect(() => {
+    axios.get("/isLogged/isLogged").then((res) => {
+      var userData = res.data.user[0];
+      if (res.status) {
+        setUserId(userData.user_id);
+      }
+    });
+  }, []);
+
+  //서버 전송
+  const PasswordChangeForm = useCallback((e) => {
+    e.preventDefault();
+
+    const data = {
+      userId: e.target.userId.value,
+      password: e.target.password.value,
+      newPassword: e.target.newPassword.value,
+    };
+    console.log(data);
+
+    axios
+      .post("/user/passwordchange", data)
+      .then(function (response) {
+        if (response.data.success) {
+          navigate("/");
+        }
+        else if (response.data.failure == 1) {
+          alert("기존 비밀번호가 일치하지 않아요😥")
+        }
+        else if(response.data.failure == 2) {
+          alert("새로운 비밀번호가 기존 비밀번호와 동일해요😥")
+        }
+      })
+      .catch(function (error) {
+        alert("비밀번호 변경 에러: " + error);
+      });
+  }, []);
+
   return (
     <div id="container">
-      <div id="AppBar">
+      <form onSubmit={PasswordChangeForm}>
+        <input name="userId" value={userId} type="hidden" />
+        <div id="AppBar">
+          <button
+            id="backBtn"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            {"<"}
+          </button>
+          <div id="pageTitle">비밀번호 변경</div>
+        </div>
+
+        <div id="inputForm">
+          <input
+            id="value"
+            name="password"
+            placeholder="기존 비밀번호"
+            value={password}
+            onChange={checkPwd}
+            type="password"
+          ></input>
+          <div id="line"></div>
+        </div>
+
+        <div id="inputForm">
+          <input
+            id="value"
+            name="newPassword"
+            placeholder="새로운 비밀번호"
+            value={newPassword}
+            onChange={checkNewPwd}
+            type="password"
+          ></input>
+          <div id="line"></div>
+          {newPassword.length > 0 && <p id="message">{newPasswordError}</p>}
+        </div>
+
+        <div id="inputForm">
+          <input
+            id="value"
+            name="newPasswordConfirm"
+            placeholder="새로운 비밀번호 확인"
+            value={newPasswordConfirm}
+            onChange={checkNewPwdConfirm}
+            type="password"
+          ></input>
+          <div id="line"></div>
+          {newPasswordConfirm.length > 0 && (
+            <p id="message">{newPasswordConfirmError}</p>
+          )}
+        </div>
+
         <button
-          id="backBtn"
-          onClick={() => {
-            navigate("/");
-          }}
+          id="checkBtn"
+          type="submit"
+          disabled={!(isPassword && isNewPassword && isNewPasswordConfirm)}
         >
-          {"<"}
+          확인
         </button>
-        <div id="pageTitle">비밀번호 변경</div>
-      </div>
-
-      <div id="inputForm">
-        <input
-          id="value"
-          placeholder="기존 비밀번호"
-          value={password}
-          onChange={checkPwd}
-          type="password"
-        ></input>
-        <div id="line"></div>
-      </div>
-
-      <div id="inputForm">
-        <input
-          id="value"
-          placeholder="새로운 비밀번호"
-          value={newPassword}
-          onChange={checkNewPwd}
-          type="password"
-        ></input>
-        <div id="line"></div>
-        {newPassword.length > 0 && <p id="message">{newPasswordError}</p>}
-      </div>
-
-      <div id="inputForm">
-        <input
-          id="value"
-          placeholder="새로운 비밀번호 확인"
-          value={newPasswordConfirm}
-          onChange={checkNewPwdConfirm}
-          type="password"
-        ></input>
-        <div id="line"></div>
-        {newPasswordConfirm.length > 0 && <p id="message">{newPasswordConfirmError}</p>}
-      </div>
-
-      <button
-        id="checkBtn"
-        disabled={!(isPassword && isNewPassword && isNewPasswordConfirm)}
-        onClick={() => {
-          alert("비밀번호가 변경되었어요!😊")
-          navigate("/home");
-        }}
-      >
-        확인
-      </button>
+      </form>
     </div>
   );
 }

@@ -165,10 +165,10 @@ function Todo() {
       setData(json);
     }
 
-    useEffect(() => {
-      setInterval(()=> {fetchUrl()}, 10);
-      // fetchUrl();
-    }, []);
+    // useEffect(() => {
+    //   setInterval(()=> {fetchUrl()}, 10);
+    //   // fetchUrl();
+    // }, []);
     return data;
   }
 
