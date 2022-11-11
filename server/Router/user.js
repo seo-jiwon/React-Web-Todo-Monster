@@ -41,7 +41,7 @@ router.post("/signin", (req, res) => {
             })
             const cookieOption = {
                 expiresIn: new Date(Date.now() * process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
-                httpOnly: true
+                httpOnly: true 
             }
             
             res.cookie('authUser', token, cookieOption)
