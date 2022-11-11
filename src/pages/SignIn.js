@@ -51,7 +51,7 @@ function SignIn() {
     console.log(data);
 
     axios
-      .post("http://localhost:5000/user/signin", data)
+      .post("/user/signin", data)
       .then(function (response) {
         if (response.data.success) {
           navigate("/");
