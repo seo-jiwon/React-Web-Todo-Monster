@@ -122,17 +122,6 @@ function Todo() {
   const [isAdd, setIsAdd] = useState(false);
   const navigate = useNavigate();
 
-  const [logged,status] = useState(false)
-  const [user, Uuser] = useState('')
-
-  useEffect(() => {
-    axios('/isLogged/isLogged').then((res) => {
-      console.log(res)
-      if(res.status) {status(true); Uuser(res.email)}
-      else status(false)
-    })
-  },[])
-
   // 현재 시간 가져오기
   const nowDate = new Date();
   let time = {
