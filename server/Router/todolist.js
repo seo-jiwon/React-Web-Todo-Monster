@@ -5,7 +5,7 @@ const database = require("../database");
 // todo 입력
 router.post("/todoInput", (req, res) => {
     database.query(
-        "INSERT INTO todolist(do_content, do_date) values (?,?)", [req.body.do_content, req.body.do_date],
+        "INSERT INTO todolist(do_content, do_date, do_isDone) values (?,?,?)", [req.body.do_content, req.body.do_date, req.body.do_isDone],
     function(err, data){
         if(err){
             console.log(err);
@@ -30,7 +30,7 @@ router.post("/todoUpdate", (req, res) => {
     });
 });
 
-// todo 체크, 0: check, 1: !check
+// todo 체크 0: check x, 1: check o
 router.post("/todoCheck", (req, res) => {
     database.query(
         "UPDATE todolist SET do_isDone=? WHERE do_id=?", [req.body.do_isDone, req.body.do_id],
@@ -57,11 +57,10 @@ router.get('/todos', (req,res) => {
 
 // todo 상세2 사용 x
 router.get('/todolist', (req,res) => {
-    database.query('SELECT do_id, do_content FROM todolist', (err, result) => {
+    database.query('SELECT * FROM todolist', (err, result) => {
         if(err) res.send(err);
         else{
             res.send(result);
-            console.log("할 일 목록 조회");
         }
     })
 })

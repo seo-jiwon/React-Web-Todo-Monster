@@ -121,6 +121,7 @@ function Todo() {
   const [calendarValue, setCalendarValue] = useState(new Date());
   const [isAdd, setIsAdd] = useState(false);
   const navigate = useNavigate();
+  const clcikDate = moment(calendarValue).format("YYYY-MM-DD");
 
   // 현재 시간 가져오기
   const nowDate = new Date();
@@ -130,6 +131,7 @@ function Todo() {
     date: nowDate.getDate(), // 현제 날짜
   };
   let timestring = `${time.year}-${time.month}-${time.date}`;
+
 
   // 카테고리 클릭 시 입력 컴포넌트 open, close
   let clickCnt = 0;
@@ -143,6 +145,22 @@ function Todo() {
       setIsAdd(true);
     }
   }, []);
+
+  // 할 일 목록 불러오기
+  const todolistData = useFetch('/todolist/todolist');
+  function useFetch(url) {
+    const [data, setData] = useState([]);
+    async function fetchUrl() {
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+    }
+
+    useEffect(() => {
+      setInterval(()=> {fetchUrl()}, 10);
+    }, []);
+    return data;
+  }
 
   // 할 일 저장할 배열
   const [todos, setTodos] = useState([]);
@@ -171,45 +189,45 @@ function Todo() {
   // 할 일 입력 시 호출되는 함수
   const onInsert = useCallback((text) => {
     const todo = {
-      id: nextId.current,
-      text,
-      checked: false,
+      do_id: nextId.current,
+      do_content: text,
+      do_isDone: false,
     };
-    setTodos((todos) => todos.concat(todo)); //concat(): 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열 반환
-    nextId.current++; //nextId 1씩 더하기
+    setTodos((todos) => todos.concat(todo)); // concat(): 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열 반환
+    nextId.current++; // nextId 1씩 더하기
 
     const data = {
-      do_content: todo.text,
-      do_date: timestring,
+      do_content: todo.do_content,
+      do_date: clcikDate,
+      do_isDone: todo.do_isDone,
     }
-
-    axios.post("http://localhost:5000/todolist/todoInput", data)
+    axios.post("/todolist/todoInput", data)
       .then(function (response) {
         console.log(response);
         if (response.data.success) {
+          console.log('할 일 입력 성공!');
           navigate('/');
         }
       }).catch(function (error) {
         alert("할 일 입력 실패!" + error);
       });
+      
   }, []);
 
   // 할 일 삭제 시 호출되는 함수
   const onRemove = useCallback((id) => {
     // filter() : 주어진 함수의 테스트를 통과하는 모든 요소를 모아 새로운 배열로 반환
-    setTodos((todos) => todos.filter((todo) => todo.id !== id));
+    setTodos((todos) => todos.filter((todo) => todo.do_id !== id));
 
     const data = {
       do_id: id
     }
 
-    console.log(data)
-
-    axios.post("http://localhost:5000/todolist/todoDelete", data)
+    axios.post("/todolist/todoDelete", data)
       .then(function (response) {
         console.log(response);
         if (response.data.success) {
-          console.log("삭제 성공");
+          console.log("할 일 삭제 성공!");
         }
       }).catch(function (error) {
         alert("할 일 삭제 실패!" + error);
@@ -227,7 +245,7 @@ function Todo() {
       onInsertToggle();
 
       setTodos((todos) =>
-        todos.map((todo) => (todo.id === id ? { ...todo, text } : todo)),
+        todos.map((todo) => (todo.do_id === id ? { ...todo, text } : todo)),
       );
 
       const data = {
@@ -235,10 +253,12 @@ function Todo() {
         do_content: text,
         do_updateDate: timestring,
       }
-      axios.post("http://localhost:5000/todolist/todoUpdate", data)
+      axios.post("/todolist/todoUpdate", data)
         .then(function (response) {
           console.log(response);
+
           if (response.data.success) {
+            console.log('할 일 수정 성공!');
             navigate('/');
           }
         }).catch(function (error) {
@@ -250,20 +270,22 @@ function Todo() {
 
   // 할 일 checkBox
   const onToggle = useCallback((id, checked) => {
+
     setTodos((todos) =>
       todos.map((todo) =>
-        todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+        todo.do_id == id ? { ...todo, checked: !todo.do_isDone } : todo,
       ),
     );
 
     const data = {
       do_id: id,
-      do_isDone: checked,
+      do_isDone: !checked,
     }
-    axios.post("http://localhost:5000/todolist/todoCheck", data)
+    axios.post("/todolist/todoCheck", data)
       .then(function (response) {
         console.log(response);
         if (response.data.success) {
+          console.log('할 일 체크 성공!');
           navigate('/');
         }
       }).catch(function (error) {
@@ -311,16 +333,19 @@ function Todo() {
       <span>몬지몽탱이</span>
     </div>
 
+    {/* 달력 div */}
     <div className='middleContentDiv'>
       <div className='calendarDiv'>
         <CalendarContainer>
           <Calendar onChange={setCalendarValue} value={calendarValue} />
         </CalendarContainer>
         <div>
-          {moment(calendarValue).format("YYYY-MM-DD")}
+          클릭한 날짜: {clcikDate}
         </div>
       </div>
       <br />
+
+      {/* Todo 템플릿 */}
       <div className='TodoTemplate'>
         <div className='TodoInputDiv'>
           <button className='todoAddBtn' onClick={() => handleDoAdd()}>
@@ -331,9 +356,8 @@ function Todo() {
           }
         </div>
 
-        {/* <TodoInput onInsert={onInsert} /> */}
         <TodoList
-          todos={todos}
+          todos={todolistData}
           onToggle={onToggle}
           onRemove={onRemove}
           onChangeSelectedTodo={onChangeSelectedTodo}

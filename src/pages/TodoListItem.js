@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../css/TodoListItem.css';
 import cn from 'classnames';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank'; // 빈
+import CheckBoxIcon from '@mui/icons-material/CheckBox'; // 꽉찬
 import Modal from 'react-modal';
 
 Modal.defaultStyles = {
@@ -21,7 +21,7 @@ Modal.defaultStyles = {
 
 
 function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
-  const { id, text, checked } = todo;
+  const { do_id, do_content, do_isDone } = todo;
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -35,45 +35,44 @@ function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsert
 
   return (
     <div>
-          <li className="TodoListItem">
-            <div
-              className={cn('checkbox', { checked: checked })}
-              onClick={() => onToggle(id, checked)}
-            >
-              {checked ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-              <div className="text">{text}</div>
-            </div>
-            <div>
-            <MoreHorizIcon onClick={openModal} />
-            </div>
-          </li>
-
-
-        {/* 할 일 상세 모달 창 */}
-        <div>
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            ariaHideApp={false}
-            className='todoModal'
-          >
-            <div className='todoModalCloseDiv'>
-              <HighlightOffIcon className='todoModalCloseBtn' onClick={closeModal} />
-            </div>
-            <div className='todoModalNameDiv'>
-              <p className='todoModalName'>{text}</p>
-            </div>
-
-            <div state={{ id: id }}>
-              <button className='todoUpdateBtn' onClick={() => { closeModal(); onChangeSelectedTodo(todo); onInsertToggle(); }}>수정하기</button>
-              <button className='todoDeleteBtn' onClick={(e) => { onRemove(id); closeModal(); }}>삭제하기</button>
-            </div>
-          </Modal>
+      <li className="TodoListItem">
+        <div
+          className={cn('checkbox', { checked: do_isDone })}
+          onClick={() => onToggle(do_id, do_isDone)}
+        >
+          {do_isDone ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+          <div className="text">{do_content}</div>
         </div>
+        <div>
+          <MoreHorizIcon onClick={openModal} />
+        </div>
+      </li>
 
-        {/* 전체 삭제 */}
-        {/* <div>
+
+      {/* 할 일 상세 모달 창 */}
+      <div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          ariaHideApp={false}
+          className='todoModal'
+        >
+          <div className='todoModalCloseDiv'>
+            <HighlightOffIcon className='todoModalCloseBtn' onClick={closeModal} />
+          </div>
+          <div className='todoModalNameDiv'>
+            <p className='todoModalName'>{do_content}</p>
+          </div>
+
+          <div state={{ do_id: do_id }}>
+            <button className='todoUpdateBtn' onClick={() => { closeModal(); onChangeSelectedTodo(todo); onInsertToggle(); }}>수정하기</button>
+            <button className='todoDeleteBtn' onClick={(e) => { onRemove(do_id); closeModal(); }}>삭제하기</button>
+          </div>
+        </Modal>
+      </div>
+
+      {/* 전체 삭제 */}
+      {/* <div>
           <MoreHorizIcon className='allSelectBtn' onClick={() => { alert('클릭') }}/>
         </div> */}
     </div>

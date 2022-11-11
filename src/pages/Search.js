@@ -17,7 +17,7 @@ export default function Search() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:5000/search/search").then((res) => {
+        axios.get("/search/search").then((res) => {
             
             setSearchAll(res.data);
             

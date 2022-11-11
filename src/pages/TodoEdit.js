@@ -17,7 +17,7 @@ function TodoEdit({ selectedTodo, onUpdate, btnClick, isClickFilterBtn }) {
   // form submit
   const onSubmit = useCallback(
     (e) => {
-      onUpdate(selectedTodo.id, value);
+      onUpdate(selectedTodo.do_id, value);
       setValue(''); //value 초기화
       e.preventDefault(); // 새로고침 방지
     },
@@ -27,7 +27,7 @@ function TodoEdit({ selectedTodo, onUpdate, btnClick, isClickFilterBtn }) {
   // 수정 form 열린 후 초기 input 입력된 값
   useEffect(() => {
     if (selectedTodo) {
-      setValue(selectedTodo.text);
+      setValue(selectedTodo.do_content);
     }
   }, [selectedTodo]);
 
