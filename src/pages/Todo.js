@@ -11,6 +11,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
+import { SoupKitchen } from '@mui/icons-material';
 
 
 // 캘린더 디자인
@@ -208,6 +209,9 @@ function Todo() {
           console.log('할 일 입력 성공!');
           navigate('/');
         }
+        if (response.data.message === '다시 로그인 해주세요') {
+          alert('할 일 입력 실패! 로그인을 해주세요.');
+        }
       }).catch(function (error) {
         alert("할 일 입력 실패!" + error);
       });
@@ -228,6 +232,9 @@ function Todo() {
         console.log(response);
         if (response.data.success) {
           console.log("할 일 삭제 성공!");
+        }
+        if (response.data.message === '다시 로그인 해주세요') {
+          alert('할 일 삭제 실패! 로그인을 해주세요.');
         }
       }).catch(function (error) {
         alert("할 일 삭제 실패!" + error);
@@ -261,6 +268,9 @@ function Todo() {
             console.log('할 일 수정 성공!');
             navigate('/');
           }
+          if (response.data.message === '다시 로그인 해주세요') {
+            alert('할 일 수정 실패! 로그인을 해주세요.');
+          }
         }).catch(function (error) {
           alert("할 일 수정 실패!" + error);
         });
@@ -287,6 +297,9 @@ function Todo() {
         if (response.data.success) {
           console.log('할 일 체크 성공!');
           navigate('/');
+        }
+        if (response.data.message === '다시 로그인 해주세요') {
+          alert('할 일 체크 실패! 로그인을 해주세요.');
         }
       }).catch(function (error) {
         alert("할 일 체크 실패!" + error);
