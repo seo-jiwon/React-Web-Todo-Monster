@@ -7,22 +7,22 @@ const jwt = require("jsonwebtoken");
 
 //회원가입
 router.post("/signup", async (req, res) => {
-    const {email,password: pass} = req.body
+    const {email, password: pass} = req.body;
     database.query(
         //이메일 검사
         'SELECT email FROM user WHERE email = ?',[email], async (stop,userchk) => {
             if(stop) throw stop
             // 체크해서 0번지에 값이 있으면 success 0 반환
-            if(userchk[0]) return res.send({success:0,message:'이미 존재하는 이메일입니다.'})
+            if(userchk[0]) return res.send({success:0, message:'이미 존재하는 이메일입니다.'})
             //패스워드 암호화
-            const password = await bcrypt.hash(pass,10)
+            const password = await bcrypt.hash(pass,10);
             //등록
             database.query('INSERT INTO user SET ?', {email,password}, (err,result) => {
-                console.log('email : ',email)
-                console.log('password : ',password)
+                console.log('email : ',email);
+                console.log('password : ',password);
                 if(err) throw err
                 //등록완료되면 success 1 반환
-                return res.send({success:1, message:'회원가입 완료'})
+                return res.send({success:1, message:'회원가입 완료'});
             })
         }
     )
