@@ -32,22 +32,27 @@ router.post("/signup", async (req, res) => {
 router.post("/signin", (req, res) => {
     const {email,password} = req.body
     database.query(
-        "SELECT email, password FROM user WHERE email = ?", [email], async (stop,userchk) =>{
+        "SELECT * FROM user WHERE email = ?", [email], async (stop,userchk) =>{
             if(stop) throw stop
             if(!userchk[0] || !await bcrypt.compare(password, userchk[0].password)) 
             return res.send({success:0,message:'등록되지 않은 사용자입니다.'})
-            const token = jwt.sign({id: userchk.id}, process.env.JWT_SECRET, {
-                expiresIn: process.env.JWT_EXPIRES
-            })
+            console.log("userchk.id : " , userchk[0].user_id)
+            const token = jwt.sign(
+                {
+                    id: userchk[0].user_id
+                    
+                }, 
+                process.env.JWT_SECRET, 
+                {
+                    expiresIn: process.env.JWT_EXPIRES
+                }
+            )
             const cookieOption = {
                 expiresIn: new Date(Date.now() * process.env.COOKIE_EXPIRES * 24 * 60 * 60 * 1000),
                 httpOnly: true 
             }
             
             res.cookie('authUser', token, cookieOption)
-            console.log('token : ', token)
-            console.log('cookie : ', cookieOption)
-            console.log('req.cookie : ',req.cookies.authUser)
             return res.send({success:1, message:'로그인 성공'})
         })
     
