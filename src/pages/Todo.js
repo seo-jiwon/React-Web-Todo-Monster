@@ -116,12 +116,15 @@ const CalendarContainer = styled.div`
 
 `;
 
+let clickDate;
+
 function Todo() {
 
   const [calendarValue, setCalendarValue] = useState(new Date());
   const [isAdd, setIsAdd] = useState(false);
   const navigate = useNavigate();
-  const clcikDate = moment(calendarValue).format("YYYY-MM-DD");
+
+  clickDate = moment(calendarValue).format("YYYY-MM-DD");
 
   // 현재 시간 가져오기
   const nowDate = new Date();
@@ -158,6 +161,7 @@ function Todo() {
 
     useEffect(() => {
       setInterval(()=> {fetchUrl()}, 10);
+      // fetchUrl();
     }, []);
     return data;
   }
@@ -198,7 +202,7 @@ function Todo() {
 
     const data = {
       do_content: todo.do_content,
-      do_date: clcikDate,
+      do_date: clickDate,
       do_isDone: todo.do_isDone,
     }
     axios.post("/todolist/todoInput", data)
@@ -251,7 +255,7 @@ function Todo() {
       const data = {
         do_id: id,
         do_content: text,
-        do_updateDate: timestring,
+        do_updateDate: clickDate,
       }
       axios.post("/todolist/todoUpdate", data)
         .then(function (response) {
@@ -339,9 +343,9 @@ function Todo() {
         <CalendarContainer>
           <Calendar onChange={setCalendarValue} value={calendarValue} />
         </CalendarContainer>
-        <div>
-          클릭한 날짜: {clcikDate}
-        </div>
+      </div>
+      <div>
+        클릭한 날짜: {clickDate}
       </div>
       <br />
 

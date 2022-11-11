@@ -1,6 +1,4 @@
 import React, { useCallback, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../css/TodoInput.css';
 
 function TodoInput({onInsert}) {

@@ -3,11 +3,9 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import '../css/TodoEdit.css';
 
-function TodoEdit({ selectedTodo, onUpdate, btnClick, isClickFilterBtn }) {
+function TodoEdit({ selectedTodo, onUpdate }) {
   const [value, setValue] = useState('');
   const modalRef = useRef();
-  const navigate = useNavigate();
-  const location = useLocation();
 
   // 수정 값 변경
   const onChange = useCallback((e) => {
