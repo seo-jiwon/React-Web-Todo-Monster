@@ -62,11 +62,14 @@ function SignUp() {
     console.log(data);
 
     axios
-      .post("http://localhost:5000/user/signup", data)
+      .post("/user/signup", data)
       .then(function (response) {
         if (response.data.success) {
           alert("회원가입이 완료되었어요!🥳");
           navigate("/home");
+        }
+        else {
+          alert("이미 가입한 회원이에요!🙄");
         }
       })
       .catch(function (error) {
