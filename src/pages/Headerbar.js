@@ -1,11 +1,29 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import "../css/Headerbar.css";
 
 function Sidebar() {
   const navigate = useNavigate();
+
+  //서버 전송
+  const logoutForm = (e) => {
+    e.preventDefault();
+
+    axios
+      .get("/user/logout")
+      .then(function (res) {
+        console.log(res)
+        if (res.data.success) {
+          navigate("/home");
+        }
+      })
+      .catch(function (error) {
+        alert("로그아웃 에러: " + error);
+      });
+  };
 
   return (<div className='headerContent'>
     <SearchIcon className="searchIcon" onClick={()=> {navigate("/search")}} />
@@ -47,7 +65,7 @@ function Sidebar() {
         <p>비밀번호 재설정</p>
       </div>
 
-      <div className='sidebarLogoutDiv' onClick={() => {navigate("/home")}}>
+      <div className='sidebarLogoutDiv' onClick={logoutForm}>
         <p>로그아웃</p>
       </div>
 
