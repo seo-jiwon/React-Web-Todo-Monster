@@ -10,12 +10,12 @@ app.use(cookie())
 const user = require("./Router/user");
 const doInput = require("./Router/todolist");
 const search = require("./Router/search");
-// const isLogged = require("./Router/isLogged");
+const isLogged = require("./Router/isLogged");
 
 app.use("/user", user);
 app.use("/todolist", doInput);
 app.use("/search", search);
-// app.use("/isLogged", isLogged);
+app.use("/isLogged", isLogged);
 
 const port = 5000;
 app.listen(port, () => {
