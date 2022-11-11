@@ -116,25 +116,31 @@ const CalendarContainer = styled.div`
 
 `;
 
+// 캘린더 클릭한 날짜
 let clickDate;
+let user_id;
 
 function Todo() {
 
-  const [calendarValue, setCalendarValue] = useState(new Date());
-  const [isAdd, setIsAdd] = useState(false);
+  const [calendarValue, setCalendarValue] = useState(new Date()); // 캘린더 날짜
+  const [isAdd, setIsAdd] = useState(false); // 할 일 추가 버튼 visible 여부
+  const [userId, setUserId] = useState(""); // 유저 아이디
   const navigate = useNavigate();
+  clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
 
-  clickDate = moment(calendarValue).format("YYYY-MM-DD");
 
-  // 현재 시간 가져오기
-  const nowDate = new Date();
-  let time = {
-    year: nowDate.getFullYear(),  //현재 년도
-    month: nowDate.getMonth() + 1, // 현재 월
-    date: nowDate.getDate(), // 현제 날짜
-  };
-  let timestring = `${time.year}-${time.month}-${time.date}`;
+  //유저 로그인 정보
+  useEffect(() => {
+    axios.get("/isLogged/isLogged").then((res) => {
+      var userData = res.data.user[0];
+      if (res.status) {
+        setUserId(userData.user_id);
+      }
+    });
+  }, []);
 
+  user_id=userId;
+  // console.log(userId); 2번
 
   // 카테고리 클릭 시 입력 컴포넌트 open, close
   let clickCnt = 0;
@@ -189,7 +195,6 @@ function Todo() {
     setSelectedTodo((selectedTodo) => todo);
   };
 
-
   // 할 일 입력 시 호출되는 함수
   const onInsert = useCallback((text) => {
     const todo = {
@@ -202,6 +207,7 @@ function Todo() {
 
     const data = {
       do_content: todo.do_content,
+      user_id: user_id,
       do_date: clickDate,
       do_isDone: todo.do_isDone,
     }
