@@ -92,10 +92,52 @@
 .sidebarLogoutDiv {
   text-align: center;
   margin-top: 30%;
+  color: rgb(48, 48, 48);
 }
 
 .sidebarDeleteDiv {
   text-align: right;
-  margin-right: 10%;
+  margin-right: 12%;
   color: red;
+}
+
+#delUserModal {
+  width: 80%;
+  padding: 8%;
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+#delUserModal:focus {
+  outline: 0;
+}
+#delUserModalContent {
+
+}
+#delUserModalTitle {
+  text-align: center;
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 5%;
+}
+#delUserCancelBtn {
+  display: inline-block;
+  width: 45%;
+  height: 40px;
+  margin: 5% 5% 0 0;
+  border: 0;
+  border-radius: 10px;
+  border-color: rgb(242, 235, 243);
+  background-color: rgb(242, 235, 243);
+  font-weight: bold;
+}
+#delUserBtn {
+  width: 45%;
+  height: 40px;
+  margin: 5% 0 0 5%;
+  border: 0;
+  border-radius: 10px;
+  border-color: rgb(242, 235, 243);
+  background-color: rgb(242, 235, 243);
+  color: red;
+  font-weight: bold;
 }
