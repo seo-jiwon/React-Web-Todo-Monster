@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import MenuIcon from "@mui/icons-material/Menu";
@@ -13,12 +13,14 @@ const deleteUserStyles = {
     marginLeft: "8%",
   },
   overlay: {
-    zIndex: 4
-  }
+    zIndex: 4,
+  },
 };
 
 function Sidebar() {
   const navigate = useNavigate();
+  //유저 아이디
+  const [userId, setUserId] = useState("");
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -30,7 +32,7 @@ function Sidebar() {
     setIsModalOpen(false);
   };
 
-  //서버 전송
+  //로그아웃
   const logoutForm = (e) => {
     e.preventDefault();
 
@@ -46,6 +48,36 @@ function Sidebar() {
         alert("로그아웃 에러: " + error);
       });
   };
+
+  //유저 로그인 정보
+  useEffect(() => {
+    axios.get("/isLogged/isLogged").then((res) => {
+      var userData = res.data.user[0];
+      if (res.status) {
+        setUserId(userData.user_id);
+      }
+    });
+  }, []);
+
+  //계정 삭제
+  const DeleteUserForm = useCallback((e) => {
+    e.preventDefault();
+
+    const data = {
+      userId: e.target.userId.value,
+    };
+
+    axios
+      .post("/user/deleteUser", data)
+      .then(function (response) {
+        if (response.data.success) {
+          navigate("/home");
+        }
+      })
+      .catch(function (error) {
+        alert("계정 삭제 에러: " + error);
+      });
+  }, []);
 
   return (
     <div className="headerContent">
@@ -129,23 +161,24 @@ function Sidebar() {
         </div>
       </div>
 
-        <Modal
-          id="delUserModal"
-          style={deleteUserStyles}
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          ariaHideApp={false}
-        >
-          <div id="delUserModalContent">
-            <div id="delUserModalTitle">계정을 삭제하시겠습니까?</div>
-            <button id="delUserCancelBtn" onClick={closeModal}>
-              취소
-            </button>
-            <button id="delUserBtn" onClick={closeModal}>
-              확인
-            </button>
-          </div>
-        </Modal>
+      <Modal
+        id="delUserModal"
+        style={deleteUserStyles}
+        isOpen={isModalOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+      >
+        <form id="delUserModalContent" onSubmit={DeleteUserForm}>
+        <input name="userId" value={userId} type="hidden"/>
+          <div id="delUserModalTitle">계정을 삭제하시겠습니까?</div>
+          <button id="delUserCancelBtn" type="button" onClick={closeModal}>
+            취소
+          </button>
+          <button id="delUserBtn" type="submit">
+            확인
+          </button>
+        </form>
+      </Modal>
     </div>
   );
 }

@@ -76,7 +76,7 @@ router.post("/profile", (req, res) => {
         console.log(err);
       } else {
         res.send({ success: 1, username: result });
-        console.log("사용자 이름 변경 완료");
+        console.log("Update Username Success !");
       }
     }
   );
@@ -136,6 +136,23 @@ router.post("/passwordchange", async (req, res) => {
             }
           }
         );
+      }
+    }
+  );
+});
+
+//계정 삭제
+router.post("/deleteUser", (req, res) => {
+  const { userId } = req.body;
+  database.query(
+    "DELETE FROM user WHERE user_id = ?", [userId],
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.clearCookie("authUser");
+        res.send({ success: 1 });
+        console.log("Delete User Account Success !");
       }
     }
   );
