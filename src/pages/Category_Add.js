@@ -85,8 +85,6 @@ function Category_Add() {
       privacy: e.target.privacy.value,
     };
 
-    console.log(data);
-
     axios
       .post("/category/categoryAdd", data)
       .then(function (response) {
