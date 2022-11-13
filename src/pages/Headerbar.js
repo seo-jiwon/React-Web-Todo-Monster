@@ -17,10 +17,10 @@ const deleteUserStyles = {
   },
 };
 
-function Sidebar() {
+function Sidebar(user_id) {
   const navigate = useNavigate();
-  //유저 아이디
-  const [userId, setUserId] = useState("");
+  //유저정보
+  const userId = user_id.user_id;
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -49,15 +49,6 @@ function Sidebar() {
       });
   };
 
-  //유저 로그인 정보
-  useEffect(() => {
-    axios.get("/isLogged/isLogged").then((res) => {
-      var userData = res.data.user[0];
-      if (res.status) {
-        setUserId(userData.user_id);
-      }
-    });
-  }, []);
 
   //계정 삭제
   const DeleteUserForm = useCallback((e) => {

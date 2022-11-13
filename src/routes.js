@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Pages from "./pages";
 
-export default function rotues(){
+export default function rotues(authUser){
     return (
         <React.StrictMode>
           <Router>
@@ -17,7 +17,7 @@ export default function rotues(){
               <Route path="/category_add" element={<Pages.Category_Add/>} />
               <Route path="/category_edit" element={<Pages.Category_Edit/>} />
               <Route path="/search" element={<Pages.Search/>} />
-              <Route path="/otheruser" element={<Pages.OtherUser/>} />
+              <Route path="/otheruser" element={<Pages.OtherUser userId={authUser}/>} />
               <Route path="/followlist" element={<Pages.FollowList/>} />
             </Routes>
           </Router>
