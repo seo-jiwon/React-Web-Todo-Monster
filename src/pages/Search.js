@@ -61,7 +61,13 @@ export default function Search() {
                           }}
                   />
             <React.Fragment>
-                {searchAll.map((data,key) => {
+                {searchAll.filter((data) => {
+                    if (search === "") {
+                        return data
+                    } else if(data.email.toLowerCase().includes(search.toLowerCase())) {
+                        return data
+                    }
+                }).map((data,key) => {
                     return (
                         <Box sx={{width: '100%'}} key={key}>
                             <List>
