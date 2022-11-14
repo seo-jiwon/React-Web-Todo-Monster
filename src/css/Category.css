@@ -69,6 +69,47 @@
     background-color: #D8D8D8;
   }
 
+  #deleteCategoryModal {
+    width: 80%;
+    padding: 8%;
+    border-radius: 10px;
+    background-color: #ffffff;
+  }
+  #deleteCategoryModal:focus {
+    outline: 0;
+  }
+  #delCateModalContent {
+  
+  }
+  #delUserModalTitle {
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 5%;
+  }
+  #delCateCancelBtn {
+    display: inline-block;
+    width: 45%;
+    height: 40px;
+    margin: 5% 5% 0 0;
+    border: 0;
+    border-radius: 10px;
+    border-color: rgb(242, 235, 243);
+    background-color: rgb(242, 235, 243);
+    font-weight: bold;
+  }
+  #delCateBtn {
+    width: 45%;
+    height: 40px;
+    margin: 5% 0 0 5%;
+    border: 0;
+    border-radius: 10px;
+    border-color: rgb(242, 235, 243);
+    background-color: rgb(242, 235, 243);
+    color: red;
+    font-weight: bold;
+  }
+
   /* Category_Add */
   #c_checkBtn {
     width: 15%;

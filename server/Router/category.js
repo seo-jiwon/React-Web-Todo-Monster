@@ -48,4 +48,19 @@ router.post("/categoryEdit", (req, res) => {
   );
 });
 
+//카테고리 수정
+router.post("/categoryDelete", (req, res) => {
+  const { cateId } = req.body;
+  database.query(
+    "DELETE FROM category WHERE cate_id = ?", [cateId],
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ success: 1 });
+      }
+    }
+  );
+});
+
 module.exports = router;

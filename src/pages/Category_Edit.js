@@ -18,6 +18,17 @@ const categoryModalStyles = {
   },
 };
 
+const deleteCateStyles = {
+  content: {
+    width: "70%",
+    marginTop: "90%",
+    marginLeft: "8%",
+  },
+  overlay: {
+    zIndex: 4,
+  },
+};
+
 function Category_Edit() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,10 +44,12 @@ function Category_Edit() {
   const [isCategoryName, setIsCategoryName] = useState(false);
   //공개설정 값
   const [privacy, setPrivacy] = useState(catePrivacy);
-  //공개설정 선택 검사
+  //공개설정 수정 검사
   const [isPrivacy, setIsPrivacy] = useState(false);
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //카테고리 삭제 모달
+  const [isdelCateModalOpen, setIsdelCateModalOpen] = useState(false);
 
   //입력 칸 공백 검사
   const checkCategoryName = (e) => {
@@ -57,16 +70,20 @@ function Category_Edit() {
   function closeModal() {
     setIsModalOpen(false);
 
-    console.log(privacy);
-    console.log(catePrivacy);
-    console.log(catePrivacy == privacy);
-    //공개설정 선택 검사
+    //공개설정 수정 검사
     if (privacy == catePrivacy) {
       setIsPrivacy(false);
     } else {
       setIsPrivacy(true);
     }
-    console.log(isPrivacy);
+  }
+
+  function openDelCateModal() {
+    setIsdelCateModalOpen(true);
+  }
+
+  function closeDelCateModal() {
+    setIsdelCateModalOpen(false);
   }
 
   const privacyChange = (e) => {
@@ -79,10 +96,7 @@ function Category_Edit() {
 
     const data = {
       cateId: cateId,
-      categoryName: e.target.categoryName.value,
-      privacy: e.target.privacy.value,
     };
-    console.log(data);
 
     axios
       .post("/category/categoryEdit", data)
@@ -93,6 +107,27 @@ function Category_Edit() {
       })
       .catch(function (error) {
         alert("카테고리 수정 에러: " + error);
+      });
+  }, []);
+
+  
+  //카테고리 삭제
+  const DeleteCategoryForm = useCallback((e) => {
+    e.preventDefault();
+
+    const data = {
+      cateId: cateId,
+    };
+
+    axios
+      .post("/category/categoryDelete", data)
+      .then(function (response) {
+        if (response.data.success) {
+          navigate("/category");
+        }
+      })
+      .catch(function (error) {
+        alert("카테고리 삭제 에러: " + error);
       });
   }, []);
 
@@ -225,12 +260,31 @@ function Category_Edit() {
         <button
           id="delBtn"
           type="button"
-          onClick={() => {
-            alert("이 카테고리를 삭제하시겠습니까?");
-          }}
+          onClick={openDelCateModal}
         >
           삭제
         </button>
+        <Modal
+          id="deleteCategoryModal"
+          style={deleteCateStyles}
+          isOpen={isdelCateModalOpen}
+          onRequestClose={closeDelCateModal}
+          ariaHideApp={false}
+        >
+          <form id="delCateModalContent" onSubmit={DeleteCategoryForm}>
+            <div id="delUserModalTitle">계정을 삭제하시겠습니까?</div>
+            <button
+              id="delCateCancelBtn"
+              type="button"
+              onClick={closeDelCateModal}
+            >
+              취소
+            </button>
+            <button id="delCateBtn" type="submit">
+              확인
+            </button>
+          </form>
+        </Modal>
       </form>
     </div>
   );
