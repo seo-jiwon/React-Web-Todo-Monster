@@ -22,7 +22,7 @@ router.post("/categoryAdd", (req, res) => {
 //카테고리 조회
 router.get("/category", (req, res) => {
   database.query(
-    "SELECT user_id, cate_name FROM category",
+    "SELECT cate_id, user_id, cate_name, cate_privacy FROM category",
     function (err, result) {
       if (err) {
         console.log(err);

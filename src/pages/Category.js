@@ -48,6 +48,11 @@ function Category() {
       </div>
 
       {categoryAll.map((category, key) => {
+        //카테고리 아이디, 이름, 공개설정
+        var cateId = category.cate_id;
+        var cateName = category.cate_name;
+        var catePrivacy = category.cate_privacy;
+
         //회원 아이디 같은 것만
         if (category.user_id == userId){
           return (
@@ -57,15 +62,27 @@ function Category() {
                 name="categoryName"
                 type="button"
                 onClick={() => {
-                  navigate("/category_edit");
+                  navigate("/category_edit", {
+                  state: {
+                    cate_id: {cateId},
+                    cate_name: {cateName},
+                    cate_privacy: {catePrivacy},
+                  }
+                  });
                 }}
               >
-                {category.cate_name}
+                {cateName}
               </button>
               <button
                 id="category_edit"
                 onClick={() => {
-                  navigate("/category_edit");
+                  navigate("/category_edit", {
+                  state: {
+                    cate_id: {cateId},
+                    cate_name: {cateName},
+                    cate_privacy: {catePrivacy},
+                  }
+                  });
                 }}
               >
                 {">"}

@@ -1,5 +1,5 @@
 import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Modal from "react-modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -19,13 +19,24 @@ const categoryModalStyles = {
 
 function Category_Edit() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  //해당 카테고리 아이디
+  const cateId = location.state.cate_id;
+  const cateName = location.state.cate_name;
+  const catePrivacy = location.state.cate_privacy;
+  console.log(cateId);
+  console.log(cateName);
+  console.log(catePrivacy);
 
   //카테고리명 입력값
   const [categoryName, setCategoryName] = useState("");
   //입력 칸 공백 검사
   const [isCategoryName, setIsCategoryName] = useState(false);
   //공개설정 값
-  const [privacy, setPrivacy] = useState("나만보기 ▼");
+  const [privacy, setPrivacy] = useState("선택 ▼");
+  //공개설정 선택 검사
+  const [isPrivacy, setIsPrivacy] = useState(false);
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -45,13 +56,20 @@ function Category_Edit() {
     setIsModalOpen(true);
   }
 
-  const closeModal = (e) => {
+  function closeModal() {
     setIsModalOpen(false);
-  };
 
-  const privacyChange = (e)  => {
-    setPrivacy(e.target.value + " ▼");
+    //공개설정 선택 검사
+    if (privacy == "선택 ▼") {
+      setIsPrivacy(false);
+    } else {
+      setIsPrivacy(true);
+    }
   }
+
+  const privacyChange = (e) => {
+    setPrivacy(e.target.value);
+  };
 
   return (
     <div id="container">
@@ -105,7 +123,6 @@ function Category_Edit() {
             <FormControl id="modalFormControl">
               <RadioGroup
                 aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="나만보기"
                 name="radio-buttons-group"
                 onChange={privacyChange}
               >
