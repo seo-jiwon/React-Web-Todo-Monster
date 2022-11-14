@@ -187,7 +187,7 @@ function Todo() {
     }
 
     useEffect(() => {
-      // setInterval(()=> {fetchUrl()}, 5000);
+      // setInterval(()=> {fetchUrl()}, 10);
       fetchUrl();
     }, []);
     return data;

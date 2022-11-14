@@ -1,14 +1,10 @@
 import React from 'react';
 import "../css/Todo.css";
 import "../css/OtherUser.css";
-
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import Headerbar from './Headerbar';
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const customStyles = {
     content: {
@@ -20,14 +16,29 @@ const customStyles = {
     },
 };
 
-function Todo() {
+function OtherUser(userId) {
+    
     const navigate = useNavigate();
-    const todoInput = [
-        {
-            className1: "todoCheckBox",
-            className2: "todoInput",
-        },
-    ]
+    const location = useLocation();
+
+    //유저정보
+    const authUser = userId.userId.authUser;
+    //검색된 유저
+    const otherUser = location.state.otherUser;
+
+    function follow(authUser,otherUser) {
+        const data = {
+            authUser : authUser,
+            otherUser : otherUser
+        }
+
+        axios.post("/follow/following", data)
+            .then(function(res) {
+                console.log(res);
+            }).catch(function (err) {
+                console.log("팔로우 실패", err);
+            });
+    }
 
     return (
         <div id="container">
@@ -40,7 +51,7 @@ function Todo() {
                 >
                     {"<"}
                 </button>
-                <button className='followbtn' onClick={() => { }}>
+                <button className='followbtn' onClick={()=>follow(authUser,otherUser)}>
                     팔로우
                 </button>
             </div>
@@ -69,20 +80,10 @@ function Todo() {
                         </button>
 
                         <div>
-                            <input className='todoCheckBox' type='checkbox' />
-                            <input className='todoInput' type='text' />
                         </div>
 
                         <div>
-                            {todoInput.map((item, ind) => {
-                                return (
-                                    <div key={ind}>
-                                        <input className={item.className1} type='checkbox' />
-                                        <input className={item.className2} />
-                                        {item.component}
-                                    </div>
-                                )
-                            })}
+                            
                         </div>
                         <br />
 
@@ -94,4 +95,4 @@ function Todo() {
     )
 }
 
-export default Todo;
+export default OtherUser;
