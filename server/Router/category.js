@@ -33,4 +33,19 @@ router.get("/category", (req, res) => {
   );
 });
 
+//카테고리 수정
+router.post("/categoryEdit", (req, res) => {
+  const { cateId, categoryName, privacy } = req.body;
+  database.query(
+    "UPDATE category SET cate_name=?, cate_privacy=? WHERE cate_id=?", [categoryName, privacy, cateId],
+    function (err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send({ success: 1 });
+      }
+    }
+  );
+});
+
 module.exports = router;
