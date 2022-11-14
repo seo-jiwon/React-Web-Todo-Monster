@@ -22,21 +22,16 @@ function Category_Edit() {
   const location = useLocation();
 
   //해당 카테고리 아이디
-  const cateId = location.state.cate_id;
-  const cateName = location.state.cate_name;
-  const catePrivacy = location.state.cate_privacy;
-  console.log(cateId);
-  console.log(cateName);
-  console.log(catePrivacy);
+  const cateId = location.state.cate_id.cateId;
+  const cateName = location.state.cate_name.cateName;
+  const catePrivacy = location.state.cate_privacy.catePrivacy;
 
   //카테고리명 입력값
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState(cateName);
   //입력 칸 공백 검사
   const [isCategoryName, setIsCategoryName] = useState(false);
   //공개설정 값
-  const [privacy, setPrivacy] = useState("선택 ▼");
-  //공개설정 선택 검사
-  const [isPrivacy, setIsPrivacy] = useState(false);
+  const [privacy, setPrivacy] = useState(catePrivacy);
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -58,13 +53,6 @@ function Category_Edit() {
 
   function closeModal() {
     setIsModalOpen(false);
-
-    //공개설정 선택 검사
-    if (privacy == "선택 ▼") {
-      setIsPrivacy(false);
-    } else {
-      setIsPrivacy(true);
-    }
   }
 
   const privacyChange = (e) => {
