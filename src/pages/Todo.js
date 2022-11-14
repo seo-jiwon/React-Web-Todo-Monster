@@ -119,12 +119,14 @@ const CalendarContainer = styled.div`
 // 캘린더 클릭한 날짜
 let clickDate;
 let user_id;
+let user_name;
 
 function Todo() {
 
   const [calendarValue, setCalendarValue] = useState(new Date()); // 캘린더 날짜
   const [isAdd, setIsAdd] = useState(false); // 할 일 추가 버튼 visible 여부
   const [userId, setUserId] = useState(""); // 유저 아이디
+  const [userName, setUserName] = useState(""); // 유저 아이디
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
 
@@ -135,16 +137,17 @@ function Todo() {
       var userData = res.data.user[0];
       if (res.status) {
         setUserId(userData.user_id);
+        setUserName(userData.name);
       }
     });
   }, []);
 
   user_id=userId;
+  user_name=userName;
   // console.log(userId); 2번
 
   // 카테고리 클릭 시 입력 컴포넌트 open, close
   let clickCnt = 0;
-
   const handleDoAdd = useCallback((text) => {
     clickCnt++;
     if (clickCnt % 2 == 0) {
@@ -154,6 +157,24 @@ function Todo() {
       setIsAdd(true);
     }
   }, []);
+
+  // function calendarValueClick() {
+  //   alert('클릭');
+  //   const data = {
+  //     user_id: user_id,
+  //     date_view: clickDate
+  //   }
+  //   axios.post("/todolist/dateView", data)
+  //     .then(function (response) {
+  //       console.log(response);
+  //       if (response.data.success) {
+  //         console.log('날짜 클릭 성공!');
+  //         navigate('/');
+  //       }
+  //     }).catch(function (error) {
+  //       alert("날짜 클릭 실패!" + error);
+  //     });
+  // }
 
   // 할 일 목록 불러오기
   const todolistData = useFetch('/todolist/todolist');
@@ -166,8 +187,8 @@ function Todo() {
     }
 
     useEffect(() => {
-      setInterval(()=> {fetchUrl()}, 10);
-      // fetchUrl();
+      // setInterval(()=> {fetchUrl()}, 5000);
+      fetchUrl();
     }, []);
     return data;
   }
@@ -221,7 +242,6 @@ function Todo() {
       }).catch(function (error) {
         alert("할 일 입력 실패!" + error);
       });
-      
   }, []);
 
   // 할 일 삭제 시 호출되는 함수
@@ -313,7 +333,7 @@ function Todo() {
         <div className="followListBtnDiv">
           <img className='followListImgSize' src={require('../img/profile1.jpeg')} onClick={() => { alert('클릭') }} />
           {/* <button className='followListBtn' onClick={() => { alert('클릭') }}></button> */}
-          <p>zion</p>
+          <p>{user_name}</p>
         </div>
         <div className="followListBtnDiv">
           <img className='followListImgSize' src={require('../img/profile2.jpeg')} />
@@ -334,7 +354,7 @@ function Todo() {
         <div className='profileImgDiv'>
           <img className='profileImgSize' src={require('../img/profile1.jpeg')} />
         </div>
-        <span>zion</span>
+        <span>{user_name}</span>
       </div>
     </div>
 

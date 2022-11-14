@@ -47,6 +47,28 @@ router.post("/todoUpdate", (req, res) => {
     });
 });
 
+// 캘린더 날짜 전송
+router.post("/dateView", (req, res) => {
+    if(!req.cookies.authUser) {
+        return res.send({success:0,message: '다시 로그인 해주세요'})
+    }
+    const user = jwt.verify(req.cookies.authUser, process.env.JWT_SECRET,(err,token) => {
+        if(err) return null;
+        else return token;
+    })
+    if(user == null) return res.send({ success:0 })
+    database.query(
+        "INSERT INTO date(user_id, view_date) values (?,?)", [req.body.user_id, req.body.date_view],
+    function(err, data){
+        if(err){
+            console.log(err);
+        } else{
+            res.send({success : 1});
+            console.log("calendar date input");
+        }
+    });
+});
+
 // todo 체크 0: check x, 1: check o
 router.post("/todoCheck", (req, res) => {
     if(!req.cookies.authUser) {
@@ -92,7 +114,7 @@ router.get('/todolist', (req,res) => {
     if(user == null) return res.send({ success:0 })
 
     //user 검증 후 유저의 id값을 검색해서 id 반환
-    database.query('SELECT user_id FROM user WHERE user_id =?', [user.id], (err,result) => {
+    database.query('SELECT user_id, name FROM user WHERE user_id =?', [user.id], (err,result) => {
         if(err) throw err
         console.log("result : ", result)
         // return res.send({success:1, user: result})
