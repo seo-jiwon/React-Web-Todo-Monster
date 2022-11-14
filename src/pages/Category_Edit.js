@@ -33,6 +33,8 @@ function Category_Edit() {
   const [isCategoryName, setIsCategoryName] = useState(false);
   //공개설정 값
   const [privacy, setPrivacy] = useState(catePrivacy);
+  //공개설정 선택 검사
+  const [isPrivacy, setIsPrivacy] = useState(false);
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -54,13 +56,23 @@ function Category_Edit() {
 
   function closeModal() {
     setIsModalOpen(false);
+
+    console.log(privacy);
+    console.log(catePrivacy);
+    console.log(catePrivacy == privacy);
+    //공개설정 선택 검사
+    if (privacy == catePrivacy) {
+      setIsPrivacy(false);
+    } else {
+      setIsPrivacy(true);
+    }
+    console.log(isPrivacy);
   }
 
   const privacyChange = (e) => {
     setPrivacy(e.target.value);
   };
 
-  
   //서버 전송
   const CategoryEditForm = useCallback((e) => {
     e.preventDefault();
@@ -101,7 +113,7 @@ function Category_Edit() {
           <button
             id="c_checkBtn"
             type="submit"
-            disabled={!isCategoryName}
+            disabled={!(isCategoryName || isPrivacy)}
           >
             확인
           </button>
