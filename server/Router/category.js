@@ -48,7 +48,7 @@ router.post("/categoryEdit", (req, res) => {
   );
 });
 
-//카테고리 수정
+//카테고리 삭제
 router.post("/categoryDelete", (req, res) => {
   const { cateId } = req.body;
   database.query(

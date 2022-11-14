@@ -96,6 +96,8 @@ function Category_Edit() {
 
     const data = {
       cateId: cateId,
+      categoryName: e.target.categoryName.value,
+      privacy: e.target.privacy.value,
     };
 
     axios
@@ -110,7 +112,6 @@ function Category_Edit() {
       });
   }, []);
 
-  
   //카테고리 삭제
   const DeleteCategoryForm = useCallback((e) => {
     e.preventDefault();
@@ -256,36 +257,32 @@ function Category_Edit() {
             </div>
           </Modal>
         </div>
-
-        <button
-          id="delBtn"
-          type="button"
-          onClick={openDelCateModal}
-        >
-          삭제
-        </button>
-        <Modal
-          id="deleteCategoryModal"
-          style={deleteCateStyles}
-          isOpen={isdelCateModalOpen}
-          onRequestClose={closeDelCateModal}
-          ariaHideApp={false}
-        >
-          <form id="delCateModalContent" onSubmit={DeleteCategoryForm}>
-            <div id="delUserModalTitle">계정을 삭제하시겠습니까?</div>
-            <button
-              id="delCateCancelBtn"
-              type="button"
-              onClick={closeDelCateModal}
-            >
-              취소
-            </button>
-            <button id="delCateBtn" type="submit">
-              확인
-            </button>
-          </form>
-        </Modal>
       </form>
+
+      <button id="delBtn" type="button" onClick={openDelCateModal}>
+        삭제
+      </button>
+      <Modal
+        id="deleteCategoryModal"
+        style={deleteCateStyles}
+        isOpen={isdelCateModalOpen}
+        onRequestClose={closeDelCateModal}
+        ariaHideApp={false}
+      >
+        <form id="delCateModalContent" onSubmit={DeleteCategoryForm}>
+          <div id="delUserModalTitle">카테고리를 삭제하시겠습니까?</div>
+          <button
+            id="delCateCancelBtn"
+            type="button"
+            onClick={closeDelCateModal}
+          >
+            취소
+          </button>
+          <button id="delCateBtn" type="submit">
+            확인
+          </button>
+        </form>
+      </Modal>
     </div>
   );
 }
