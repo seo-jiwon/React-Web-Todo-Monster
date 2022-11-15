@@ -11,6 +11,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
+import { DataSaverOff } from '@mui/icons-material';
 
 
 // 캘린더 디자인
@@ -120,16 +121,20 @@ const CalendarContainer = styled.div`
 let clickDate;
 let user_id;
 let user_name;
+let dbDate;
 
 function Todo() {
-
+  const [todos, setTodos] = useState([]); // 할 일 저장할 배열
+  const [selectedTodo, setSelectedTodo] = useState(null);
+  const [insertToggle, setInsertToggle] = useState(false);
+  const nextId = useRef(1); // 아이디 1부터
   const [calendarValue, setCalendarValue] = useState(new Date()); // 캘린더 날짜
   const [isAdd, setIsAdd] = useState(false); // 할 일 추가 버튼 visible 여부
   const [userId, setUserId] = useState(""); // 유저 아이디
   const [userName, setUserName] = useState(""); // 유저 아이디
+  const [testList, setTestList] = useState([]);
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
-
 
   //유저 로그인 정보
   useEffect(() => {
@@ -142,8 +147,8 @@ function Todo() {
     });
   }, []);
 
-  user_id=userId;
-  user_name=userName;
+  user_id = userId;
+  user_name = userName;
   // console.log(userId); 2번
 
   // 카테고리 클릭 시 입력 컴포넌트 open, close
@@ -158,28 +163,12 @@ function Todo() {
     }
   }, []);
 
-  // function calendarValueClick() {
-  //   alert('클릭');
-  //   const data = {
-  //     user_id: user_id,
-  //     date_view: clickDate
-  //   }
-  //   axios.post("/todolist/dateView", data)
-  //     .then(function (response) {
-  //       console.log(response);
-  //       if (response.data.success) {
-  //         console.log('날짜 클릭 성공!');
-  //         navigate('/');
-  //       }
-  //     }).catch(function (error) {
-  //       alert("날짜 클릭 실패!" + error);
-  //     });
-  // }
-
   // 할 일 목록 불러오기
   const todolistData = useFetch('/todolist/todolist');
   function useFetch(url) {
     const [data, setData] = useState([]);
+
+    // json 형식
     async function fetchUrl() {
       const response = await fetch(url);
       const json = await response.json();
@@ -193,14 +182,41 @@ function Todo() {
     return data;
   }
 
-  // 할 일 저장할 배열
-  const [todos, setTodos] = useState([]);
+  // 날짜별 할 일 목록 추출
+  useEffect(() => {
+    // console.log('계속돌아가유');
+    // console.log(clickDate);
 
-  const [selectedTodo, setSelectedTodo] = useState(null);
-  const [insertToggle, setInsertToggle] = useState(false);
+    // 날짜 별 할 일 목록이 저장된 배열 초기화
+    setTestList((testList) => testList.splice(0, testList.length));
 
-  // 아이디 1부터
-  const nextId = useRef(1);
+    // 할 일 배열이 빈 배열이 아닌 경우
+    if (todolistData.length > 0) {
+
+      // 할 일 배열 길이 만큼 반복문
+      for (var i = 0; i < todolistData.length; i++) {
+
+        // 할 일 날짜 추출
+        dbDate = moment(todolistData[i].do_date).format("YYYY-MM-DD");
+
+        // 캘린더 클릭한 날짜와 디비에 저장된 할 일 날짜가 같은 경우
+        if (clickDate == dbDate) {
+          // if ('2022-11-11' == dbDate) {
+
+          // console.log(todolistData[i].do_id+'날짜가 같아욤');
+
+          const doList = {
+            do_id: todolistData[i].do_id,
+            do_content: todolistData[i].do_content,
+            do_isDone: todolistData[i].do_isDone,
+          }
+          // console.log(doList);
+          setTestList((testList) => testList.concat(doList));
+        }
+      }
+    }
+  }, [testList]);
+
 
   // useCallback : 특정 함수를 새로 만들지 않고 재사용
   // 수정 토글 메뉴
@@ -337,7 +353,7 @@ function Todo() {
         </div>
         <div className="followListBtnDiv">
           <img className='followListImgSize' src={require('../img/profile2.jpeg')} />
-          <p>user1</p>
+          <p>마윤경</p>
         </div>
         <div className="followListBtnDiv">
           <img className='followListImgSize' src={require('../img/profile3.jpeg')} />
@@ -387,7 +403,7 @@ function Todo() {
         </div>
 
         <TodoList
-          todos={todolistData}
+          todos={testList}
           onToggle={onToggle}
           onRemove={onRemove}
           onChangeSelectedTodo={onChangeSelectedTodo}
