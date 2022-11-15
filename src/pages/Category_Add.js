@@ -104,6 +104,7 @@ function Category_Add() {
         <div id="AppBar">
           <button
             id="backBtn"
+            type="button"
             onClick={() => {
               navigate("/category");
             }}

@@ -23,6 +23,8 @@ function Sidebar(user_id) {
   const userId = user_id.user_id;
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [followingList, setFollowingList] = useState('');
+  const [followerList, setFollowerList] = useState('');
 
   function openModal() {
     setIsModalOpen(true);
@@ -31,6 +33,18 @@ function Sidebar(user_id) {
   const closeModal = (e) => {
     setIsModalOpen(false);
   };
+
+  useEffect(() => {
+    const data = {
+      userId : userId
+    }
+    axios.post("/follow/followList",data).then((res) => {
+      setFollowerList(res.data.followerList[0].follower);
+      setFollowingList(res.data.followingList[0].following);
+    });
+  },[userId]);
+
+  console.log(followingList);
 
   //로그아웃
   const logoutForm = (e) => {
@@ -106,8 +120,8 @@ function Sidebar(user_id) {
             navigate("/");
           }}
         >
-          <span>101 팔로워 </span>
-          <span>111 팔로잉 </span>
+          <span>{followerList} 팔로워 </span>
+          <span>{followingList} 팔로잉 </span>
         </div>
         <hr />
 

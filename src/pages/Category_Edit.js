@@ -1,5 +1,6 @@
-import { React, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { React, useState, useCallback } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 import Modal from "react-modal";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
@@ -17,17 +18,38 @@ const categoryModalStyles = {
   },
 };
 
+const deleteCateStyles = {
+  content: {
+    width: "70%",
+    marginTop: "90%",
+    marginLeft: "8%",
+  },
+  overlay: {
+    zIndex: 4,
+  },
+};
+
 function Category_Edit() {
   const navigate = useNavigate();
+  const location = useLocation();
+
+  //해당 카테고리 아이디
+  const cateId = location.state.cate_id.cateId;
+  const cateName = location.state.cate_name.cateName;
+  const catePrivacy = location.state.cate_privacy.catePrivacy;
 
   //카테고리명 입력값
-  const [categoryName, setCategoryName] = useState("");
+  const [categoryName, setCategoryName] = useState(cateName);
   //입력 칸 공백 검사
   const [isCategoryName, setIsCategoryName] = useState(false);
   //공개설정 값
-  const [privacy, setPrivacy] = useState("나만보기 ▼");
+  const [privacy, setPrivacy] = useState(catePrivacy);
+  //공개설정 수정 검사
+  const [isPrivacy, setIsPrivacy] = useState(false);
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
+  //카테고리 삭제 모달
+  const [isdelCateModalOpen, setIsdelCateModalOpen] = useState(false);
 
   //입력 칸 공백 검사
   const checkCategoryName = (e) => {
@@ -45,142 +67,222 @@ function Category_Edit() {
     setIsModalOpen(true);
   }
 
-  const closeModal = (e) => {
+  function closeModal() {
     setIsModalOpen(false);
+
+    //공개설정 수정 검사
+    if (privacy == catePrivacy) {
+      setIsPrivacy(false);
+    } else {
+      setIsPrivacy(true);
+    }
+  }
+
+  function openDelCateModal() {
+    setIsdelCateModalOpen(true);
+  }
+
+  function closeDelCateModal() {
+    setIsdelCateModalOpen(false);
+  }
+
+  const privacyChange = (e) => {
+    setPrivacy(e.target.value);
   };
 
-  const privacyChange = (e)  => {
-    setPrivacy(e.target.value + " ▼");
-  }
+  //서버 전송
+  const CategoryEditForm = useCallback((e) => {
+    e.preventDefault();
+
+    const data = {
+      cateId: cateId,
+      categoryName: e.target.categoryName.value,
+      privacy: e.target.privacy.value,
+    };
+
+    axios
+      .post("/category/categoryEdit", data)
+      .then(function (response) {
+        if (response.data.success) {
+          navigate("/category");
+        }
+      })
+      .catch(function (error) {
+        alert("카테고리 수정 에러: " + error);
+      });
+  }, []);
+
+  //카테고리 삭제
+  const DeleteCategoryForm = useCallback((e) => {
+    e.preventDefault();
+
+    const data = {
+      cateId: cateId,
+    };
+
+    axios
+      .post("/category/categoryDelete", data)
+      .then(function (response) {
+        if (response.data.success) {
+          navigate("/category");
+        }
+      })
+      .catch(function (error) {
+        alert("카테고리 삭제 에러: " + error);
+      });
+  }, []);
 
   return (
     <div id="container">
-      <div id="AppBar">
-        <button
-          id="backBtn"
-          onClick={() => {
-            navigate("/category");
-          }}
-        >
-          {"<"}
-        </button>
-        <div id="pageTitle">카테고리 수정</div>
-        <button
-          id="c_checkBtn"
-          disabled={!isCategoryName}
-          onClick={() => {
-            navigate("/category");
-          }}
-        >
-          확인
-        </button>
-      </div>
+      <form onSubmit={CategoryEditForm}>
+        <div id="AppBar">
+          <button
+            id="backBtn"
+            type="button"
+            onClick={() => {
+              navigate("/category");
+            }}
+          >
+            {"<"}
+          </button>
+          <div id="pageTitle">카테고리 수정</div>
+          <button
+            id="c_checkBtn"
+            type="submit"
+            disabled={!(isCategoryName || isPrivacy)}
+          >
+            확인
+          </button>
+        </div>
 
-      <div id="categoryForm">
-        <input
-          id="category_add"
-          placeholder="카테고리명 입력"
-          value={categoryName}
-          onChange={checkCategoryName}
-        ></input>
-        <div id="category_line"></div>
-      </div>
+        <div id="categoryForm">
+          <input
+            id="category_add"
+            name="categoryName"
+            placeholder="카테고리명 입력"
+            value={categoryName}
+            onChange={checkCategoryName}
+          ></input>
+          <div id="category_line"></div>
+        </div>
 
-      <div id="privacyForm">
-        <p id="privacy">공개설정</p>
-        <button id="privacy_edit" onClick={openModal}>
-          {privacy}
-        </button>
-        <div id="c_line"></div>
+        <div id="privacyForm">
+          <p id="privacy">공개설정</p>
+          <button
+            id="privacy_edit"
+            name="privacy"
+            type="button"
+            onClick={openModal}
+            value={privacy}
+          >
+            {privacy}
+          </button>
+          <div id="c_line"></div>
 
-        <Modal
-          style={categoryModalStyles}
-          isOpen={isModalOpen}
-          onRequestClose={closeModal}
-          ariaHideApp={false}
-        >
-          <div id="modal">
-            <div id="modalTitle">공개설정</div>
+          <Modal
+            style={categoryModalStyles}
+            isOpen={isModalOpen}
+            onRequestClose={closeModal}
+            ariaHideApp={false}
+          >
+            <div id="modal">
+              <div id="modalTitle">공개설정</div>
 
-            <FormControl id="modalFormControl">
-              <RadioGroup
-                aria-labelledby="demo-radio-buttons-group-label"
-                defaultValue="나만보기"
-                name="radio-buttons-group"
-                onChange={privacyChange}
-              >
-                <div id="modalPrivacyForm">
-                  <FormControlLabel
-                    id="modalPrivacy"
-                    value="나만보기"
-                    control={
-                      <Radio
-                        sx={{
-                          color: purple[800],
-                          "&.Mui-checked": {
-                            color: purple[600],
-                          },
-                        }}
-                      />
-                    }
-                    label="나만보기"
-                  />
-                  <div id="modalLine"></div>
-                </div>
-                <div id="modalPrivacyForm">
-                  <FormControlLabel
-                    id="modalPrivacy"
-                    value="일부공개"
-                    control={
-                      <Radio
-                        sx={{
-                          color: purple[800],
-                          "&.Mui-checked": {
-                            color: purple[600],
-                          },
-                        }}
-                      />
-                    }
-                    label="일부공개"
-                  />
-                  <div id="modalLine"></div>
-                </div>
-                <div id="modalPrivacyForm">
-                  <FormControlLabel
-                    id="modalPrivacy"
-                    value="전체공개"
-                    control={
-                      <Radio
-                        sx={{
-                          color: purple[800],
-                          "&.Mui-checked": {
-                            color: purple[600],
-                          },
-                        }}
-                      />
-                    }
-                    label="전체공개"
-                  />
-                  <div id="modalLine"></div>
-                </div>
-              </RadioGroup>
-            </FormControl>
+              <FormControl id="modalFormControl">
+                <RadioGroup
+                  aria-labelledby="demo-radio-buttons-group-label"
+                  name="radio-buttons-group"
+                  onChange={privacyChange}
+                >
+                  <div id="modalPrivacyForm">
+                    <FormControlLabel
+                      id="modalPrivacy"
+                      value="나만보기"
+                      control={
+                        <Radio
+                          sx={{
+                            color: purple[800],
+                            "&.Mui-checked": {
+                              color: purple[600],
+                            },
+                          }}
+                        />
+                      }
+                      label="나만보기"
+                    />
+                    <div id="modalLine"></div>
+                  </div>
+                  <div id="modalPrivacyForm">
+                    <FormControlLabel
+                      id="modalPrivacy"
+                      value="일부공개"
+                      control={
+                        <Radio
+                          sx={{
+                            color: purple[800],
+                            "&.Mui-checked": {
+                              color: purple[600],
+                            },
+                          }}
+                        />
+                      }
+                      label="일부공개"
+                    />
+                    <div id="modalLine"></div>
+                  </div>
+                  <div id="modalPrivacyForm">
+                    <FormControlLabel
+                      id="modalPrivacy"
+                      value="전체공개"
+                      control={
+                        <Radio
+                          sx={{
+                            color: purple[800],
+                            "&.Mui-checked": {
+                              color: purple[600],
+                            },
+                          }}
+                        />
+                      }
+                      label="전체공개"
+                    />
+                    <div id="modalLine"></div>
+                  </div>
+                </RadioGroup>
+              </FormControl>
 
-            <button id="modalCheckBtn" onClick={closeModal}>
-              확인
-            </button>
-          </div>
-        </Modal>
-      </div>
+              <button id="modalCheckBtn" type="button" onClick={closeModal}>
+                확인
+              </button>
+            </div>
+          </Modal>
+        </div>
+      </form>
 
-      <button
-        id="delBtn"
-        onClick={() => {
-          alert("이 카테고리를 삭제하시겠습니까?");
-        }}
-      >
+      <button id="delBtn" type="button" onClick={openDelCateModal}>
         삭제
       </button>
+      <Modal
+        id="deleteCategoryModal"
+        style={deleteCateStyles}
+        isOpen={isdelCateModalOpen}
+        onRequestClose={closeDelCateModal}
+        ariaHideApp={false}
+      >
+        <form id="delCateModalContent" onSubmit={DeleteCategoryForm}>
+          <div id="delUserModalTitle">카테고리를 삭제하시겠습니까?</div>
+          <button
+            id="delCateCancelBtn"
+            type="button"
+            onClick={closeDelCateModal}
+          >
+            취소
+          </button>
+          <button id="delCateBtn" type="submit">
+            확인
+          </button>
+        </form>
+      </Modal>
     </div>
   );
 }

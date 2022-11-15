@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import "../css/Todo.css";
 import "../css/OtherUser.css";
 import Calendar from 'react-calendar';
@@ -17,14 +17,31 @@ const customStyles = {
 };
 
 function OtherUser(userId) {
-    
-    const navigate = useNavigate();
-    const location = useLocation();
-
     //유저정보
     const authUser = userId.userId.authUser;
     //검색된 유저
+    const location = useLocation();
     const otherUser = location.state.otherUser;
+
+    const navigate = useNavigate();
+
+    const [isFollow,setIsFollow] = useState(false);
+
+    useEffect(()=> {
+        const followData = {
+            authUser : authUser,
+            otherUser : otherUser
+        }
+        console.log("auth : ", authUser);
+        axios.post("/follow/isfollow", followData).then((res) => {
+            if(res.data[0].count != 0) {
+                setIsFollow(true);
+
+            } else {
+                setIsFollow(false);
+            }
+        });
+    },[authUser]);
 
     function follow(authUser,otherUser) {
         const data = {
@@ -32,11 +49,25 @@ function OtherUser(userId) {
             otherUser : otherUser
         }
 
-        axios.post("/follow/following", data)
+        axios.post("/follow/follow", data)
             .then(function(res) {
-                console.log(res);
+                setIsFollow(true);
             }).catch(function (err) {
                 console.log("팔로우 실패", err);
+            });
+    }
+
+    function unfollow(authUser,otherUser) {
+        const data = {
+            authUser : authUser,
+            otherUser : otherUser
+        }
+
+        axios.post("/follow/unfollow", data)
+            .then(function(res) {
+                setIsFollow(false);
+            }).catch(function (err) {
+                console.log("언팔로우 실패", err);
             });
     }
 
@@ -51,12 +82,13 @@ function OtherUser(userId) {
                 >
                     {"<"}
                 </button>
-                <button className='followbtn' onClick={()=>follow(authUser,otherUser)}>
+                {isFollow ? <button className='followbtn' onClick={()=>unfollow(authUser,otherUser)}>
+                    언팔로우
+                </button> : <button className='followbtn' onClick={()=>follow(authUser,otherUser)}>
                     팔로우
-                </button>
+                </button>}
+                
             </div>
-
-
             <div className="todoContent">
                 <div className="leftContentDiv">
                     <div className='profileDiv'>
@@ -66,28 +98,10 @@ function OtherUser(userId) {
                         <span>user2</span>
                     </div>
                 </div>
-
                 <div className='chaDiv'></div>
-
                 <div className='middleContentDiv2'>
                     <div className='calendarDiv'>
                         <Calendar />
-                    </div>
-                    <br />
-                    <div>
-                        <button className='todoAddBtn' onClick={() => { }}>
-                            카테고리명
-                        </button>
-
-                        <div>
-                        </div>
-
-                        <div>
-                            
-                        </div>
-                        <br />
-
-
                     </div>
                 </div>
             </div>

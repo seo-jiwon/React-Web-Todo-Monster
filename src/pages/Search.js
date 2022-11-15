@@ -41,7 +41,8 @@ export default function Search() {
 
     return (
         <div className='search-list'>
-             <button
+            <div id="AppBar">
+                <button
                     id="backBtn"
                     onClick={() => {
                         navigate("/");
@@ -49,46 +50,47 @@ export default function Search() {
                 >
                     {"<"}
                 </button>
-            <TextField className='search-bar' id="filled-basic" variant="outlined"
-                        type='text' size='small' placeholder='email을 검색해주세요'
-                        value={search} onChange={onChange} 
-                        InputProps={{
-                            startAdornment: (
-                              <InputAdornment position="start">
+                <TextField className='search-bar' id="filled-basic" variant="outlined"
+                    type='text' size='small' placeholder='email을 검색해주세요'
+                    value={search} onChange={onChange}
+                    InputProps={{
+                        startAdornment: (
+                            <InputAdornment position="start">
                                 <SearchIcon />
-                              </InputAdornment>
-                            ),
-                          }}
-                  />
-            <React.Fragment>
-                {searchAll.filter((data) => {
-                    if (search === "") {
-                        return data
-                    } else if(data.email.toLowerCase().includes(search.toLowerCase())) {
-                        return data
-                    }
-                }).map((data,key) => {
-                    return (
-                        <Box sx={{width: '100%'}} key={key}>
-                            <List>
-                                <ListItem>
-                                    <img className='search-img' src={require('../img/profile1.jpeg')}/>
-                                    <ListItemText primary={data.email} onClick={() => moveOtherUser(data.user_id)}/>
-                                </ListItem>
-                                {todos.map((todo,key) => {
-                                    if(data.user_id===todo.user_id) {
-                                        return (
-                                            <ListItem key={key}>
-                                                <ListItemText primary={todo.do_content}/>
-                                            </ListItem>
-                                        )
-                                    }
-                                })}
-                            </List>
-                        </Box>
-                    )
-                })}
-            </React.Fragment>
+                            </InputAdornment>
+                        ),
+                    }}
+                />
+                <React.Fragment>
+                    {searchAll.filter((data) => {
+                        if (search === "") {
+                            return data
+                        } else if (data.email.toLowerCase().includes(search.toLowerCase())) {
+                            return data
+                        }
+                    }).map((data, key) => {
+                        return (
+                            <Box sx={{ width: '100%' }} key={key}>
+                                <List>
+                                    <ListItem>
+                                        <img className='search-img' src={require('../img/profile1.jpeg')} />
+                                        <ListItemText primary={data.email} onClick={() => moveOtherUser(data.user_id)} />
+                                    </ListItem>
+                                    {todos.map((todo, key) => {
+                                        if (data.user_id === todo.user_id) {
+                                            return (
+                                                <ListItem key={key}>
+                                                    <ListItemText primary={todo.do_content} />
+                                                </ListItem>
+                                            )
+                                        }
+                                    })}
+                                </List>
+                            </Box>
+                        )
+                    })}
+                </React.Fragment>
+            </div>
         </div>
     )
 }

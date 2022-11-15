@@ -341,7 +341,7 @@ function Todo() {
 
   return (<div className="todoContent">
     <div className="header">
-      <Headerbar />
+      <Headerbar user_id={user_id}/>
     </div>
 
     <div className="leftContentDiv">
