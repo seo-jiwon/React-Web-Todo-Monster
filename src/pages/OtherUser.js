@@ -18,7 +18,7 @@ const customStyles = {
 
 function OtherUser(userId) {
     //유저정보
-    const authUser = userId.userId.authUser;
+    const authUser = userId.userId.authUser.authUser;
     //검색된 유저
     const location = useLocation();
     const otherUser = location.state.otherUser;
@@ -26,6 +26,7 @@ function OtherUser(userId) {
     const navigate = useNavigate();
 
     const [isFollow,setIsFollow] = useState(false);
+    const [isUser, setIsUser] = useState(false);
 
     useEffect(()=> {
         const followData = {
@@ -36,7 +37,6 @@ function OtherUser(userId) {
         axios.post("/follow/isfollow", followData).then((res) => {
             if(res.data[0].count != 0) {
                 setIsFollow(true);
-
             } else {
                 setIsFollow(false);
             }
@@ -56,6 +56,7 @@ function OtherUser(userId) {
                 console.log("팔로우 실패", err);
             });
     }
+
 
     function unfollow(authUser,otherUser) {
         const data = {
