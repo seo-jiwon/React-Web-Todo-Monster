@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate} from 'react-router-dom';
 import "../css/Search.css";
 import axios from 'axios';
+import {motion} from 'framer-motion';
 
 
 export default function Search() {
@@ -40,7 +41,11 @@ export default function Search() {
     }
 
     return (
-        <div className='search-list'>
+        <motion.div className='search-list'
+            initial={{ x: window.innerWidth }}
+            animate={{ x: 0 }}
+            transition={{duration:0.5}}
+        >
             <div id="AppBar">
                 <button
                     id="backBtn"
@@ -91,6 +96,6 @@ export default function Search() {
                     })}
                 </React.Fragment>
             </div>
-        </div>
+        </motion.div>
     )
 }

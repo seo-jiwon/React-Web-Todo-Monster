@@ -11,6 +11,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
+import {motion} from 'framer-motion';
 import { DataSaverOff } from '@mui/icons-material';
 
 
@@ -387,7 +388,12 @@ function Todo() {
     )
   }
 
-  return (<div className="todoContent">
+  return (
+    <motion.div className="todoContent"
+    initial={{ x: window.innerWidth }}
+    animate={{ x: 0 }}
+    transition={{duration:0.5}}
+  >
     <div className="header">
       <Headerbar user_id={user_id}/>
     </div>
@@ -479,7 +485,7 @@ function Todo() {
 
       </div>
     </div>
-  </div>
+  </motion.div>
   )
 }
 

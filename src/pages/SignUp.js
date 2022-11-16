@@ -2,6 +2,7 @@ import { React, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../css/common.css";
+import {motion} from 'framer-motion';
 
 function SignUp() {
   const navigate = useNavigate();
@@ -77,7 +78,11 @@ function SignUp() {
   }, []);
 
   return (
-    <div id="container">
+    <motion.div id="container"
+      initial={{ x: window.innerWidth }}
+      animate={{ x: 0 }}
+      transition={{duration:0.5}}
+    >
       <div id="AppBar">
         <button
           id="backBtn"
@@ -120,7 +125,7 @@ function SignUp() {
           확인
         </button>
       </form>
-    </div>
+    </motion.div>
   );
 }
 
