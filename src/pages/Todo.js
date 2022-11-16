@@ -122,6 +122,7 @@ let clickDate;
 let user_id;
 let user_name;
 let dbDate;
+let categ_id;
 
 function Todo() {
   const [todos, setTodos] = useState([]); // 할 일 저장할 배열
@@ -132,7 +133,9 @@ function Todo() {
   const [isAdd, setIsAdd] = useState(false); // 할 일 추가 버튼 visible 여부
   const [userId, setUserId] = useState(""); // 유저 아이디
   const [userName, setUserName] = useState(""); // 유저 아이디
-  const [testList, setTestList] = useState([]);
+  const [testList, setTestList] = useState([]); // 날짜별 할 일 목록 저장할 배열
+  const [categList, setCategList] = useState([]); // 카테고리 버튼 상태 저장할 배열
+
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
 
@@ -182,12 +185,28 @@ function Todo() {
     return data;
   }
 
+  // 할 일 카테고리 불러오기
+  const todoCategList = useFetch('/todolist/todoCateg');
+  function useFetch(url) {
+    const [data, setData] = useState([]);
+
+    async function fetchUrl() {
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+    }
+
+    useEffect(() => {
+      fetchUrl();
+    }, []);
+    return data;
+  }
+
   // 날짜별 할 일 목록 추출
   useEffect(() => {
     // console.log('계속돌아가유');
     // console.log(clickDate);
 
-    // 날짜 별 할 일 목록이 저장된 배열 초기화
     setTestList((testList) => testList.splice(0, testList.length));
 
     // 할 일 배열이 빈 배열이 아닌 경우
@@ -215,7 +234,7 @@ function Todo() {
         }
       }
     }
-  }, [testList]);
+  }, [todolistData, clickDate]);
 
 
   // useCallback : 특정 함수를 새로 만들지 않고 재사용
@@ -339,6 +358,35 @@ function Todo() {
       });
   }, []);
 
+  function CateItem({cate_id, cate_name}) {
+    return (
+      <div>
+        <button className='todoCategBtn' onClick={() => handleDoAdd()}>
+          <p name={cate_id}>{cate_id}{cate_name}</p>
+        </button>
+        {
+          isAdd ? <TodoInput onInsert={onInsert} /> : ''
+        }
+        <TodoList
+        todos={testList}
+        onToggle={onToggle}
+        onRemove={onRemove}
+        onChangeSelectedTodo={onChangeSelectedTodo}
+        onInsertToggle={onInsertToggle}
+        />
+        {insertToggle && (
+          <TodoEdit
+            onInsert={onInsert}
+            selectedTodo={selectedTodo}
+            onInsertToggle={onInsertToggle}
+            onUpdate={onUpdate}
+            insertToggle={insertToggle}
+          />
+        )}
+      </div>
+    )
+  }
+
   return (<div className="todoContent">
     <div className="header">
       <Headerbar user_id={user_id}/>
@@ -394,20 +442,26 @@ function Todo() {
       {/* Todo 템플릿 */}
       <div className='TodoTemplate'>
         <div className='TodoInputDiv'>
-          <button className='todoAddBtn' onClick={() => handleDoAdd()}>
-            일반 +
-          </button>
-          {
-            isAdd ? <TodoInput onInsert={onInsert} /> : ''
-          }
+            {todoCategList.map(
+              ({ cate_id, cate_name}) => (
+                <CateItem 
+                  key={cate_id}
+                  cate_id={cate_id}
+                  cate_name={cate_name}
+                />
+              )
+            )
+            }
         </div>
-
+        {/* {
+          isAdd ? <TodoInput onInsert={onInsert} /> : ''
+        }
         <TodoList
-          todos={testList}
-          onToggle={onToggle}
-          onRemove={onRemove}
-          onChangeSelectedTodo={onChangeSelectedTodo}
-          onInsertToggle={onInsertToggle}
+        todos={testList}
+        onToggle={onToggle}
+        onRemove={onRemove}
+        onChangeSelectedTodo={onChangeSelectedTodo}
+        onInsertToggle={onInsertToggle}
         />
         {insertToggle && (
           <TodoEdit
@@ -417,7 +471,7 @@ function Todo() {
             onUpdate={onUpdate}
             insertToggle={insertToggle}
           />
-        )}
+        )} */}
         <div>
         </div>
         <br />

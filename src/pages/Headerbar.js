@@ -44,7 +44,7 @@ function Sidebar(user_id) {
     });
   },[userId]);
 
-  console.log(followingList);
+  // console.log(followingList);
 
   //로그아웃
   const logoutForm = (e) => {

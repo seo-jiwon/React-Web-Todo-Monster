@@ -47,6 +47,28 @@ router.post("/todoUpdate", (req, res) => {
     });
 });
 
+// todo 삭제
+router.post("/todoDelete", (req, res) => {
+    if(!req.cookies.authUser) {
+        return res.send({success:0,message: '다시 로그인 해주세요'})
+    }
+    const user = jwt.verify(req.cookies.authUser, process.env.JWT_SECRET,(err,token) => {
+        if(err) return null;
+        else return token;
+    })
+    if(user == null) return res.send({ success:0 })
+    database.query(
+        "DELETE FROM todolist where do_id=?", [req.body.do_id],
+    function(err, data){
+        if(err){
+            console.log(err);
+        } else{
+            res.send({success : 1});
+            console.log("할 일 삭제");
+        }
+    });
+});
+
 // todo 체크 0: check x, 1: check o
 router.post("/todoCheck", (req, res) => {
     if(!req.cookies.authUser) {
@@ -69,18 +91,7 @@ router.post("/todoCheck", (req, res) => {
     });
 });
 
-// todo 상세1 사용 x
-router.get('/todos', (req,res) => {
-    database.query('SELECT * FROM todolist where do_id=?', [req.query.do_id], (err, result) => {
-        if(err) res.send(err);
-        else{
-            res.send(result);
-            console.log("할 일 전체 가져오기");
-        }
-    })
-})
-
-// todo 상세2 사용!!
+// todo 목록
 router.get('/todolist', (req,res) => {
     if(!req.cookies.authUser) {
         return res.send({success:0,message: '다시 로그인 해주세요'})
@@ -104,11 +115,10 @@ router.get('/todolist', (req,res) => {
             }
         })
     })
-
 })
 
-// todo 삭제
-router.post("/todoDelete", (req, res) => {
+// todo 카테고리명
+router.get('/todoCateg', (req,res) => {
     if(!req.cookies.authUser) {
         return res.send({success:0,message: '다시 로그인 해주세요'})
     }
@@ -117,17 +127,21 @@ router.post("/todoDelete", (req, res) => {
         else return token;
     })
     if(user == null) return res.send({ success:0 })
-    database.query(
-        "DELETE FROM todolist where do_id=?", [req.body.do_id],
-    function(err, data){
-        if(err){
-            console.log(err);
-        } else{
-            res.send({success : 1});
-            console.log("할 일 삭제");
-        }
-    });
-});
+
+    //user 검증 후 유저의 id값을 검색해서 id 반환
+    database.query('SELECT user_id, name FROM user WHERE user_id =?', [user.id], (err,result) => {
+        if(err) throw err
+        console.log("result : ", result)
+        // return res.send({success:1, user: result})
+
+        database.query('SELECT * FROM category WHERE user_id=?', [user.id], (err, result) => {
+            if(err) res.send(err);
+            else{
+                res.send(result);
+            }
+        })
+    })
+})
 
 
 
