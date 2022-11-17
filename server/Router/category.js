@@ -6,17 +6,9 @@ const jwt = require("jsonwebtoken");
 //카테고리 추가
 router.post("/categoryAdd", (req, res) => {
   const { userId, categoryName, privacy } = req.body;
-  var privacyNum = 0;
-  if(privacy == "나만보기"){
-    privacyNum = 3;
-  }else if(privacy == "일부공개"){
-    privacyNum = 2;
-  }else if(privacy =="전체공개"){
-    privacyNum = 1;
-  }
   database.query(
     "INSERT INTO category(user_id, cate_name, cate_privacy) values (?, ?, ?)",
-    [userId, categoryName, privacyNum],
+    [userId, categoryName, privacy],
     function (err, result) {
       if (err) {
         console.log(err);
@@ -44,16 +36,8 @@ router.get("/category", (req, res) => {
 //카테고리 수정
 router.post("/categoryEdit", (req, res) => {
   const { cateId, categoryName, privacy } = req.body;
-  var privacyNum = 0;
-  if(privacy == "나만보기"){
-    privacyNum = 3;
-  }else if(privacy == "일부공개"){
-    privacyNum = 2;
-  }else if(privacy =="전체공개"){
-    privacyNum = 1;
-  }
   database.query(
-    "UPDATE category SET cate_name=?, cate_privacy=? WHERE cate_id=?", [categoryName, privacyNum, cateId],
+    "UPDATE category SET cate_name=?, cate_privacy=? WHERE cate_id=?", [categoryName, privacy, cateId],
     function (err, result) {
       if (err) {
         console.log(err);
