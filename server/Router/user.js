@@ -109,7 +109,7 @@ router.get("/logout", (req, res) => {
 
 //비밀번호 변경
 router.post("/passwordchange", async (req, res) => {
-  var { userId, password, newPassword, newPassword: pass } = req.body;
+  var { userId, password, newPassword, newPassword:pass } = req.body;
 
   //기존 비밀번호가 일치하는지 확인
   database.query(
