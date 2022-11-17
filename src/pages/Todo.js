@@ -398,9 +398,6 @@ function Todo() {
 
   function CateItem({cate_id, cate_name}) {
 
-    if (cate_id == testList.cate_id) {
-      console.log(cate_id);
-    }
     return (
       <span>
         <button className='todoCateBtn' onClick={() => {handleDoAdd(cate_id, todoCateList)}}>

@@ -4,7 +4,7 @@ const database = require("../database");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-//회원가입
+//회원가입 및 최초 카테고리 생성
 router.post("/signup", async (req, res) => {
   const { email, password: pass } = req.body;
   database.query(
@@ -25,7 +25,26 @@ router.post("/signup", async (req, res) => {
         (err, result) => {
           if (err) throw err;
           //등록완료되면 success 1 반환
-          return res.send({ success: 1 }), console.log("SignUp Success !");
+          console.log("SignUp Success !");
+
+          //방금 회원가입 한 유저 아이디 가져오기
+          database.query('select user_id from user ORDER BY user_id DESC LIMIT 1', (err,result) => {
+            if(err) throw err
+            console.log("회원가입 한 사용자 아이디 result : ", result)
+
+            // 최초 카테고리 생성
+            database.query(
+              "INSERT INTO category(user_id, cate_name, cate_privacy) values (?, ?, ?)",
+              [result[0].user_id, '일반', '1'],
+              function (err, result) {
+                if (err) {
+                  console.log(err);
+                } else {
+                  res.send({ success: 1 }); console.log("카테고리 최초 생성 성공 !");
+                }
+              }
+            );
+        })
         }
       );
     }
@@ -90,7 +109,7 @@ router.get("/logout", (req, res) => {
 
 //비밀번호 변경
 router.post("/passwordchange", async (req, res) => {
-  var { userId, password, newPassword, newPassword:pass } = req.body;
+  var { userId, password, newPassword, newPassword: pass } = req.body;
 
   //기존 비밀번호가 일치하는지 확인
   database.query(
