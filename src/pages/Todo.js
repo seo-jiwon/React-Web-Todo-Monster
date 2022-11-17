@@ -117,12 +117,15 @@ const CalendarContainer = styled.div`
 
 `;
 
-// 캘린더 클릭한 날짜
-let clickDate;
+
+let clickDate; // 캘린더 클릭한 날짜
+let dbDate; // 디비에 저장된 날짜
+
+// 유저 정보
 let user_id;
 let user_name;
-let dbDate;
 let cate_id;
+let user_email;
 
 function Todo() {
   const [todos, setTodos] = useState([]); // 할 일 저장할 배열
@@ -132,7 +135,8 @@ function Todo() {
   const [calendarValue, setCalendarValue] = useState(new Date()); // 캘린더 날짜
   const [isAdd, setIsAdd] = useState(false); // 할 일 추가 버튼 visible 여부
   const [userId, setUserId] = useState(""); // 유저 아이디
-  const [userName, setUserName] = useState(""); // 유저 아이디
+  const [userName, setUserName] = useState(""); // 유저 이름
+  const [userEmail, setUserEmail] = useState(""); // 유저 이메일
   const [testList, setTestList] = useState([]); // 날짜별 할 일 목록 저장할 배열
   const [cateList, setCateList] = useState([]); // 카테고리 버튼 상태 저장할 배열
   const [cateId, setCateId] = useState(""); // 클릭한 카테고리 번호
@@ -147,12 +151,14 @@ function Todo() {
       if (res.status) {
         setUserId(userData.user_id);
         setUserName(userData.name);
+        setUserEmail(userData.email);
       }
     });
   }, []);
 
   user_id = userId;
   user_name = userName;
+  user_email = userEmail;
   // console.log(userId); 2번
 
   // 할 일 목록 불러오기
@@ -432,7 +438,7 @@ function Todo() {
     transition={{duration:0.5}}
   >
     <div className="header">
-      <Headerbar user_id={user_id}/>
+      <Headerbar user_id={user_id} user_name={user_name} user_email={user_email}/>
     </div>
 
     <div className="leftContentDiv">
@@ -477,9 +483,7 @@ function Todo() {
           <Calendar onChange={setCalendarValue} value={calendarValue} />
         </CalendarContainer>
       </div>
-      <div>
-        클릭한 날짜: {clickDate}
-      </div>
+
       <br />
       {/* Todo 템플릿 */}
       <div className='TodoTemplate'>

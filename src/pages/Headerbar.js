@@ -21,10 +21,38 @@ function Sidebar(user_id) {
   const navigate = useNavigate();
   //유저정보
   const userId = user_id.user_id;
+  const userName = user_id.user_name;
+  const userEamil = user_id.user_email;
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [followingList, setFollowingList] = useState('');
   const [followerList, setFollowerList] = useState('');
+
+  // 할 일 카테고리 DB에서 가져오기
+  const todoCateList = useFetch('/todolist/todoCate');
+  function useFetch(url) {
+    const [data, setData] = useState([]);
+
+    async function fetchUrl() {
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+    }
+
+    useEffect(() => {
+      fetchUrl();
+    }, []);
+    return data;
+  }
+
+  // 카테고리 나타내기
+  function CateItem({cate_name}) {
+    return (
+      <span>
+        <span>{cate_name}</span>
+      </span>
+    )
+  }
 
   function openModal() {
     setIsModalOpen(true);
@@ -110,8 +138,8 @@ function Sidebar(user_id) {
               src={require("../img/profile1.jpeg")}
             />
           </div>
-          <div id="sidebarName">zion</div>
-          <div id="sidebarEmail">zion@cu.ac.kr</div>
+          <div id="sidebarName">{userName}</div>
+          <div id="sidebarEmail">{userEamil}</div>
         </div>
 
         <div
@@ -143,7 +171,15 @@ function Sidebar(user_id) {
         >
           <p>카테고리</p>
           <div>
-            <span>일반</span>
+            {todoCateList.map(
+                ({ cate_id, cate_name}) => (
+                  <CateItem 
+                    key={cate_id}
+                    cate_name={cate_name}
+                  />
+                )
+              )
+              }
           </div>
         </div>
         <hr />
