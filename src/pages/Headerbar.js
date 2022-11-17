@@ -46,10 +46,10 @@ function Sidebar(user_id) {
   }
 
   // 카테고리 나타내기
-  function CateItem({cate_name}) {
+  function CateItem({ cate_name }) {
     return (
       <span>
-        <span>{cate_name}</span>
+        {cate_name}
       </span>
     )
   }
@@ -64,13 +64,13 @@ function Sidebar(user_id) {
 
   useEffect(() => {
     const data = {
-      userId : userId
+      userId: userId
     }
-    axios.post("/follow/followList",data).then((res) => {
+    axios.post("/follow/followList", data).then((res) => {
       setFollowerList(res.data.followerList[0].follower);
       setFollowingList(res.data.followingList[0].following);
     });
-  },[userId]);
+  }, [userId]);
 
   // console.log(followingList);
 
@@ -170,16 +170,16 @@ function Sidebar(user_id) {
           }}
         >
           <p>카테고리</p>
-          <div>
+          <div className="sidebarCategoryNameDiv">
             {todoCateList.map(
-                ({ cate_id, cate_name}) => (
-                  <CateItem 
-                    key={cate_id}
-                    cate_name={cate_name}
-                  />
-                )
+              ({ cate_id, cate_name }) => (
+                <CateItem
+                  key={cate_id}
+                  cate_name={cate_name}
+                />
               )
-              }
+            )
+            }
           </div>
         </div>
         <hr />
@@ -210,7 +210,7 @@ function Sidebar(user_id) {
         ariaHideApp={false}
       >
         <form id="delUserModalContent" onSubmit={DeleteUserForm}>
-        <input name="userId" value={userId} type="hidden"/>
+          <input name="userId" value={userId} type="hidden" />
           <div id="delUserModalTitle">계정을 삭제하시겠습니까?</div>
           <button id="delUserCancelBtn" type="button" onClick={closeModal}>
             취소

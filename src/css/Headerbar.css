@@ -78,15 +78,24 @@
   margin-left: 5%;
 }
 
+.sidebarCategoryDiv {
+  overflow: auto;
+  white-space: nowrap;
+}
+
 .sidebarCategoryDiv p {
   margin-left: 5%;
 }
 
 .sidebarCategoryDiv span {
   background-color: white;
-  margin-left: 5%;
   border-radius: 10%;
-  padding: 2% 2.2% 2% 0%;
+  padding: 2% 1% 2% 1%;
+  margin-right: 5%;
+}
+
+.sidebarCategoryNameDiv {
+  margin-left: 5%;
 }
 
 .sidebarLogoutDiv {
