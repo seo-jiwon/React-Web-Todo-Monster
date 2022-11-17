@@ -114,7 +114,7 @@
     margin-right: 3%;
 }
 
-.todoCategBtn {
+.todoCateBtn {
     font-size: 10px;
     border-width: 0;
     border-radius: 10%;
@@ -122,8 +122,9 @@
     color: balck;
     padding-left: 3%;
     padding-right: 3%;
+    margin-right: 3%;
 }  
 
-.todoCategBtn p{
+.todoCateBtn p{
     font-size: 15px;
 }

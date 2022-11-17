@@ -20,8 +20,10 @@ Modal.defaultStyles = {
 
 
 
-function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
-  const { do_id, do_content, do_isDone } = todo;
+function TodoListItem({ cateId, todo, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
+  const { do_id, do_content, do_isDone, cate_id } = todo;
+
+  const cateID = cateId;
 
   const [modalIsOpen, setIsOpen] = useState(false);
 
@@ -35,19 +37,23 @@ function TodoListItem({ todo, onRemove, onToggle, onChangeSelectedTodo, onInsert
 
   return (
     <div>
-      <li className="TodoListItem">
-        <div
-          className={cn('checkbox', { checked: do_isDone })}
-          onClick={() => onToggle(do_id, do_isDone)}
-        >
-          {do_isDone ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
-          <div className="text">{do_content}</div>
-        </div>
-        <div>
-          <MoreHorizIcon onClick={openModal} />
-        </div>
-      </li>
 
+      {
+        cateID == cate_id ?
+          <li className="TodoListItem">
+            <div
+              className={cn('checkbox', { checked: do_isDone })}
+              onClick={() => onToggle(do_id, do_isDone)}
+            >
+              {do_isDone ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}
+              <div className="text">{do_content}</div>
+            </div>
+            <div>
+              <MoreHorizIcon onClick={openModal} />
+            </div>
+          </li>
+          : ''
+      }
 
       {/* 할 일 상세 모달 창 */}
       <div>

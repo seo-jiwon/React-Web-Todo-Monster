@@ -3,7 +3,9 @@ import ToDoListItem from './TodoListItem';
 import '../css/TodoList.css';
 import {List} from 'react-virtualized'
 
-function TodoList({ todolistData, todos, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
+function TodoList({ cate_id, todolistData, todos, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle }) {
+
+  const cateId = cate_id;
 
   const rowRender = useCallback(
     ({index,key,style}) => {
@@ -18,10 +20,11 @@ function TodoList({ todolistData, todos, onRemove, onToggle, onChangeSelectedTod
         onInsertToggle={onInsertToggle}
         onChangeSelectedTodo={onChangeSelectedTodo}
         style={style}
+        cateId={cateId}
       />
       )
     },
-    [ todolistData, todos, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle ]
+    [ cate_id, todolistData, todos, onRemove, onToggle, onChangeSelectedTodo, onInsertToggle ]
   )
 
   return (<>

@@ -14,7 +14,7 @@ router.post("/todoInput", (req, res) => {
     })
     if(user == null) return res.send({ success:0 })
     database.query(
-        "INSERT INTO todolist(do_content, user_id, do_date, do_isDone) values (?,?,?,?)", [req.body.do_content, req.body.user_id, req.body.do_date, req.body.do_isDone],
+        "INSERT INTO todolist(do_content, user_id, do_date, do_isDone, cate_id) values (?,?,?,?,?)", [req.body.do_content, req.body.user_id, req.body.do_date, req.body.do_isDone, req.body.cate_id],
     function(err, data){
         if(err){
             console.log(err);
@@ -118,7 +118,7 @@ router.get('/todolist', (req,res) => {
 })
 
 // todo 카테고리명
-router.get('/todoCateg', (req,res) => {
+router.get('/todoCate', (req,res) => {
     if(!req.cookies.authUser) {
         return res.send({success:0,message: '다시 로그인 해주세요'})
     }

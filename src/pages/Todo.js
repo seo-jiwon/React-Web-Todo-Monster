@@ -14,7 +14,6 @@ import styled from 'styled-components';
 import {motion} from 'framer-motion';
 import { DataSaverOff } from '@mui/icons-material';
 
-
 // 캘린더 디자인
 const CalendarContainer = styled.div`
   /* 전체 */
@@ -123,7 +122,7 @@ let clickDate;
 let user_id;
 let user_name;
 let dbDate;
-let categ_id;
+let cate_id;
 
 function Todo() {
   const [todos, setTodos] = useState([]); // 할 일 저장할 배열
@@ -135,7 +134,8 @@ function Todo() {
   const [userId, setUserId] = useState(""); // 유저 아이디
   const [userName, setUserName] = useState(""); // 유저 아이디
   const [testList, setTestList] = useState([]); // 날짜별 할 일 목록 저장할 배열
-  const [categList, setCategList] = useState([]); // 카테고리 버튼 상태 저장할 배열
+  const [cateList, setCateList] = useState([]); // 카테고리 버튼 상태 저장할 배열
+  const [cateId, setCateId] = useState(""); // 클릭한 카테고리 번호
 
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
@@ -154,18 +154,6 @@ function Todo() {
   user_id = userId;
   user_name = userName;
   // console.log(userId); 2번
-
-  // 카테고리 클릭 시 입력 컴포넌트 open, close
-  let clickCnt = 0;
-  const handleDoAdd = useCallback((text) => {
-    clickCnt++;
-    if (clickCnt % 2 == 0) {
-      setIsAdd(false);
-    }
-    else {
-      setIsAdd(true);
-    }
-  }, []);
 
   // 할 일 목록 불러오기
   const todolistData = useFetch('/todolist/todolist');
@@ -187,7 +175,7 @@ function Todo() {
   }
 
   // 할 일 카테고리 불러오기
-  const todoCategList = useFetch('/todolist/todoCateg');
+  const todoCateList = useFetch('/todolist/todoCate');
   function useFetch(url) {
     const [data, setData] = useState([]);
 
@@ -208,6 +196,7 @@ function Todo() {
     // console.log('계속돌아가유');
     // console.log(clickDate);
 
+    // 배열 초기화
     setTestList((testList) => testList.splice(0, testList.length));
 
     // 할 일 배열이 빈 배열이 아닌 경우
@@ -229,12 +218,15 @@ function Todo() {
             do_id: todolistData[i].do_id,
             do_content: todolistData[i].do_content,
             do_isDone: todolistData[i].do_isDone,
+            cate_id: todolistData[i].cate_id,
           }
           // console.log(doList);
           setTestList((testList) => testList.concat(doList));
         }
       }
     }
+
+    
   }, [todolistData, clickDate]);
 
 
@@ -253,12 +245,14 @@ function Todo() {
   };
 
   // 할 일 입력 시 호출되는 함수
-  const onInsert = useCallback((text) => {
+  const onInsert = useCallback((text, cateId) => {
     const todo = {
       do_id: nextId.current,
       do_content: text,
       do_isDone: false,
+      cate_id: cateId,
     };
+    // console.log(todo.cate_id);
     setTodos((todos) => todos.concat(todo)); // concat(): 인자로 주어진 배열이나 값들을 기존 배열에 합쳐서 새 배열 반환
     nextId.current++; // nextId 1씩 더하기
 
@@ -267,6 +261,7 @@ function Todo() {
       user_id: user_id,
       do_date: clickDate,
       do_isDone: todo.do_isDone,
+      cate_id: cateId
     }
     axios.post("/todolist/todoInput", data)
       .then(function (response) {
@@ -359,14 +354,55 @@ function Todo() {
       });
   }, []);
 
+  // 카테고리 버튼 상태 저장하는 배열 생성, 초기에 false로 설정
+  useEffect(() => {
+    const cateListState = {
+      cate_id: cate_id,
+      state: false,
+    };
+    for (var i=0; i<todoCateList.length; i++) {
+      setCateList((cateList) => cateList.concat(cateListState)); // 카테고리 버튼 상태 저장, false로 초기화
+    }
+    console.log(cateList);
+  }, []);
+
+  // 카테고리 클릭 시 입력 컴포넌트 open, close
+  let clickCnt = 0;
+  const handleDoAdd = useCallback((cate_id,) => {
+    console.log(cate_id + '번 카테고리 클릭');
+
+    clickCnt++; // 버튼 클릭 횟수 카운트
+
+    // 짝수 번 클릭 시 input창 close
+    if (clickCnt % 2 == 0) {
+      setIsAdd(false);
+      cateList[cate_id-1] = 'false';
+      console.log(cateList);
+    }
+    // 홀수 번 클릭 시 input창 open
+    else {
+      setIsAdd(true);
+      cateList[cate_id-1] = 'true';
+      console.log(cateList);
+    }
+  }, []);
+
+
+  cate_id = cateId;
+
   function CateItem({cate_id, cate_name}) {
+
+    if (cate_id == testList.cate_id) {
+      console.log(cate_id);
+    }
     return (
-      <div>
-        <button className='todoCategBtn' onClick={() => handleDoAdd()}>
-          <p name={cate_id}>{cate_id}{cate_name}</p>
+      <span>
+        <button className='todoCateBtn' onClick={() => {handleDoAdd(cate_id, todoCateList)}}>
+          <p name={cate_id}>{cate_name} +</p>
         </button>
+
         {
-          isAdd ? <TodoInput onInsert={onInsert} /> : ''
+          cateList[cate_id-1]=='true' ? <TodoInput onInsert={onInsert} cate_id={cate_id}/> : ''
         }
         <TodoList
         todos={testList}
@@ -374,6 +410,7 @@ function Todo() {
         onRemove={onRemove}
         onChangeSelectedTodo={onChangeSelectedTodo}
         onInsertToggle={onInsertToggle}
+        cate_id={cate_id}
         />
         {insertToggle && (
           <TodoEdit
@@ -384,7 +421,7 @@ function Todo() {
             insertToggle={insertToggle}
           />
         )}
-      </div>
+      </span>
     )
   }
 
@@ -444,11 +481,10 @@ function Todo() {
         클릭한 날짜: {clickDate}
       </div>
       <br />
-
       {/* Todo 템플릿 */}
       <div className='TodoTemplate'>
         <div className='TodoInputDiv'>
-            {todoCategList.map(
+            {todoCateList.map(
               ({ cate_id, cate_name}) => (
                 <CateItem 
                   key={cate_id}
@@ -459,10 +495,7 @@ function Todo() {
             )
             }
         </div>
-        {/* {
-          isAdd ? <TodoInput onInsert={onInsert} /> : ''
-        }
-        <TodoList
+        {/* <TodoList
         todos={testList}
         onToggle={onToggle}
         onRemove={onRemove}

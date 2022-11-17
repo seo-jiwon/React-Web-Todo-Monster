@@ -1,7 +1,9 @@
 import React, { useCallback, useState, useEffect } from 'react';
 import '../css/TodoInput.css';
 
-function TodoInput({ onInsert }) {
+function TodoInput({ onInsert, cate_id }) {
+
+    const cateId = cate_id;
 
     const [value, setValue] = useState('');
 
@@ -10,7 +12,7 @@ function TodoInput({ onInsert }) {
     }, [])
 
     const onSubmit = useCallback(e => {
-        onInsert(value);
+        onInsert(value, cateId);
         setValue(''); // input의 value 값 초기화
         e.preventDefault(); // 새로고침 방지
     }, [onInsert, value])
