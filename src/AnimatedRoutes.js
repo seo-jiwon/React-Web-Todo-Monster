@@ -18,6 +18,7 @@ export default function AnimatedRoutes(authUser) {
                 <Route path="/category_add" element={<Pages.Category_Add/>} />
                 <Route path="/category_edit" element={<Pages.Category_Edit/>} />
                 <Route path="/search" element={<Pages.Search/>} />
+                <Route path="/createmonster" element={<Pages.CreateMonster/>} />
                 <Route path="/otheruser" element={<Pages.OtherUser userId={authUser}/>} />
                 <Route path="/followlist" element={<Pages.FollowList/>} />
             </Routes>

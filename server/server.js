@@ -13,6 +13,8 @@ const search = require("./Router/search");
 const isLogged = require("./Router/isLogged");
 const category = require("./Router/category");
 const follow = require("./Router/follow");
+const monster = require("./Router/monster");
+
 
 app.use("/user", user);
 app.use("/todolist", doInput);
@@ -20,6 +22,9 @@ app.use("/search", search);
 app.use("/isLogged", isLogged);
 app.use("/category", category);
 app.use("/follow", follow);
+app.use("/monster", monster);
+
+
 
 const port = 5000;
 app.listen(port, () => {

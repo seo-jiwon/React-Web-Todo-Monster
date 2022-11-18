@@ -10,6 +10,8 @@ import Category_Edit from "./Category_Edit";
 import Search from "./Search"
 import OtherUser from "./OtherUser";
 import FollowList from "./FollowList";
+import CreateMonster from "./CreateMonster";
+
 
 
 const path = {
@@ -25,6 +27,7 @@ const path = {
     Search,
     OtherUser,
     FollowList,
+    CreateMonster,
 };
 
 export default path;

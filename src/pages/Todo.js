@@ -12,7 +12,8 @@ import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
 import {motion} from 'framer-motion';
-import { DataSaverOff } from '@mui/icons-material';
+import { DataSaverOff, SafetyCheck } from '@mui/icons-material';
+import { Button } from '@mui/material';
 
 // 캘린더 디자인
 const CalendarContainer = styled.div`
@@ -140,6 +141,7 @@ function Todo() {
   const [testList, setTestList] = useState([]); // 날짜별 할 일 목록 저장할 배열
   const [cateList, setCateList] = useState([]); // 카테고리 버튼 상태 저장할 배열
   const [cateId, setCateId] = useState(""); // 클릭한 카테고리 번호
+  const [monster, setMonster] = useState([]);// 몬스터 정보
 
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
@@ -160,6 +162,21 @@ function Todo() {
   user_name = userName;
   user_email = userEmail;
   // console.log(userId); 2번
+
+  //몬스터정보 불러오기
+  useEffect(() => {
+    const data = {
+      userId : user_id
+    }
+    console.log(data);
+
+    axios.post("/monster/monsterInfo", data).then((res) => {
+      console.log("monsterInfo : ", res.data);
+      setMonster(res.data);
+    });
+
+    axios.post("/monster/")
+  },[user_id]);
 
   // 할 일 목록 불러오기
   const todolistData = useFetch('/todolist/todolist');
@@ -243,6 +260,7 @@ function Todo() {
       setSelectedTodo((selectedTodo) => null);
     }
     setInsertToggle((prev) => !prev);
+
   }, [selectedTodo]);
 
   // 할 일 수정
@@ -354,6 +372,7 @@ function Todo() {
         if (response.data.success) {
           console.log('할 일 체크 성공!');
           navigate('/');
+         
         }
       }).catch(function (error) {
         alert("할 일 체크 실패!" + error);
@@ -393,7 +412,6 @@ function Todo() {
     }
   }, []);
 
-
   cate_id = cateId;
 
   function CateItem({cate_id, cate_name}) {
@@ -426,6 +444,10 @@ function Todo() {
         )}
       </span>
     )
+  }
+
+  function createMonster() {
+    navigate("/createMonster")
   }
 
   return (
@@ -468,10 +490,16 @@ function Todo() {
       </div>
     </div>
 
+    {monster.length >0 ? 
     <div className='chaDiv'>
-      <img className='chaImgSize' src={require('../img/monster1.png')} />
-      <span>몬지몽탱이</span>
+      
+      <img className='chaImgSize' src={require("../img/dust_blue.jpg")}></img>
+      <span>{monster[0].mon_name} Lv.{monster[0].mon_level}</span>
+    </div> : 
+    <div className='chaDiv'>
+      <button onClick={()=>createMonster()}>캐릭터생성</button>
     </div>
+    }
 
     {/* 달력 div */}
     <div className='middleContentDiv'>
