@@ -3,7 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Pages from "./pages";
 import {AnimatePresence} from 'framer-motion';
 
-export default function AnimatedRoutes(authUser) {
+export default function AnimatedRoutes() {
     const location = useLocation();
     return (
         <AnimatePresence>
@@ -19,7 +19,7 @@ export default function AnimatedRoutes(authUser) {
                 <Route path="/category_edit" element={<Pages.Category_Edit/>} />
                 <Route path="/search" element={<Pages.Search/>} />
                 <Route path="/createmonster" element={<Pages.CreateMonster/>} />
-                <Route path="/otheruser" element={<Pages.OtherUser userId={authUser}/>} />
+                <Route path="/otheruser" element={<Pages.OtherUser/>} />
                 <Route path="/followlist" element={<Pages.FollowList/>} />
             </Routes>
         </AnimatePresence>

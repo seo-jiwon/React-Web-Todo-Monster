@@ -177,4 +177,15 @@ router.post("/deleteUser", (req, res) => {
   );
 });
 
+router.post("/otherUser", (req,res) => {
+  console.log(req.body);
+  database.query(
+    "SELECT user_id from user where email=?",[req.body.data],
+    (err,result) => {
+      if(err) throw err;
+      return res.send(result); 
+    }
+  )
+})
+
 module.exports = router;

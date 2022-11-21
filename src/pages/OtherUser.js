@@ -16,24 +16,27 @@ const customStyles = {
     },
 };
 
-function OtherUser(userId) {
-    //유저정보
-    const authUser = userId.userId.authUser.authUser;
-    //검색된 유저
-    const location = useLocation();
-    const otherUser = location.state.otherUser;
-
-    const navigate = useNavigate();
+function OtherUser() {
 
     const [isFollow,setIsFollow] = useState(false);
-    const [isUser, setIsUser] = useState(false);
+    let isFollowList = false;
+
+    //검색된 유저
+    const location = useLocation();
+    const userId = location.state.userId;
+    const otherUser = location.state.otherUser;
+    isFollowList = location.state.isFollowList;
+    console.log("location.state.isFollowList : ", isFollowList);
+    const navigate = useNavigate();
 
     useEffect(()=> {
+
+
         const followData = {
-            authUser : authUser,
+            userId : userId,
             otherUser : otherUser
         }
-        console.log("auth : ", authUser);
+        console.log("auth : ", userId);
         axios.post("/follow/isfollow", followData).then((res) => {
             if(res.data[0].count != 0) {
                 setIsFollow(true);
@@ -41,11 +44,11 @@ function OtherUser(userId) {
                 setIsFollow(false);
             }
         });
-    },[authUser]);
+    },[userId]);
 
-    function follow(authUser,otherUser) {
+    function follow(userId,otherUser) {
         const data = {
-            authUser : authUser,
+            userId : userId,
             otherUser : otherUser
         }
 
@@ -58,9 +61,9 @@ function OtherUser(userId) {
     }
 
 
-    function unfollow(authUser,otherUser) {
+    function unfollow(userId,otherUser) {
         const data = {
-            authUser : authUser,
+            userId : userId,
             otherUser : otherUser
         }
 
@@ -78,16 +81,20 @@ function OtherUser(userId) {
                 <button
                     id="backBtn"
                     onClick={() => {
-                        navigate("/search");
+                        {isFollowList===true ? navigate("/") : navigate("/search") }
+                        
                     }}
                 >
                     {"<"}
                 </button>
-                {isFollow ? <button className='followbtn' onClick={()=>unfollow(authUser,otherUser)}>
+
+                {userId===otherUser ? <span></span> : 
+                    <span>{isFollow ? <button className='followbtn' onClick={()=>unfollow(userId,otherUser)}>
                     언팔로우
-                </button> : <button className='followbtn' onClick={()=>follow(authUser,otherUser)}>
+                    </button> : <button className='followbtn' onClick={()=>follow(userId,otherUser)}>
                     팔로우
-                </button>}
+                    </button>}</span>
+                }
                 
             </div>
             <div className="todoContent">

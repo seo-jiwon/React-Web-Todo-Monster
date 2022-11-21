@@ -66,7 +66,7 @@ function Sidebar(user_id) {
     const data = {
       userId: userId
     }
-    axios.post("/follow/followList", data).then((res) => {
+    axios.post("/follow/followCount", data).then((res) => {
       setFollowerList(res.data.followerList[0].follower);
       setFollowingList(res.data.followingList[0].following);
     });
@@ -117,7 +117,11 @@ function Sidebar(user_id) {
       <SearchIcon
         className="searchIcon"
         onClick={() => {
-          navigate("/search");
+          navigate("/search", {
+            state: {
+              userId:userId
+            }
+          });
         }}
       />
       <input id="check-btn" type="checkbox" />
@@ -145,7 +149,13 @@ function Sidebar(user_id) {
         <div
           className="sidebarFollowDiv"
           onClick={() => {
-            navigate("/");
+            navigate("/followList", {
+              state : {
+                userId : userId,
+                followerList : followerList,
+                followingList : followingList,
+              }
+            });
           }}
         >
           <span>{followerList} 팔로워 </span>

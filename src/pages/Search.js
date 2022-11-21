@@ -2,43 +2,69 @@ import { TextField, Box, ListItem, ListItemText, List } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import InputAdornment from '@mui/material/InputAdornment'; 
 import React, { useEffect, useState } from 'react'
-import { useNavigate} from 'react-router-dom';
+import { useNavigate,useLocation} from 'react-router-dom';
 import "../css/Search.css";
 import axios from 'axios';
 import {motion} from 'framer-motion';
 
-
 export default function Search() {
    
     const navigate = useNavigate();
+    const [userId,setUserId] = useState("");
     const [search, setSearch] = useState("");
     const [searchAll, setSearchAll] = useState([]);
+    const [searchFilter, setSearchFilter] = useState([]);
     const [todos,setTodos] = useState([]);
-
+ 
     const onChange = (e) => {
         setSearch(e.target.value);
     };
 
+    var a=[];
+
     useEffect(() => {
+
+        axios.get("/isLogged/isLogged").then((res) => {
+            var userData = res.data.user[0];
+            if (res.status) {
+              setUserId(userData.user_id);
+            }
+          });
+
         axios.get("/search/search").then((res) => {
-            const newArray = [...new Set(res.data.map(JSON.stringify))].map(JSON.parse);
-            setSearchAll(newArray) 
-         });
+            res.data.map((data)=> {
+                if(data.do_content != null) {
+                    a.push(data);
+                    setSearchAll(a);
+                }  
+            });
+            const searchFilter = searchAll.map(function (val, index) {
+               return val['email'];
+           }).filter(function (val, index, arr) {
+               return arr.indexOf(val) === index;
+           });
+           setSearchFilter(searchFilter);
+        });
 
          axios.get("/search/todos").then((res) => {
             setTodos(res.data);
          });
 
-    }, []);
-
+    }, [searchAll.length]);
 
     function moveOtherUser(data) {
-        navigate("/OtherUser", {
-             state: {
-                otherUser : data
-            }
-        })
-    }
+        const userData = {
+            data : data
+        }
+        axios.post("/user/otherUser", userData).then((res) => {
+            navigate("/OtherUser", {
+                state: {
+                    userId : userId,
+                    otherUser : res.data[0].user_id
+                }
+            })
+        });
+    };
 
     return (
         <motion.div className='search-list'
@@ -67,10 +93,10 @@ export default function Search() {
                     }}
                 />
                 <React.Fragment>
-                    {searchAll.filter((data) => {
+                    {searchFilter.filter((data) => {
                         if (search === "") {
                             return data
-                        } else if (data.email.toLowerCase().includes(search.toLowerCase())) {
+                        } else if (data.toLowerCase().includes(search.toLowerCase())) {
                             return data
                         }
                     }).map((data, key) => {
@@ -79,14 +105,14 @@ export default function Search() {
                                 <List>
                                     <ListItem>
                                         <img className='search-img' src={require('../img/profile1.jpeg')} />
-                                        <ListItemText primary={data.email} onClick={() => moveOtherUser(data.user_id)} />
+                                        <ListItemText primary={data} onClick={() => moveOtherUser(data)} />
                                     </ListItem>
                                     {todos.map((todo, key) => {
-                                        if (data.user_id === todo.user_id) {
+                                        if (data === todo.email) {
                                             return (
                                                 <ListItem key={key}>
                                                     <ListItemText primary={todo.do_content} />
-                                                </ListItem>
+                                                </ListItem>  
                                             )
                                         }
                                     })}

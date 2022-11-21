@@ -1,8 +1,24 @@
-import { React } from "react";
-import { useNavigate } from "react-router-dom";
+import { React,useEffect,useState } from "react";
+import { useNavigate , useLocation } from "react-router-dom";
+import ListTab from './ListTab';
+import axios from "axios";
 
 function FollowList() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const follow = location.state;
+
+  const [userId, setUserId] = useState('');
+
+
+  useEffect(() => {
+    axios.get("/isLogged/isLogged").then((res) => {
+      var userData = res.data.user[0];
+      if (res.status) {
+        setUserId(userData.user_id);
+      }
+    });
+  },[userId]);
 
   return (
     <div id="container">
@@ -16,16 +32,8 @@ function FollowList() {
           {"<"}
         </button>
         <div id="pageTitle">팔로우</div>
-        <button
-          id="addBtn"
-          onClick={() => {
-            navigate("/search");
-          }}
-        >
-          {"+"}
-        </button>
       </div>
-
+      <ListTab follow={follow}/>
     </div>
   );
 }
