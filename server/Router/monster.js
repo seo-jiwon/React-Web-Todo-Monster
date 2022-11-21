@@ -31,4 +31,18 @@ router.post("/monsterInfo", (req,res) => {
   )
 });
 
+router.post("/monsterLv", (req,res) => {
+  console.log("req.body : ", req.body);
+  database.query(
+    " select count(*) count from todolist where user_id = ? and do_isDone=true", [req.body.userId],
+    (err,result) => {
+      if(err) throw err;
+      return res.send(result), console.log("result : ", result);
+    }
+
+  )
+});
+
+
+
 module.exports = router;

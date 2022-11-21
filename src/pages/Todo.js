@@ -142,6 +142,7 @@ function Todo() {
   const [cateList, setCateList] = useState([]); // 카테고리 버튼 상태 저장할 배열
   const [cateId, setCateId] = useState(""); // 클릭한 카테고리 번호
   const [monster, setMonster] = useState([]);// 몬스터 정보
+  const [monsterLv, setMonsterLv] = useState('');//몬스터레벨
 
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
@@ -171,11 +172,12 @@ function Todo() {
     console.log(data);
 
     axios.post("/monster/monsterInfo", data).then((res) => {
-      console.log("monsterInfo : ", res.data);
       setMonster(res.data);
     });
 
-    axios.post("/monster/")
+    axios.post("/monster/monsterLv", data).then((res) => {
+      setMonsterLv(res.data[0].count);
+    })
   },[user_id]);
 
   // 할 일 목록 불러오기
@@ -492,8 +494,7 @@ function Todo() {
 
     {monster.length >0 ? 
     <div className='chaDiv'>
-      
-      <img className='chaImgSize' src={require("../img/dust_blue.jpg")}></img>
+      {monsterLv <1 ? <img className='chaImgSize' src={require("../img/dust_blue_1.jpg")}></img> : monsterLv <2 ? <img className='chaImgSize' src={require("../img/dust_blue_2.jpg")}></img>: <img className='chaImgSize' src={require("../img/dust_blue.jpg")}></img>  }
       <span>{monster[0].mon_name} Lv.{monster[0].mon_level}</span>
     </div> : 
     <div className='chaDiv'>
