@@ -26,7 +26,7 @@ function OtherUser() {
     const userId = location.state.userId;
     const otherUser = location.state.otherUser;
     isFollowList = location.state.isFollowList;
-    console.log("location.state.isFollowList : ", isFollowList);
+
     const navigate = useNavigate();
 
     useEffect(()=> {
@@ -36,7 +36,7 @@ function OtherUser() {
             userId : userId,
             otherUser : otherUser
         }
-        console.log("auth : ", userId);
+
         axios.post("/follow/isfollow", followData).then((res) => {
             if(res.data[0].count != 0) {
                 setIsFollow(true);

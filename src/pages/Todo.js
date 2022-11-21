@@ -169,7 +169,7 @@ function Todo() {
     const data = {
       userId : user_id
     }
-    console.log(data);
+
 
     axios.post("/monster/monsterInfo", data).then((res) => {
       setMonster(res.data);

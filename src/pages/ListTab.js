@@ -28,7 +28,7 @@ export default function LabTabs(follow) {
     const data = {
       userId:userId
     }
-    console.log(" data : ", data);
+    
     axios.post("/follow/followingList" , data).then((res) => {
       setFollowingList(res.data);
     });
