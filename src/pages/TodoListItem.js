@@ -39,7 +39,7 @@ function TodoListItem({ cateId, todo, onRemove, onToggle, onChangeSelectedTodo, 
     <div>
 
       {
-        cateID == cate_id ?
+        cateID === cate_id ?
           <li className="TodoListItem">
             <div
               className={cn('checkbox', { checked: do_isDone })}

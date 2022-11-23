@@ -6,9 +6,6 @@
 .header {
     width: 100%;
     text-align: right;
-    margin-bottom: 5%;
-    margin-top: 20%;
-    /* background-color: pink; */
 }
 
 .leftContentDiv {
@@ -17,29 +14,36 @@
 }
 
 .followListDiv {
-    height: 80px;
-    /* background-color: bisque; */
+    height: 60px;
+    /* height: 70%; */
+    /* border-bottom: 1px solid #EAEAEA; */
 }
 
 .followListBtnDiv {
     margin-right: 3%;
     float: left;
+    width: 20%;
+    height: 100%;
 }
 
 .profileDiv {
-    height: 80px;
-    /* background-color: beige; */
+    height: 60px;
 }
 
 .profileImgDiv {
+    width: 30%;
     height: 100%;
-    float: left;
+}
+
+.profileNameDiv {
+    float: right;
+    width: 70%;
+    margin-top: 10%;
+    font-weight: bold;
 }
 
 .chaDiv {
-    height: 160px;
-    /* background-color: pink; */
-
+    height: 120px;
 }
 
 .middleContentDiv {
@@ -48,17 +52,18 @@
 }
 
 .followListDetailBtn {
-    width: 95%;
-    height: 35px;
+    width: 100%;
+    height: 65%;
     border-radius: 50%;
     background-color: #EAEAEA;
     border: 0;
 }
 
 .followListImgSize {
-    width: 95%;
-    height: 35px;
+    width: 100%;
+    height: 65%;
     border-radius: 50%;
+    border: 1px solid #EAEAEA;
 }
 
 .chaImgSize {
@@ -67,34 +72,23 @@
 }
 
 .profileImgSize {
-    width: 95%;
-    height: 55%;
+    width: 85%;
+    height: 85%;
+    border: 1px solid #EAEAEA;
     border-radius: 50%;
-    margin-top: 50%;
+    margin-top: 5%;
 }
 
-.followListBtnDiv p {
-    margin-top: 1%;
-    margin-left: 15%;
+.followListNameDiv {
     font-size: 11px;
     color: grey;
+    text-align: center;
 }
 
 .chaDiv span {
     font-size: 15px;
-    /* color: aquamarine;
-    background-color: black; */
     margin-left: 11%;
     color: pink;
-}
-
-.profileDiv span {
-    font-weight: bold;
-    font-size: 17px;
-    margin-left: 5%;
-    height: 80px;
-    vertical-align: middle;
-    display:table-cell;
 }
 
 .middleContentDiv input {

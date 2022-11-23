@@ -131,19 +131,22 @@ function Sidebar(user_id) {
 
       <div className="sidebar">
         <div
-          id="profileDiv"
+          id="sidebarUserInfoDiv"
           onClick={() => {
             navigate("/profile");
           }}
         >
-          <div className="profileImgDiv">
+          <div className="userInfoLeftDiv">
             <img
-              className="profileImgSize"
-              src={require("../img/profile1.jpeg")}
-            />
+            className="sidebarProfileImg"
+            src={require("../img/profile1.jpeg")}
+          />
           </div>
-          <div id="sidebarName">{userName}</div>
-          <div id="sidebarEmail">{userEamil}</div>
+
+          <div className="userInfoRightDiv">
+            <div id="sidebarName">{userName}</div>
+            <div id="sidebarEmail">{userEamil}</div>
+          </div>
         </div>
 
         <div

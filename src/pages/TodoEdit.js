@@ -1,6 +1,4 @@
 import { useCallback, useEffect, useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
 import '../css/TodoEdit.css';
 
 function TodoEdit({ selectedTodo, onUpdate }) {
