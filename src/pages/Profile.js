@@ -3,10 +3,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { HiCamera } from "react-icons/hi";
 import "../css/Profile.css";
+import jquery from 'jquery';
+import $ from 'jquery';
 
 function Profile() {
   const navigate = useNavigate();
 
+  const M = window.M;
+  window.$ = window.jquery = jquery;
+
+  
   //입력 값
   const [name, setName] = useState("");
   //유저 아이디
@@ -58,6 +64,44 @@ function Profile() {
         alert("프로필 에러: " + error);
       });
   }, []);
+
+  (function () {
+    $(function () {
+      var API_SERVER_URL = "http://172.30.26.241:5000";
+      $("#cameraIcon").on("click", function () {
+        M.media.picker({
+          mode: "SINGLE",
+          media: "PHOTO",
+          //
+          // path: "/media", // 안넘기는 경우 공통 라이브러리 앨범을 바라본다.
+          column: 3,
+          callback: function (status, result) {
+            if (status === "SUCCESS") {
+              var filePath = result.path;
+              M.net.http.upload({
+                url: API_SERVER_URL + "/file/upload",
+                header: {},
+                params: {},
+                body: [{ name: "file", content: filePath, type: "FILE" }],
+                encoding: "UTF-8",
+                finish: function (status, header, body, setting) {
+                  if (status == 200) {
+                    var resBody = JSON.parse(body);
+                    var imgSrc = API_SERVER_URL + resBody.path;
+                    $("img").attr("src", imgSrc);
+                  }
+                  console.log(status, header, body);
+                },
+                progress: function (total, current) {
+                  console.log(total, current);
+                },
+              });
+            }
+          },
+        });
+      });
+    });
+  })();
 
   return (
     <div id="container">

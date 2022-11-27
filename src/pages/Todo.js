@@ -12,8 +12,8 @@ import Calendar from 'react-calendar';
 // import 'react-calendar/dist/Calendar.css';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { DataSaverOff, Diversity1, SafetyCheck } from '@mui/icons-material';
 import { Button } from '@mui/material';
+import FileCopyIcon from '@mui/icons-material/FileCopy';
 
 // 캘린더 디자인
 const CalendarContainer = styled.div`
@@ -418,7 +418,7 @@ function Todo() {
     return (
       <span>
         <button className='todoCateBtn' onClick={() => { handleDoAdd(cate_id, todoCateList) }}>
-          <p name={cate_id}>{cate_name} +</p>
+          <p name={cate_id}><FileCopyIcon fontSize="small"/>{cate_name} +</p>
         </button>
 
         {

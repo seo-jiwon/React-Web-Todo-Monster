@@ -12,3 +12,19 @@
     overflow: scroll;
     margin-top: -20%;
 }
+
+/* .cate_name {
+    font-size: 10px;
+    border-width: 0;
+    border-radius: 10%;
+    background-color: white;
+    border: 1px solid black;
+    box-shadow: 0 17px 20px -18px rgba(0, 0, 0, 1);
+    color: black;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin-right: 3%;
+} */
+.cate_name {
+    width : 50%
+}

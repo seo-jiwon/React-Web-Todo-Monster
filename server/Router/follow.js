@@ -86,9 +86,29 @@ router.post("/followerList", (req,res) => {
         (err, result) => {
             if (err) throw err;
             //등록완료되면 success 1 반환
-            return res.send(result), console.log("result : ", result);
+            return res.send(result);
           }
     );
+});
+
+router.post("/followData", (req,res) => {
+    database.query(
+        "select * from todolist t left join (select c.cate_id,c.user_id,c.cate_name,cate_privacy,u.name from category c left join user u on c.user_id=u.user_id) c on t.cate_id=c.cate_id where t.user_id= ? ",[req.body.otherUser],
+        (err,result) => {
+            if(err) throw err;
+            return res.send(result);
+        }
+    )
+});
+
+router.post("/User", (req,res) => {
+    database.query(
+        "select name,profile_img from user where user_id=?", [req.body.otherUser],
+        (err,result) => {
+            if(err) throw err;
+            return res.send(result);
+        }
+    )
 });
 
 module.exports = router;
