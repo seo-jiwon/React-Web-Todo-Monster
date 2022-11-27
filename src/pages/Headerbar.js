@@ -23,6 +23,7 @@ function Sidebar(user_id) {
   const userId = user_id.user_id;
   const userName = user_id.user_name;
   const userEamil = user_id.user_email;
+  const userImg = user_id.user_img;
   //모달
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [followingList, setFollowingList] = useState('');
@@ -137,12 +138,11 @@ function Sidebar(user_id) {
           }}
         >
           <div className="userInfoLeftDiv">
-            <img
-            className="sidebarProfileImg"
-            src={require("../img/profile1.jpeg")}
-          />
+          {userImg === null ? 
+            <img className='sidebarProfileImg' src={require('../img/profile1.jpeg')}/> :
+             userImg === '' ? 
+              <img className='sidebarProfileImg' src={require('../img/profile1.jpeg')}/> : <img className='sidebarProfileImg' src={userImg}/>}
           </div>
-
           <div className="userInfoRightDiv">
             <div id="sidebarName">{userName}</div>
             <div id="sidebarEmail">{userEamil}</div>

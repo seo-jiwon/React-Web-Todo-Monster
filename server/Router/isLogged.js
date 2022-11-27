@@ -14,7 +14,7 @@ router.get("/isLogged", (req,res) => {
     if(user == null) return res.send({ success:0 })
 
     //user 검증 후 유저의 id값을 검색해서 id 반환
-    database.query('SELECT user_id, email, name FROM user WHERE user_id =?', [user.id], (err,result) => {
+    database.query('SELECT user_id, email, name, profile_img FROM user WHERE user_id =?', [user.id], (err,result) => {
         if(err) throw err
         console.log("로그인 유저: ", result)
         return res.send({success:1, user: result})

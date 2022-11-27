@@ -86,10 +86,10 @@ router.post("/signin", (req, res) => {
 
 //프로필
 router.post("/profile", (req, res) => {
-  const { name, userId } = req.body;
+  const { name, img, userId  } = req.body;
   database.query(
-    "UPDATE user SET name = ? WHERE user_id = ?",
-    [name, userId],
+    "UPDATE user SET name = ? , profile_img = ? WHERE user_id = ?",
+    [name,img, userId],
     function (err, result) {
       if (err) {
         console.log(err);

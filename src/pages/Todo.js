@@ -143,6 +143,7 @@ function Todo() {
   const [cateId, setCateId] = useState(""); // 클릭한 카테고리 번호
   const [monster, setMonster] = useState([]);// 몬스터 정보
   const [monsterLv, setMonsterLv] = useState('');//몬스터레벨
+  const [userImg, setUserImg] = useState("");// 유저 이미지 
 
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
@@ -155,6 +156,7 @@ function Todo() {
         setUserId(userData.user_id);
         setUserName(userData.name);
         setUserEmail(userData.email);
+        setUserImg(userData.profile_img);
       }
     });
   }, []);
@@ -418,7 +420,7 @@ function Todo() {
     return (
       <span>
         <button className='todoCateBtn' onClick={() => { handleDoAdd(cate_id, todoCateList) }}>
-          <p name={cate_id}><FileCopyIcon fontSize="small"/>{cate_name} +</p>
+          <p name={cate_id}>{cate_name} +</p>
         </button>
 
         {
@@ -449,6 +451,7 @@ function Todo() {
     navigate("/createMonster")
   }
 
+  console.log(userImg);
   return (
     <motion.div className="todoContent"
       initial={{ x: window.innerWidth }}
@@ -456,7 +459,7 @@ function Todo() {
       transition={{ duration: 0.5 }}
     >
       <div className="header">
-        <Headerbar user_id={user_id} user_name={user_name} user_email={user_email} />
+        <Headerbar user_id={user_id} user_name={user_name} user_email={user_email} user_img={userImg} />
       </div>
 
       <div className="leftContentDiv">
@@ -486,10 +489,9 @@ function Todo() {
           </div>
           <div className='profileImgDiv'>
             {/* test */}
-            <img className='profileImgSize' src={require('../img/profile1.jpeg')} />
+            {userImg === null ? <img className='profileImgSize' src={require('../img/profile1.jpeg')}/> : userImg === '' ? <img className='profileImgSize' src={require('../img/profile1.jpeg')}/> : <img className='profileImgSize' src={userImg}/>}
+            
           </div>
- 
-
           {/* <div className='profileImgDiv'>
             test
             <img className='profileImgSize' src={require('../img/profile1.jpeg')} />

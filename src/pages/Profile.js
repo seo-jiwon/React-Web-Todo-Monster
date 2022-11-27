@@ -18,8 +18,10 @@ function Profile() {
   //유저 아이디
   const [userId, setUserId] = useState("");
 
+  const [userImg, setUserImg] = useState('');
   //입력 칸 공백 검사
   const [isName, setIsName] = useState(false);
+  const [profileImg, setProfileImg] = useState("");
 
   //입력 칸 공백 검사
   const checkName = (e) => {
@@ -40,6 +42,7 @@ function Profile() {
       if (res.status) {
         setUserId(userData.user_id);
         setName(userData.name);
+        setUserImg(userData.profile_img);
       }
     });
   }, []);
@@ -51,6 +54,7 @@ function Profile() {
     const data = {
       name: e.target.name.value,
       userId: e.target.userId.value,
+      img: e.target.img.value
     };
 
     axios
@@ -65,48 +69,37 @@ function Profile() {
       });
   }, []);
 
-  (function () {
-    $(function () {
-      var API_SERVER_URL = "http://172.30.26.241:5000";
-      $("#cameraIcon").on("click", function () {
-        M.media.picker({
-          mode: "SINGLE",
-          media: "PHOTO",
-          //
-          // path: "/media", // 안넘기는 경우 공통 라이브러리 앨범을 바라본다.
-          column: 3,
-          callback: function (status, result) {
-            if (status === "SUCCESS") {
-              var filePath = result.path;
-              M.net.http.upload({
-                url: API_SERVER_URL + "/file/upload",
-                header: {},
-                params: {},
-                body: [{ name: "file", content: filePath, type: "FILE" }],
-                encoding: "UTF-8",
-                finish: function (status, header, body, setting) {
-                  if (status == 200) {
-                    var resBody = JSON.parse(body);
-                    var imgSrc = API_SERVER_URL + resBody.path;
-                    $("img").attr("src", imgSrc);
-                  }
-                  console.log(status, header, body);
-                },
-                progress: function (total, current) {
-                  console.log(total, current);
-                },
-              });
-            }
-          },
-        });
-      });
-    });
-  })();
+  function camera() {
+    var API_SERVER_URL = "http://172.30.1.63:5000";
+      M.media.picker({
+        mode:"SINGLE",
+        media:"PHOTO",
+        column:3,
+        callback:function (status, result) {
+          if (status === "SUCCESS") {
+            var filePath = result.path;
+            M.net.http.upload({
+              url: API_SERVER_URL + "/file/upload",
+              header: {},
+              params: {},
+              body: [{ name: "file", content: filePath, type: "FILE" }],
+              encoding: "UTF-8",
+              finish: function (status, header, body, setting) {
+                if (status == 200) {
+                  var resBody = JSON.parse(body);
+                  var imgSrc = API_SERVER_URL + resBody.path;
+                  $("img").attr("src", imgSrc);
+                  setProfileImg(imgSrc);
+                }}
+            })}}
+        })
+  }
 
   return (
     <div id="container">
       <form onSubmit={ProfileForm}>
         <input name="userId" value={userId} type="hidden"/>
+        <input name="img" value={profileImg} type="hidden" />
         <div id="AppBar">
           <button
             id="backBtn"
@@ -123,8 +116,8 @@ function Profile() {
         </div>
 
         <div id="profileImgContainer">
-          <img id="profileImg" src={require("../img/dust_pink.jpg")}></img>
-          <HiCamera id="cameraIcon" />
+         {userImg === null ? <img id="profileImg" src={require('../img/profile1.jpeg')}/> : userImg === '' ? <img id="profileImg" src={require('../img/profile1.jpeg')}/> : <img id="profileImg" src={userImg}/>}
+          <HiCamera id="cameraIcon" onClick={camera}/>
         </div>
 
         <div id="p_inputForm">
