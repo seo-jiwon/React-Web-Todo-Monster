@@ -70,7 +70,7 @@ function Profile() {
   }, []);
 
   function camera() {
-    var API_SERVER_URL = "http://172.30.1.63:5000";
+    var API_SERVER_URL = "http://localhost:5000";
       M.media.picker({
         mode:"SINGLE",
         media:"PHOTO",
@@ -116,7 +116,7 @@ function Profile() {
         </div>
 
         <div id="profileImgContainer">
-         {userImg === null ? <img id="profileImg" src={require('../img/profile1.jpeg')}/> : userImg === '' ? <img id="profileImg" src={require('../img/profile1.jpeg')}/> : <img id="profileImg" src={userImg}/>}
+          {userImg === null ? <img id="profileImg" src={require('../img/profile1.jpeg')}/> : userImg === '' ? <img id="profileImg" src={require('../img/profile1.jpeg')}/> : <img id="profileImg" src={userImg}/>}
           <HiCamera id="cameraIcon" onClick={camera}/>
         </div>
 
