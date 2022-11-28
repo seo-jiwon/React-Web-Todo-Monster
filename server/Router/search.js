@@ -14,7 +14,7 @@ router.get('/search', (req,res) => {
 });
 
 router.get('/todos', (req,res) => {
-    database.query('SELECT * FROM (SELECT *, RANK() OVER (PARTITION BY todo.user_id order by todo.do_id desc) AS a FROM (select u.email, t.do_id,t.cate_id,t.user_id,t.do_content,t.do_isDone,t.do_date from user u left join (select t.do_id,t.cate_id,t.user_id,t.do_content,t.do_isDone,t.do_date from todolist t left join category c on t.cate_id = c.cate_id where c.cate_privacy="전체공개") t on t.user_id=u.user_id) as todo) AS rankrow WHERE rankrow.a <=5',
+    database.query('SELECT * FROM (SELECT *, RANK() OVER (PARTITION BY todo.user_id order by todo.do_id desc) AS a FROM (select u.email, u.profile_img, t.do_id,t.cate_id,t.user_id,t.do_content,t.do_isDone,t.do_date from user u left join (select t.do_id,t.cate_id,t.user_id,t.do_content,t.do_isDone,t.do_date from todolist t left join category c on t.cate_id = c.cate_id where c.cate_privacy="전체공개") t on t.user_id=u.user_id) as todo) AS rankrow WHERE rankrow.a <=5',
     (err, result) => {
         if(err) res.send(err);
         else{

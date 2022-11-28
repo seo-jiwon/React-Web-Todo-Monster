@@ -127,6 +127,7 @@ function OtherUser() {
     const location = useLocation();
     const userId = location.state.userId;
     const otherUser = location.state.otherUser;
+    const userImg = location.state.profileImg;
     isFollowList = location.state.isFollowList;
 
     const navigate = useNavigate();
@@ -227,7 +228,7 @@ function OtherUser() {
                 <div className="leftContentDiv">
                     <div className='profileDiv'>
                         <div className='profileImgDiv'>
-                            <img className='profileImgSize' src={require('../img/profile3.jpeg')} />
+                        <img className='profileImgSize' src={require('../img/profile1.jpeg')} />
                         </div>
                         <span>{user.name}</span>
                     </div>
@@ -242,7 +243,8 @@ function OtherUser() {
                 <OtherTodoList
                   followData={followData}
                   cateName={cateName}
-                  clickDate={clickDate}/>
+                  clickDate={clickDate}
+                  isFollow={isFollow}/>
             </div>
         </div>
     )

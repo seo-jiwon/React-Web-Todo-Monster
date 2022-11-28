@@ -11,7 +11,7 @@ import '../css/OtherUser.css';
 import { ListItem, ListItemText, List } from '@mui/material';
 import moment from 'moment';
 
-export default function OtherTodoList({followData,cateName,clickDate}) {
+export default function OtherTodoList({followData,cateName,clickDate,isFollow}) {
 
 
   return (
@@ -26,9 +26,10 @@ export default function OtherTodoList({followData,cateName,clickDate}) {
             <Typography><span><FileCopyIcon fontSize="small"/>{data}</span></Typography>
             </AccordionSummary>
             <AccordionDetails>
-            {followData.map((todo, key) => {
+                {followData.map((todo, key) => {
                   const dbDate = moment(todo.do_date).format("YYYY-MM-DD");
-                  if(clickDate===dbDate && data===todo.cate_name) {
+                  
+                  if(clickDate===dbDate && data===todo.cate_name && isFollow ===true) {
                     return(
                       <List key={key}>
                         <ListItem>
@@ -36,8 +37,22 @@ export default function OtherTodoList({followData,cateName,clickDate}) {
                         </ListItem>
                       </List>
                     )
+                  } else if (clickDate===dbDate && data===todo.cate_name && isFollow === false) {
+                    if(todo.cate_privacy === '전체공개') {
+                      return (
+                        <List key={key}>
+                          <ListItem>
+                            {todo.do_isDone > 0 ? <CheckBoxIcon /> : <CheckBoxOutlineBlankIcon />}<ListItemText primary={todo.do_content}/>
+                          </ListItem>
+                        </List>
+                      )
+                    }
+
+                    
                   }
-                })}
+                
+                })} 
+            
             </AccordionDetails>
           </Accordion>
         )
