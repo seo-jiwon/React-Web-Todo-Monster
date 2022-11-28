@@ -30,6 +30,7 @@ export default function OtherTodoList({followData,cateName,clickDate,isFollow}) 
                   const dbDate = moment(todo.do_date).format("YYYY-MM-DD");
                   
                   if(clickDate===dbDate && data===todo.cate_name && isFollow ===true) {
+                    if(todo.cate_privacy != '나만보기')
                     return(
                       <List key={key}>
                         <ListItem>
