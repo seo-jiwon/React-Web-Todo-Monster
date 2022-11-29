@@ -20,10 +20,10 @@ const CalendarContainer = styled.div`
   /* 전체 */
   .react-calendar {
     margin: auto;
-    background-color: #FAF3FF;
+    background-color: white;
     padding: 3%;
     border-radius: 3px;
-    border: 2px solid #F6E9FF;
+    border: 0px solid #F6E9FF;
   }
 
   /* 년 월 헤더바 */
@@ -48,7 +48,7 @@ const CalendarContainer = styled.div`
   /* 날짜 버튼 */
   button {
     margin: 3px;
-    background-color: white;
+    background-color: #FAF3FF;
     border: 0;
     border-radius: 3px;
     color: black;
@@ -57,7 +57,7 @@ const CalendarContainer = styled.div`
 
   /* 클릭 시 유지되는 색상 */
   button:enabled:hover {
-    background-color: #A92DFF;
+    background-color: rgb(139, 105, 168);
     color: white;
   }
 
@@ -80,9 +80,16 @@ const CalendarContainer = styled.div`
     color: black;
   }
 
+  /* 날짜 타일 */
+  .react-calendar__tile {
+    border-radius: 50%;
+    width: 60%;
+    margin-left: 10px;
+  }
+
   /* 오늘 날짜 */
   .react-calendar__tile--now {
-    background: #FFA8DC;
+    background: rgb(139, 105, 168);
     color: white;
   }
 
@@ -99,23 +106,12 @@ const CalendarContainer = styled.div`
 
     /* 각 요일별 크기에 맞게 사이즈 조절 */
     grid-template-columns: 14.2% 14.2% 14.2% 14.2% 14.2% 14.2% 14.2%; 
-    
-    /* 클릭된 버튼 그림자 */
-    .react-calendar__tile--range {
-      box-shadow: 1px 1px 5px 0px #878787;
-    }
   }
   
   /* 해당 달 외 다른 달 */
   .react-calendar__month-view__days__day--neighboringMonth {
     opacity: 0.5;
   }
-
-  /* 주말 글씨 색상 */
-  .react-calendar__month-view__days__day--weekend {
-    color: #dfdfdf;
-  }
-
 `;
 
 
@@ -420,7 +416,7 @@ function Todo() {
     return (
       <span>
         <button className='todoCateBtn' onClick={() => { handleDoAdd(cate_id, todoCateList) }}>
-          <p name={cate_id}>{cate_name} +</p>
+          {cate_name} +
         </button>
 
         {
