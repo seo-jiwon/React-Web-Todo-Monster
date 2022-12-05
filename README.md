@@ -30,9 +30,7 @@ $ node server.js
 <br/>
 
 ## 개발 환경
-- Visual Studio Code
-- Android Studio
-- MySQL Workbench
+<img src="https://img.shields.io/badge/Visual Studio Code-007ACC??style=flat-square&logo=Visual Studio Code&logoColor=white"/> <img src="https://img.shields.io/badge/Android Studio-3DDC84??style=flat-square&logo=Android Studio&logoColor=white"/> <img src="https://img.shields.io/badge/Postman-FF6C37??style=flat-square&logo=Postman&logoColor=white"/>
 <br/>
 <br/>
 
