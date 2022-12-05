@@ -497,7 +497,8 @@ function Todo() {
           <span>{monster[0].mon_name} Lv.{monster[0].mon_level}</span>
         </div> :
         <div className='chaDiv'>
-          <Button onClick={() => createMonster()}>캐릭터생성</Button>
+          <button className='chaCreateBtn' onClick={() => createMonster()}>캐릭터생성</button>
+          {/* <Button onClick={() => createMonster()} color="secondary" variant="outlined">캐릭터생성</Button> */}
         </div>
       }
 
