@@ -505,7 +505,7 @@ function Todo() {
       <div className='middleContentDiv'>
         <div className='calendarDiv'>
           <CalendarContainer>
-            <Calendar onChange={setCalendarValue} value={calendarValue} />
+            <Calendar onChange={setCalendarValue} value={calendarValue} formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})} />
           </CalendarContainer>
         </div>
 
