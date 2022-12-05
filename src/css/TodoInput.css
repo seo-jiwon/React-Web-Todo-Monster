@@ -1,7 +1,7 @@
 .todoInput {
     width: 77%;
     margin-right: 4%;
-    font-size: 19px;
+    font-size: 17px;
     border-top: 0;
     border-left: 0;
     border-right: 0;
@@ -11,7 +11,7 @@
 .todoAddBtn {
     font-size: 17px;
     border-width: 0;
-    border-radius: 10%;
+    border-radius: 5%;
     height: 15%;
     padding: 2%;
     background-color: rgb(139, 105, 168);

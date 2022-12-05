@@ -175,7 +175,7 @@ function Todo() {
     axios.post("/monster/monsterLv", data).then((res) => {
       setMonsterLv(res.data[0].count);
     })
-  }, [user_id]);
+  }, [user_id, todos]);
 
   // 할 일 목록 불러오기 todolistData 선언
   const todolistData = useFetch('/todolist/todolist');
@@ -485,17 +485,9 @@ function Todo() {
             {user_name}
           </div>
           <div className='profileImgDiv'>
-            {/* test */}
             {userImg === null ? <img className='profileImgSize' src={require('../img/profile1.jpeg')}/> : userImg === '' ? <img className='profileImgSize' src={require('../img/profile1.jpeg')}/> : <img className='profileImgSize' src={userImg}/>}
             
           </div>
-          {/* <div className='profileImgDiv'>
-            test
-            <img className='profileImgSize' src={require('../img/profile1.jpeg')} />
-          </div>
-          <div className="profileNameDiv">
-            {user_name}
-          </div> */}
         </div>
       </div>
 
