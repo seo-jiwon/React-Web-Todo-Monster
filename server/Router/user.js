@@ -164,7 +164,7 @@ router.post("/passwordchange", async (req, res) => {
 router.post("/deleteUser", (req, res) => {
   const { userId } = req.body;
   database.query(
-    "DELETE FROM user WHERE user_id = ?", [userId],
+    "SET foreign_key_checks = 0; DELETE FROM user WHERE user_id = ?", [userId],
     function (err, result) {
       if (err) {
         console.log(err);
