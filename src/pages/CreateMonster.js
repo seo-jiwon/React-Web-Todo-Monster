@@ -32,7 +32,7 @@ function Profile() {
       var userData = res.data.user[0];
       if (res.status) {
         setUserId(userData.user_id);
-        setMonName(userData.name);
+        // setMonName(userData.name);
       }
     });
   }, []);

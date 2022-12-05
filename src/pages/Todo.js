@@ -480,7 +480,7 @@ function Todo() {
           </div>
         </div>
 
-        <div className='profileDiv'>
+        <div className='profileDiv' onClick={() => navigate('/profile')}>
           <div className='profileNameDiv'>
             {user_name}
           </div>

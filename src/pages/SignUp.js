@@ -59,6 +59,7 @@ function SignUp() {
     const data = {
       email: e.target.email.value,
       password: e.target.password.value,
+      name: 'Me',
     };
 
     axios

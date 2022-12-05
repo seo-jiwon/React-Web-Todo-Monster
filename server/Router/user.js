@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 
 //회원가입 및 최초 카테고리 생성
 router.post("/signup", async (req, res) => {
-  const { email, password: pass } = req.body;
+  const { email, password: pass, name } = req.body;
   database.query(
     //이메일 검사
     "SELECT email FROM user WHERE email = ?",
@@ -21,7 +21,7 @@ router.post("/signup", async (req, res) => {
       //등록
       database.query(
         "INSERT INTO user SET ?",
-        { email, password },
+        { email, password, name },
         (err, result) => {
           if (err) throw err;
           //등록완료되면 success 1 반환
