@@ -139,7 +139,7 @@ function Todo() {
   const [cateId, setCateId] = useState(""); // 클릭한 카테고리 번호
   const [monster, setMonster] = useState([]);// 몬스터 정보
   const [monsterLv, setMonsterLv] = useState('');//몬스터레벨
-  const [userImg, setUserImg] = useState("");// 유저 이미지 
+  const [userImg, setUserImg] = useState("");// 유저 이미지
 
   const navigate = useNavigate();
   clickDate = moment(calendarValue).format("YYYY-MM-DD"); // 캘린더 클릭한 날짜 한국 시간대
@@ -177,26 +177,8 @@ function Todo() {
     })
   }, [user_id]);
 
-  // 할 일 목록 불러오기
+  // 할 일 목록 불러오기 todolistData 선언
   const todolistData = useFetch('/todolist/todolist');
-  function useFetch(url) {
-    const [data, setData] = useState([]);
-
-    // json 형식
-    async function fetchUrl() {
-      const response = await fetch(url);
-      const json = await response.json();
-      setData(json);
-    }
-
-    useEffect(() => {
-      // setInterval(()=> {fetchUrl()}, 10);
-      fetchUrl();
-
-    }, [url]);
-
-    return data;
-  }
 
   // 할 일 카테고리 불러오기
   const todoCateList = useFetch('/todolist/todoCate');
@@ -217,7 +199,7 @@ function Todo() {
 
   // 날짜별 할 일 목록 추출
   useEffect(() => {
-
+    
     // 배열 초기화
     setDateList((dateList) => dateList.splice(0, dateList.length));
 
@@ -244,7 +226,7 @@ function Todo() {
         }
       }
     }
-  }, [todolistData, clickDate]);
+  },[clickDate, todolistData]);
 
   // useCallback : 특정 함수를 새로 만들지 않고 재사용
   // 수정 토글 메뉴
@@ -285,8 +267,8 @@ function Todo() {
         console.log(response);
         if (response.data.success) {
           console.log('할 일 입력 성공!');
-          window.location.reload();
-          // navigate('/');
+          // window.location.reload();
+          navigate('/');
         }
       }).catch(function (error) {
         alert("할 일 입력 실패!" + error);
@@ -307,7 +289,8 @@ function Todo() {
         console.log(response);
         if (response.data.success) {
           console.log("할 일 삭제 성공!");
-          window.location.reload();
+          // window.location.reload();
+          navigate("/");
         }
       }).catch(function (error) {
         alert("할 일 삭제 실패!" + error);
@@ -339,8 +322,8 @@ function Todo() {
 
           if (response.data.success) {
             console.log('할 일 수정 성공!');
-            window.location.reload();
-            // navigate('/');
+            // window.location.reload();
+            navigate('/');
           }
         }).catch(function (error) {
           alert("할 일 수정 실패!" + error);
@@ -367,9 +350,8 @@ function Todo() {
         console.log(response);
         if (response.data.success) {
           console.log('할 일 체크 성공!');
-          window.location.reload();
-          // navigate('/');
-
+          // window.location.reload();
+          navigate('/');
         }
       }).catch(function (error) {
         alert("할 일 체크 실패!" + error);
@@ -447,7 +429,26 @@ function Todo() {
     navigate("/createMonster")
   }
 
-  console.log(userImg);
+  // 할 일 목록 불러오기 useFetch()
+  function useFetch(url) {
+    const [data, setData] = useState([]);
+
+    // json 형식
+    async function fetchUrl() {
+      const response = await fetch(url);
+      const json = await response.json();
+      setData(json);
+      // console.log('가져오기');
+    }
+
+    useEffect(() => {
+      fetchUrl();
+    },[todos]);
+
+    return data;
+  }
+
+  // console.log(userImg);
   return (
     <motion.div className="todoContent"
       initial={{ x: window.innerWidth }}
