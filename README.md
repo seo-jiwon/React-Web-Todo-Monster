@@ -40,16 +40,26 @@ $ node server.js
 <br/>
 
 ## 기능 설명
-기능|회원가입|로그인(카테고리생긴것까지)|캐릭터생성|할 일 추가|할 일 수정|할 일 삭제|
-|------|---|---|---|---|---|---|
-|화면|<img src="https://user-images.githubusercontent.com/59152019/205899133-95867b76-eabd-4ab6-bbd3-a88f5f7b7d12.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899160-a1b2f663-855b-4a79-a43e-060171b7c9fd.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899173-b88af825-6c6f-402a-ac6f-798e13f04cef.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899190-fb582cee-9cc9-46ef-98fe-0e4b43fad0e6.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899314-9051f95d-256a-421e-b1a1-3da7a6328a21.gif">|<img src="https://user-images.githubusercontent.com/59152019/205900117-ca5d34b5-d127-48c6-b7b2-ea7c62749971.gif">|
-|설명|--|--|--|--|--|---|
+기능|회원가입|로그인(카테고리생긴것까지)|캐릭터생성|
+|------|---|---|---|
+|화면|<img src="https://user-images.githubusercontent.com/59152019/205899133-95867b76-eabd-4ab6-bbd3-a88f5f7b7d12.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899160-a1b2f663-855b-4a79-a43e-060171b7c9fd.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899173-b88af825-6c6f-402a-ac6f-798e13f04cef.gif">|
+|설명|--|--|--|
 
+기능|할 일 추가|할 일 수정|할 일 삭제|
+|--|--|------|---|
+|화면|<img src="https://user-images.githubusercontent.com/59152019/205899190-fb582cee-9cc9-46ef-98fe-0e4b43fad0e6.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899314-9051f95d-256a-421e-b1a1-3da7a6328a21.gif">|<img src="https://user-images.githubusercontent.com/59152019/205900117-ca5d34b5-d127-48c6-b7b2-ea7c62749971.gif">|
+|설명|--|--|--|
 
-기능|검색|둘러보기|팔로우|사이드바|프로필|팔로우목록|카테고리|비밀번호재설정|로그아웃|계정탈퇴|
-|--|--|------|---|---|---|---|---|---|---|---|
-|화면|--|--|영상|영상|---|---|---|---|---|---|
-|설명|--|--|--|--|--|--|--|---|---|---|
+기능|검색 및 둘러보기|팔로우|프로필|
+|--|--|------|---|
+|화면|<img src="https://user-images.githubusercontent.com/59152019/205899400-248f6f58-5c17-48c2-b559-83a9998871f3.gif">|<img src="https://user-images.githubusercontent.com/59152019/205901788-349c8c01-19a8-4303-a9b9-5756e4fa0680.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899476-edb3fb6c-97b1-44c2-a954-028a3057f83c.gif">|
+|설명|--|--|--|
+
+기능|카테고리|비밀번호 재설정|로그아웃 및 계정 탈퇴|
+|--|--|------|---|
+|화면|<img src="https://user-images.githubusercontent.com/59152019/205899494-6a8c198e-7040-4dcf-bc43-e318a188c8ce.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899506-f1456657-7038-4714-8a9c-665362cfb818.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899518-8ca85145-aed4-4d2e-b59b-ba0e0fbc0a6b.gif">|
+|설명|--|--|--|
+
 <br/>
 <br/>
 
