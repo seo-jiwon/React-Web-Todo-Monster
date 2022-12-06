@@ -42,7 +42,7 @@ $ node server.js
 ## 기능 설명
 기능|회원가입|로그인(카테고리생긴것까지)|캐릭터생성|할 일 추가|할 일 수정|할 일 삭제|
 |------|---|---|---|---|---|---|
-|화면|<img src="https://user-images.githubusercontent.com/59152019/205899133-95867b76-eabd-4ab6-bbd3-a88f5f7b7d12.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899160-a1b2f663-855b-4a79-a43e-060171b7c9fd.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899173-b88af825-6c6f-402a-ac6f-798e13f04cef.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899190-fb582cee-9cc9-46ef-98fe-0e4b43fad0e6.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899314-9051f95d-256a-421e-b1a1-3da7a6328a21.gif">|<img src="복사해온 URL">|
+|화면|<img src="https://user-images.githubusercontent.com/59152019/205899133-95867b76-eabd-4ab6-bbd3-a88f5f7b7d12.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899160-a1b2f663-855b-4a79-a43e-060171b7c9fd.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899173-b88af825-6c6f-402a-ac6f-798e13f04cef.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899190-fb582cee-9cc9-46ef-98fe-0e4b43fad0e6.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899314-9051f95d-256a-421e-b1a1-3da7a6328a21.gif">|<img src="https://user-images.githubusercontent.com/59152019/205900117-ca5d34b5-d127-48c6-b7b2-ea7c62749971.gif">|
 |설명|--|--|--|--|--|---|
 
 
