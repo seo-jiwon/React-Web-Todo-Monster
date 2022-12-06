@@ -57,8 +57,9 @@ const CalendarContainer = styled.div`
 
   /* 클릭 시 유지되는 색상 */
   button:enabled:hover {
-    background-color: rgb(139, 105, 168);
-    color: white;
+    background-color: white;
+    color: rgb(139, 105, 168);
+    border: 1px solid rgb(139, 105, 168);
   }
 
   /* 클릭 시 잠시 보이는 색상 */
@@ -96,7 +97,8 @@ const CalendarContainer = styled.div`
   /* 다른 날짜 클릭 후 다시 오늘 날짜 클릭 한 경우 */
   .react-calendar__tile--now:enabled:hover,
   .react-calendar__tile--now:enabled:focus {
-    background: #FFA8DC;
+    background: rgb(139, 105, 168);
+    color: white;
   }
   
   /* 날짜 grid */
@@ -147,12 +149,20 @@ function Todo() {
   //유저 로그인 정보
   useEffect(() => {
     axios.get("/isLogged/isLogged").then((res) => {
-      var userData = res.data.user[0];
-      if (res.status) {
-        setUserId(userData.user_id);
-        setUserName(userData.name);
-        setUserEmail(userData.email);
-        setUserImg(userData.profile_img);
+      
+      if (res.data.success == 0) {
+        // 로그인 정보가 없는 경우 Home 페이지
+        navigate('/home');
+      } else {
+        // 로그인 정보가 있는 경우 Todo 페이지로
+
+        var userData = res.data.user[0];
+        if (res.status) {
+          setUserId(userData.user_id);
+          setUserName(userData.name);
+          setUserEmail(userData.email);
+          setUserImg(userData.profile_img);
+        }
       }
     });
   }, []);

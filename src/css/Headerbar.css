@@ -7,9 +7,6 @@
   margin-right: 5%;
 }
 
-.menuIcon {
-}
-
 #check-label { 
   position: absolute; 
   z-index: 2;
@@ -89,8 +86,8 @@
 }
 
 .sidebarProfileImg {
-  width: 90%;
-  height: 75%;
+  width: 93%;
+  height: 65%;
   border-radius: 50%;
   border: 1px solid #EAEAEA;
 }
