@@ -87,7 +87,7 @@
 
 .sidebarProfileImg {
   width: 93%;
-  height: 65%;
+  /* height: 65%; */
   border-radius: 50%;
   border: 1px solid #EAEAEA;
 }
