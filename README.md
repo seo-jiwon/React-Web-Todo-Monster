@@ -52,7 +52,7 @@ $ node server.js
 
 기능|검색 및 둘러보기|팔로우|프로필|
 |--|--|------|---|
-|화면|<img src="https://user-images.githubusercontent.com/59152019/205899400-248f6f58-5c17-48c2-b559-83a9998871f3.gif">|<img src="">|<img src="https://user-images.githubusercontent.com/59152019/205899476-edb3fb6c-97b1-44c2-a954-028a3057f83c.gif">|
+|화면|<img src="https://user-images.githubusercontent.com/59152019/205899400-248f6f58-5c17-48c2-b559-83a9998871f3.gif">|<img src="https://user-images.githubusercontent.com/59152019/205934819-6443d8ba-2302-4d91-81ac-9febb917c145.gif">|<img src="https://user-images.githubusercontent.com/59152019/205899476-edb3fb6c-97b1-44c2-a954-028a3057f83c.gif">|
 |설명|검색 아이콘 클릭 시 본인을 포함한 전체 사용자의 전체공개로 설정된 할 일 목록을 볼 수 있다.<br/> 이메일 검색 시 사용자 검색이 가능하다.|본인을 제외한 다른 사용자 팔로잉이 가능하다.<br/> 사용자는 팔로워, 팔로잉 목록을 확인하고 다른 사용자의 할 일 페이지를 확인 할 수 있다.|사용자는 프로필 이름을 변경할 수 있다.|
 
 기능|카테고리|비밀번호 재설정|로그아웃 및 계정 탈퇴|
