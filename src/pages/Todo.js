@@ -68,6 +68,13 @@ const CalendarContainer = styled.div`
     color: black;
   }
 
+  /* 클릭 시 버튼 색상 */
+  button:enabled:focus {
+    background-color: white;
+    color: black;
+    border: 1px solid rgb(139, 105, 168);
+  }
+
   /* 년, 월 헤더바 */
   .react-calendar__navigation button {
     min-width: 44px;
@@ -116,7 +123,6 @@ const CalendarContainer = styled.div`
   }
 `;
 
-
 let clickDate; // 캘린더 클릭한 날짜
 let dbDate; // 디비에 저장된 날짜
 
@@ -149,7 +155,7 @@ function Todo() {
   //유저 로그인 정보
   useEffect(() => {
     axios.get("/isLogged/isLogged").then((res) => {
-      
+
       if (res.data.success == 0) {
         // 로그인 정보가 없는 경우 Home 페이지
         navigate('/home');
@@ -164,6 +170,11 @@ function Todo() {
           setUserImg(userData.profile_img);
         }
       }
+      // var userData = res.data.user[0];
+      // setUserId(userData.user_id);
+      // setUserName(userData.name);
+      // setUserEmail(userData.email);
+      // setUserImg(userData.profile_img);
     });
   }, []);
 
@@ -209,7 +220,7 @@ function Todo() {
 
   // 날짜별 할 일 목록 추출
   useEffect(() => {
-    
+
     // 배열 초기화
     setDateList((dateList) => dateList.splice(0, dateList.length));
 
@@ -236,7 +247,7 @@ function Todo() {
         }
       }
     }
-  },[clickDate, todolistData]);
+  }, [clickDate, todolistData]);
 
   // useCallback : 특정 함수를 새로 만들지 않고 재사용
   // 수정 토글 메뉴
@@ -453,7 +464,7 @@ function Todo() {
 
     useEffect(() => {
       fetchUrl();
-    },[todos]);
+    }, [todos]);
 
     return data;
   }
@@ -477,13 +488,13 @@ function Todo() {
           </div>
           <div className="followListBtnDiv">
             <img className='followListImgSize' src={require('../img/profile2.jpeg')} />
-            <div className='followListNameDiv'>사용자</div>
+            <div className='followListNameDiv'>user</div>
           </div>
           <div className="followListBtnDiv">
             <img className='followListImgSize' src={require('../img/profile3.jpeg')} />
-            <div className='followListNameDiv'>사용자</div>
+            <div className='followListNameDiv'>user</div>
           </div>
-          <div className="followListBtnDiv">
+          <div className="followListDetailDiv">
             <button className='followListDetailBtn' onClick={() => { alert('클릭') }}>
               <ChevronRightIcon />
             </button>
@@ -495,8 +506,7 @@ function Todo() {
             {user_name}
           </div>
           <div className='profileImgDiv'>
-            {userImg === null ? <img className='profileImgSize' src={require('../img/profile1.jpeg')}/> : userImg === '' ? <img className='profileImgSize' src={require('../img/profile1.jpeg')}/> : <img className='profileImgSize' src={userImg}/>}
-            
+            {userImg === null ? <img className='profileImgSize' src={require('../img/profile1.jpeg')} /> : userImg === '' ? <img className='profileImgSize' src={require('../img/profile1.jpeg')} /> : <img className='profileImgSize' src={userImg} />}
           </div>
         </div>
       </div>
@@ -516,7 +526,7 @@ function Todo() {
       <div className='middleContentDiv'>
         <div className='calendarDiv'>
           <CalendarContainer>
-            <Calendar onChange={setCalendarValue} value={calendarValue} formatDay={(locale, date) => date.toLocaleString("en", {day: "numeric"})} />
+            <Calendar onChange={setCalendarValue} value={calendarValue} formatDay={(locale, date) => date.toLocaleString("en", { day: "numeric" })} />
           </CalendarContainer>
         </div>
 

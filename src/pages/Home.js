@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/Home.css";
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 
 function Home() {
   const navigate = useNavigate();
@@ -32,9 +32,9 @@ function Home() {
       </motion.div>
 
       <motion.div id="btnContainer"
-        initial={{y: 200}}
-        animate={{y:  -20}}
-        transition={{delay:0.2, type:'spring', stiffness: 100}}  
+        initial={{ y: 200 }}
+        animate={{ y: -20 }}
+        transition={{ delay: 0.2, type: 'spring', stiffness: 100 }}
       >
         <button
           id="btn"

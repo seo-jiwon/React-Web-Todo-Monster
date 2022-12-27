@@ -11,11 +11,11 @@ import Search from "./Search"
 import OtherUser from "./OtherUser";
 import FollowList from "./FollowList";
 import CreateMonster from "./CreateMonster";
-
+import MediaQueryTodo from "./MediaQueryTodo";
 
 
 const path = {
-    Todo,
+    // Todo,
     Home,
     SignUp,
     SignIn,
@@ -28,6 +28,7 @@ const path = {
     OtherUser,
     FollowList,
     CreateMonster,
+    MediaQueryTodo,
 };
 
 export default path;
