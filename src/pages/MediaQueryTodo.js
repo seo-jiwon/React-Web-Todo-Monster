@@ -23,13 +23,13 @@ const Default = ({ children }) => {
  
 export const MediaQueryTodo = ({children}) => (
   <div>
-    <Desktop>Desktop 사이즈는 지원하지 않습니다.</Desktop>
-    <Tablet>Tablet 사이즈는 지원하지 않습니다. </Tablet>
+    <Default><b>가장 작은 사이즈로 줄여주세요!</b>( 흰 화면이 뜬다면 새로고침을 해주세요. ) <br/><br/>X Todo페이지만 해당됩니다. 다른 페이지는 Update 중 . . . X <br/><br/></Default>
+    <Desktop><b>Desktop 사이즈는 지원하지 않습니다.</b></Desktop>
+    <Tablet><b>Tablet 사이즈는 지원하지 않습니다.</b></Tablet>
     <Mobile>
         {/* {children} */}
         <Todo />
     </Mobile>
-    <Default><br/>가장 작은 사이즈로 줄여주세요! <br/> (흰 화면이 뜬다면 새로고침을 해주세요.)</Default>
   </div>
 )
 
