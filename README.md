@@ -1,29 +1,50 @@
-# Todo Monster
+# :bulb: Todo Monster
 
 > 프로젝트 기간 : 2022.10.19(수) ~ 2022.11.28(월)  
-
-> 담당역할 : 캘린더, 할 일 CRUD, Todo페이지 프로필 정보
+<div align="center">
+<img width="276" alt="image" src="https://user-images.githubusercontent.com/59152019/221545579-89d010f8-21e3-4f6b-88c7-e744c44119e2.png">
+</div>
 <br/>
 
-<b>할 일 완료 수에 따라 캐릭터가 성장하고, 팔로우 기능을 통해 친구들과 할 일을 공유하는 애플리케이션</b>
-
-유라클 회사와의 협업을 통해 모피어스 모바일 소프트웨어 플랫폼을 이용하여  
-React로 제작한 웹을 모바일 애플리케이션 형식으로 변경하는 프로젝트입니다.  
-( 모바일 애플리케이션 형식으로 변경하는 파일은 따로 repository를 생성하였습니다. )
+<b>Todo Monster는 할 일 완료 수에 따라 캐릭터가 성장하고, 팔로우 기능을 통해 친구들과 할 일을 공유하는 애플리케이션</b>
+<details>
+<summary>애플리케이션인데 왜 웹으로 제작되었나요?</summary>
+<div markdown="1">
+<br/>
+유라클 회사와의 협업을 통해 <b>모피어스 모바일 소프트웨어 플랫폼을 이용</b>하여 <b>React로 제작한 웹을 모바일 애플리케이션 형식으로 변경</b>하는 프로젝트입니다.  <br/>
+( 모바일 애플리케이션 형식으로 변경하는 파일은 따로 repository를 생성하였습니다. )<br/><br/>
++) 웹으로 확인하는 사용자를 위해 Todo 페이지 useMediaQuery Hook을 추가하여 모바일 크기에만 보여지도록 수정하였습니다.
+</div>
+</details>
 
 <br/>
 
-## 프로젝트 계획 이유
-바쁜 현대인의 삶에서 할 일 기록 앱은 필수적이지만,  
-기존 Todo앱은 지속성이 부족하다는 단점이 있다고 생각하였습니다.  
-이러한 단점을 보완하기 위해서 할 일을 해결할 때 기준에 맞게 캐릭터가 성장하여  
-사용자의 시각적, 직관적, 지속성을 위한 애플리케이션을 목표로 하게 되었습니다.  
-<br/>
+## :question: 프로젝트 계획 이유
+- 기존 Todo 애플리케이션의 사용 지속성 부족
+- 사용자 시각적 재미 요소를 위한 캐릭터 육성
+- 카테고리별 할 일 관리 
+- 애플리케이션 사용자끼리 할 일 공유
+- 팔로우 기능을 통한 특정 인물에게 할 일 공유
+
 <br/>
 
-## 실행 방법
+## :clipboard: 담당 업무 
+> 페이지 구성 및 기능(DB 데이터 전송 및 가져오기 등)을 담당했습니다.  
+1. Todo 페이지  
+    팔로우 정보, 캐릭터 정보 update를 제외한 <b>캘린더, 날짜별 + 카테고리별 Todo CRUD, 사용자 프로필 update</b> 기능을 담당했습니다.
+2. Side bar 
+3. 회원가입 후 최초 1번 기본 카테고리 생성 (일반 카테고리)
+4. Router 설정 및 Express 서버 구축
+5. .dot 이용한 Mysql DB 연결
+
+<br/>
+
+## :link: 실행 방법
 
 - 프로그램 실행
+```
+$ npm install
+``` 
 ```
 $ npm start
 ``` 
@@ -36,20 +57,20 @@ $ cd server
 ```
 $ node server.js
 ```
-<br/>
+
 <br/>
 
-## 개발 환경
+## :file_folder: 개발 환경
 <img src="https://img.shields.io/badge/Visual Studio Code-007ACC??style=flat-square&logo=Visual Studio Code&logoColor=white"/> <img src="https://img.shields.io/badge/Android Studio-3DDC84??style=flat-square&logo=Android Studio&logoColor=white"/> <img src="https://img.shields.io/badge/Postman-FF6C37??style=flat-square&logo=Postman&logoColor=white"/>
-<br/>
+
 <br/>
 
-## 기술 스택
-<img src="https://img.shields.io/badge/HTML5-E34F26??style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6??style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E??style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB??style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1??style=flat-square&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/Node.js-339933??style=flat-square&logo=Node.js&logoColor=white"/> 
-<br/>
+## :hammer: 기술 스택
+<img src="https://img.shields.io/badge/HTML5-E34F26??style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6??style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E??style=flat-square&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/React-61DAFB??style=flat-square&logo=React&logoColor=white"/> <img src="https://img.shields.io/badge/MySQL-4479A1??style=flat-square&logo=MySQL&logoColor=white"/> <img src="https://img.shields.io/badge/Node.js-339933??style=flat-square&logo=Node.js&logoColor=white"/> <img src="https://img.shields.io/badge/styled-components-DB7093??style=flat-square&logo=styled-components&logoColor=white"/> 
+
 <br/>
 
-## 기능 설명
+## :eyes: 기능 설명
 기능|회원가입|로그인|캐릭터생성|
 |------|---|---|---|
 |화면|<p align="center"><img width="290" height="530" src="https://user-images.githubusercontent.com/59152019/205899133-95867b76-eabd-4ab6-bbd3-a88f5f7b7d12.gif"></p>|<p align="center"><img width="290" height="530" src="https://user-images.githubusercontent.com/59152019/205899160-a1b2f663-855b-4a79-a43e-060171b7c9fd.gif"></p>|<p align="center"><img width="290" height="530" src="https://user-images.githubusercontent.com/59152019/205899173-b88af825-6c6f-402a-ac6f-798e13f04cef.gif"></p>|
@@ -73,6 +94,6 @@ $ node server.js
 <br/>
 <br/>
 
-## 테스트 환경
+## :page_facing_up: 테스트 환경
 - Android Emulator Pixel 2 API 28
 - 개발자 도구 Device Mode iPhone 12 Pro
